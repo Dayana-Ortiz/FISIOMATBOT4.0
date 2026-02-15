@@ -29,6 +29,15 @@ const Card: React.FC<CardProps> = ({
       className={`card ${className} ${hoverable ? 'hoverable' : ''}`}
       style={cardStyle}
       onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={e => {
+        if (!onClick) return;
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick();
+        }
+      }}
       whileHover={hoverable ? { y: -5, boxShadow: '0 10px 25px rgba(0,0,0,0.1)' } : {}}
       transition={{ duration: 0.2 }}
     >

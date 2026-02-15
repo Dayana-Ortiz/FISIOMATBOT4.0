@@ -12,7 +12,7 @@ interface ProgressBarProps {
 
 const ProgressBar: React.FC<ProgressBarProps> = ({
   progress,
-  color = '#4ECDC4',
+  color = 'var(--secondary-blue)',
   height = '10px',
   showLabel = false,
   animated = true

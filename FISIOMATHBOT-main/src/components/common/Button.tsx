@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import './CommonStyles.css';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'danger';
@@ -32,8 +31,10 @@ const Button: React.FC<ButtonProps> = ({
     <button
       type={type}
       className={`btn btn-${variant} btn-${size} ${fullWidth ? 'full-width' : ''} ${className}`}
-      onClick={onClick}
+      onClick={disabled ? undefined : onClick}
       disabled={disabled}
+      aria-disabled={disabled}
+      tabIndex={disabled ? -1 : undefined}
     >
       {icon && <span className="btn-icon">{icon}</span>}
       {children}

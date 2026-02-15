@@ -90,7 +90,7 @@ const PhysicsModule: React.FC = () => {
         </div>
 
         <div className="main-content">
-          <Card color="#FF6B6B">
+          <Card color={'var(--primary-blue)'}>
             <div className="section-content">
               <h2>{currentSection?.title}</h2>
               <div className="content-body">

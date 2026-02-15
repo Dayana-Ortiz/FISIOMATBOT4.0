@@ -6,9 +6,9 @@
 
 :root {
   /* Palette from provided image */
-  --primary-blue: #F29660; /* soft orange */
+  --primary-blue: #FD7B41; /* bright orange */
   --secondary-blue: #EDBF9B; /* peach */
-  --accent-orange: #F29660;
+  --accent-orange: #FD7B41;
   --accent-green: #DDDCDB; /* light neutral */
   --accent-purple: #3C4044; /* dark neutral */
   /* Adjusted for better contrast */

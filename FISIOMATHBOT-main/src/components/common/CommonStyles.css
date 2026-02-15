@@ -50,7 +50,7 @@
 }
 
 .btn-danger {
-  background: #ff6b6b;
+  background: var(--accent-purple);
   color: white;
 }
 

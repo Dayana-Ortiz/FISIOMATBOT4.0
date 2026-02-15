@@ -88,7 +88,7 @@ const SimulatorModule: React.FC = () => {
         </div>
 
         <div className="main-content">
-          <Card color="#06D6A0">
+          <Card color={'var(--accent-green)'}>
             <div className="simulation-container">
               <h2>{currentSimulation?.title}</h2>
               
@@ -112,7 +112,7 @@ const SimulatorModule: React.FC = () => {
                           <div className="graph-line" style={{ 
                             height: '2px',
                             width: '100%',
-                            background: '#4361ee'
+                            background: 'var(--primary-blue)'
                           }} />
                         </div>
                       </div>

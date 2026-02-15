@@ -130,11 +130,11 @@
 }
 
 .examples-section {
-  background: #fff9e6;
+  background: var(--light-gray);
   padding: 20px;
   border-radius: 10px;
   margin: 25px 0;
-  border: 1px solid #ffd166;
+  border: 1px solid var(--medium-gray);
 }
 
 .examples-section h4 {
@@ -147,7 +147,7 @@
   padding: 15px;
   border-radius: 8px;
   margin: 10px 0;
-  border-left: 4px solid #ffd166;
+  border-left: 4px solid var(--secondary-blue);
 }
 
 .section-footer {
@@ -177,7 +177,7 @@
 }
 
 .practice-section {
-  background: #e6f7ff;
+  background: var(--light-gray);
   padding: 20px;
   border-radius: 10px;
   margin-top: 25px;
@@ -194,19 +194,19 @@
 
 /* Estilos específicos para Tecnología */
 .code-section {
-  background: #1e1e1e;
+  background: var(--dark-gray);
   padding: 20px;
   border-radius: 10px;
   margin: 25px 0;
 }
 
 .code-block {
-  color: #d4d4d4;
+  color: var(--light-gray);
   font-family: 'Courier New', monospace;
   white-space: pre-wrap;
   margin: 15px 0;
   padding: 15px;
-  background: #252526;
+  background: var(--dark-gray);
   border-radius: 6px;
   overflow-x: auto;
 }
@@ -232,7 +232,7 @@
 }
 
 .hands-on-section {
-  background: #f0f9ff;
+  background: var(--light-gray);
   padding: 20px;
   border-radius: 10px;
   margin-top: 25px;
@@ -267,7 +267,7 @@
 }
 
 .simulation-visualization {
-  background: #f8f9fa;
+  background: var(--light-gray);
   border-radius: 12px;
   padding: 20px;
   min-height: 300px;
@@ -286,7 +286,7 @@
 .projectile-trajectory {
   width: 100%;
   height: 200px;
-  background: linear-gradient(to top, #e9ecef, white);
+  background: linear-gradient(to top, var(--medium-gray), white);
   border-radius: 8px;
   position: relative;
   overflow: hidden;
@@ -296,7 +296,7 @@
   position: absolute;
   width: 20px;
   height: 20px;
-  background: #ff6b6b;
+  background: var(--primary-blue);
   border-radius: 50%;
   transform: translate(-50%, 50%);
 }
@@ -459,9 +459,9 @@
   background: var(--light-gray);
 }
 
-.option-btn.selected {
+                .option-btn.selected {
   border-color: var(--primary-blue);
-  background: #e6f0ff;
+  background: var(--light-gray);
 }
 
 .option-letter {
@@ -482,7 +482,7 @@
 }
 
 .explanation-box {
-  background: #f0f9ff;
+  background: var(--light-gray);
   padding: 20px;
   border-radius: 12px;
   margin: 20px 0;

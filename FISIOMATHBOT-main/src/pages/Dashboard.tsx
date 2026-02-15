@@ -23,7 +23,7 @@ const Dashboard: React.FC = () => {
       id: 'physics', 
       title: 'Física', 
       icon: <FaAtom />, 
-      color: '#FF6B6B',
+      color: 'var(--primary-blue)',
       progress: 65,
       description: 'Movimiento, fuerzas y energía',
       path: '/physics'
@@ -32,7 +32,7 @@ const Dashboard: React.FC = () => {
       id: 'mathematics', 
       title: 'Matemáticas', 
       icon: <FaCalculator />, 
-      color: '#4ECDC4',
+      color: 'var(--secondary-blue)',
       progress: 80,
       description: 'Álgebra, geometría y cálculo',
       path: '/mathematics'
@@ -41,7 +41,7 @@ const Dashboard: React.FC = () => {
       id: 'technology', 
       title: 'Tecnología', 
       icon: <FaLaptopCode />, 
-      color: '#FFD166',
+      color: 'var(--medium-gray)',
       progress: 45,
       description: 'Programación y robótica',
       path: '/technology'
@@ -50,7 +50,7 @@ const Dashboard: React.FC = () => {
       id: 'simulator', 
       title: 'Simulador', 
       icon: <FaGamepad />, 
-      color: '#06D6A0',
+      color: 'var(--accent-green)',
       progress: 90,
       description: 'Prácticas interactivas',
       path: '/simulator'

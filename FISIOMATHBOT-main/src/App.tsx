@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout/Layout.tsx';
 import Dashboard from './pages/Dashboard.tsx';
 import PhysicsPage from './pages/PhysicsPage.tsx';
-import MathematicsPage from './pages/MatemathiscsPage.tsx';
+import MathematicsPage from './pages/MathematicsPage.tsx';
 import TechnologyPage from './pages/TechnologyPage.tsx';
 import SimulatorPage from './pages/SimulatorPage.tsx';
 

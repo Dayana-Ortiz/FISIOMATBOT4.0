@@ -88,7 +88,7 @@ const TechnologyModule: React.FC = () => {
         </div>
 
         <div className="main-content">
-          <Card color="#FFD166">
+          <Card color={'var(--medium-gray)'}>
             <div className="section-content">
               <h2>{currentSection?.title}</h2>
               <div className="content-body">

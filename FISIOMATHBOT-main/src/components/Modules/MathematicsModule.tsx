@@ -90,7 +90,7 @@ const MathematicsModule: React.FC = () => {
         </div>
 
         <div className="main-content">
-          <Card color="#4ECDC4">
+          <Card color={'var(--secondary-blue)'}>
             <div className="section-content">
               <h2>{currentSection?.title}</h2>
               <div className="content-body">

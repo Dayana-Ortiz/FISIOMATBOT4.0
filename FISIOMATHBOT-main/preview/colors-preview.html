@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vista previa de paleta</title>
+  <style>
+    :root{
+      --primary-blue: #FD7B41; /* bright orange */
+      --secondary-blue: #EDBF9B; /* peach */
+      --accent-orange: #FD7B41;
+      --accent-green: #DDDCDB; /* light neutral */
+      --accent-purple: #3C4044; /* dark neutral */
+      --light-gray: #D6D6D6;
+      --medium-gray: #D8B994;
+      --dark-gray: #34373a;
+      --text-primary: #2f3234;
+      --text-secondary: #5b5f61;
+    }
+
+    body{font-family: Arial, Helvetica, sans-serif; padding:32px; background:#fff; color:var(--text-primary)}
+    h1{margin-bottom:8px}
+    .palette{display:flex;gap:12px;margin:20px 0}
+    .swatch{width:120px;height:120px;border-radius:6px;display:flex;align-items:flex-end;justify-content:center;padding:8px;color:#111;font-weight:700}
+    .label{background:rgba(255,255,255,0.6);padding:4px 8px;border-radius:4px;font-size:12px}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;font-weight:600;border:none;margin:6px}
+    .btn-primary{background:var(--primary-blue);color:white}
+    .btn-primary:hover{background:var(--secondary-blue)}
+    .btn-secondary{background:var(--light-gray);color:var(--dark-gray)}
+    .btn-outline{background:transparent;color:var(--primary-blue);border:2px solid var(--primary-blue)}
+    .btn-danger{background:var(--accent-purple);color:white}
+
+    /* Card */
+    .card{background:white;border-radius:12px;padding:18px;box-shadow:0 6px 18px rgba(0,0,0,0.06);border:1px solid var(--medium-gray);max-width:420px}
+    .card .top{display:flex;align-items:center;gap:12px}
+    .icon{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--primary-blue);color:white;font-weight:700}
+
+    /* Module card */
+    .module-grid{display:flex;gap:12px;margin-top:20px}
+    .module{width:220px;border-radius:8px;padding:14px;background:white;border:1px solid var(--medium-gray)}
+    .module .module-header{display:flex;align-items:center;gap:10px}
+    .module .module-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:white}
+    .progress{height:10px;background:var(--light-gray);border-radius:10px;overflow:hidden;margin-top:10px}
+    .progress .fill{height:100%;background:var(--primary-blue)}
+
+    /* Small utilities */
+    pre{background:#f5f5f5;padding:8px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <h1>Vista previa de la paleta aplicada</h1>
+  <p>Mira cómo quedan botones, tarjetas y tarjetas de módulo con la paleta que configuramos.</p>
+
+  <section>
+    <h3>Colores principales</h3>
+    <div class="palette">
+      <div class="swatch" style="background:var(--light-gray)"><span class="label">#DDDCDB</span></div>
+      <div class="swatch" style="background:var(--primary-blue);color:white"><span class="label">#FD7B41</span></div>
+      <div class="swatch" style="background:var(--secondary-blue)"><span class="label">#EDBF9B</span></div>
+      <div class="swatch" style="background:var(--dark-gray);color:white"><span class="label">#3C4044</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Botones</h3>
+    <div>
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-secondary">Secondary</button>
+      <button class="btn btn-outline">Outline</button>
+      <button class="btn btn-danger">Danger</button>
+    </div>
+  </section>
+
+  <section style="margin-top:18px">
+    <h3>Tarjeta (Card)</h3>
+    <div class="card">
+      <div class="top">
+        <div class="icon">M</div>
+        <div>
+          <div style="font-weight:700">Módulo de Matemáticas</div>
+          <div style="color:var(--text-secondary);font-size:13px">Álgebra, geometría y cálculo</div>
+        </div>
+      </div>
+      <div style="margin-top:12px">Descripción breve de la tarjeta para ver el contraste del texto y el fondo.</div>
+      <div style="margin-top:12px"><button class="btn btn-primary">Continuar</button><button class="btn btn-outline">Detalles</button></div>
+    </div>
+  </section>
+
+  <section style="margin-top:18px">
+    <h3>Módulos</h3>
+    <div class="module-grid">
+      <div class="module" style="border-top:4px solid var(--primary-blue)">
+        <div class="module-header"><div class="module-icon" style="background:var(--primary-blue)">F</div><div><strong>Física</strong></div></div>
+        <div class="progress"><div class="fill" style="width:65%"></div></div>
+      </div>
+      <div class="module" style="border-top:4px solid var(--secondary-blue)">
+        <div class="module-header"><div class="module-icon" style="background:var(--secondary-blue)">M</div><div><strong>Matemáticas</strong></div></div>
+        <div class="progress"><div class="fill" style="width:80%;background:var(--secondary-blue)"></div></div>
+      </div>
+      <div class="module" style="border-top:4px solid var(--medium-gray)">
+        <div class="module-header"><div class="module-icon" style="background:var(--medium-gray);color:var(--dark-gray)">T</div><div><strong>Tecnología</strong></div></div>
+        <div class="progress"><div class="fill" style="width:45%;background:var(--medium-gray)"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top:22px">
+    <h3>Notas</h3>
+    <p>Para ver la app real con estos estilos abre el proyecto en el navegador tras ejecutar <code>npm start</code>. Mientras tanto, este archivo muestra una vista previa rápida sin depender de Node.</p>
+    <pre>Archivo: preview/colors-preview.html
+Ábrelo en el navegador: doble clic o arrastra al navegador</pre>
+  </section>
+</body>
+</html>
