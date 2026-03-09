@@ -225,23 +225,72 @@ Pasos para el usuario:
 8. Módulos de contenido (Física, Matemáticas, Tecnología, Simulador)
 ---------------------------------------------------------------------
 
-NOTA: El contenido específico de cada módulo (lecciones, quizzes, simulaciones detalladas) se irá completando progresivamente. Esta versión del manual describe la experiencia de navegación básica.
+8.1. Estructura común de los módulos
+------------------------------------
 
-Para acceder a un módulo:
+Cada módulo (Física, Matemáticas, Tecnología y Simulador) comparte la misma organización visual:
+
+1. **Título del módulo**  
+   - En la parte superior aparece un título como:
+     - "Módulo de Física"
+     - "Módulo de Matemáticas"
+     - "Módulo de Tecnología"
+     - "Módulo Simulador"
+
+2. **Artículo de introducción (sección central)**  
+   - Justo debajo del título hay una tarjeta centrada (equivalente a un `<article>` en HTML) con:
+     - Un subtítulo, por ejemplo: "Introducción al módulo".
+     - Un párrafo que explica brevemente:
+       - Qué se estudia en ese módulo.
+       - Cómo se recomienda usar las lecciones o simulaciones.
+   - Esta sección sirve como material de apoyo inicial para el estudiante antes de entrar a los detalles.
+
+3. **Zona inferior en dos columnas**  
+   Debajo de la introducción se encuentra la parte interactiva dividida en:
+
+   - **Columna izquierda (botones de lecciones/simulaciones)**:
+     - Una lista de botones con las diferentes lecciones o simulaciones disponibles.
+     - Cada botón cambia el contenido que se muestra en la columna derecha.
+     - En algunos módulos hay botones adicionales para:
+       - Empezar una simulación.
+       - Abrir un quiz o evaluación.
+       - Abrir un editor de código, etc.
+
+   - **Columna derecha (caja de contenido interactivo)**:
+     - Es un panel donde se presenta el contenido según la opción elegida:
+       - Explicaciones teóricas.
+       - Fórmulas y ejemplos.
+       - Gráficas o áreas de simulación.
+       - Actividades prácticas y campos de respuesta.
+
+************************************************************
+*** [AQUÍ INSERTAR CAPTURA DE UN MÓDULO CUALQUIERA]      ***
+*** Mostrando: título, intro centrada y dos columnas.     ***
+************************************************************
+
+
+8.2. Acceder y usar un módulo paso a paso
+-----------------------------------------
+
+Para entrar y trabajar dentro de un módulo:
+
 1. Abrir el menú lateral (si no está visible).
 2. Hacer clic en el nombre del módulo deseado:
    - Física
    - Matemáticas
    - Tecnología
    - Simulador
-3. La interfaz cargará la vista correspondiente, manteniendo el mismo esquema de:
-   - Header
-   - Contenido central
-   - Footer
+3. Leer primero la **introducción del módulo** (tarjeta centrada).
+4. Bajar a la zona de dos columnas:
+   - Usar los **botones de la columna izquierda** para seleccionar la lección/simulación.
+   - Observar el contenido en la **caja interactiva de la derecha**.
+
+Recomendación de uso:
+- Siempre comenzar por la introducción, luego avanzar lección por lección usando los botones.
 
 ************************************************************
-*** [AQUÍ INSERTAR CAPTURA DE UN MÓDULO DE EJEMPLO]      ***
-*** Por ejemplo, la página de Física con su contenido.    ***
+*** [AQUÍ INSERTAR CAPTURA ZOOM A BOTONES + CAJA]        ***
+*** Enfocando la interacción botones ↔ contenido.         ***
 ************************************************************
 
 

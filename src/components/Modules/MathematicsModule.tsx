@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaCalculator, FaShapes, FaChartLine, FaQuestionCircle } from 'react-icons/fa';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
@@ -45,15 +44,18 @@ const MathematicsModule: React.FC = () => {
   const currentSection = sections.find(s => s.id === activeSection);
 
   return (
-    <section className="module-container">
-      <article
-        className="module-header"
-        aria-label="Introducción al módulo de Matemáticas"
-      >
-        <h1 className="module-title">🧮 Módulo Matemáticas</h1>
-        <p className="module-description">
-          Aquí encontrarás explicaciones, ejemplos y prácticas para reforzar tus
-          habilidades matemáticas antes de pasar a las actividades interactivas.
+    <div className="module-container">
+      <div className="module-header">
+        <h1 className="module-title">Módulo de Matemáticas 🧮</h1>
+      </div>
+
+      <article className="module-intro">
+        <h2>Introducción al módulo</h2>
+        <p>
+          Este módulo reúne lecciones de álgebra, geometría y cálculo pensadas para que avances
+          paso a paso y domines los números y las formas. Primero lee la explicación general y,
+          después, utiliza los botones de lecciones para cambiar de tema mientras ves el contenido
+          interactivo y los ejemplos resueltos en el panel de la derecha.
         </p>
       </article>
 
@@ -67,9 +69,9 @@ const MathematicsModule: React.FC = () => {
               onClick={() => setActiveSection(section.id)}
             >
               <span className="section-icon">
-                {section.id === 'algebra' && <FaCalculator />}
-                {section.id === 'geometry' && <FaShapes />}
-                {section.id === 'calculus' && <FaChartLine />}
+                {section.id === 'algebra' && '📊'}
+                {section.id === 'geometry' && '📐'}
+                {section.id === 'calculus' && '📈'}
               </span>
               {section.title}
             </button>
@@ -78,19 +80,17 @@ const MathematicsModule: React.FC = () => {
           <div className="action-buttons">
             <Button 
               variant="primary" 
-              icon={<FaCalculator />}
               onClick={() => {}}
               fullWidth
             >
-              Ejercicios Interactivos
+              🧩 Ejercicios interactivos
             </Button>
             <Button 
               variant="outline" 
-              icon={<FaQuestionCircle />}
               onClick={() => setShowQuiz(true)}
               fullWidth
             >
-              Evaluación
+              ❓ Evaluación
             </Button>
           </div>
         </div>
@@ -148,7 +148,7 @@ const MathematicsModule: React.FC = () => {
           onClose={() => setShowQuiz(false)}
         />
       )}
-    </section>
+    </div>
   );
 };
 

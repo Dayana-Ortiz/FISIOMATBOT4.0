@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaCode, FaRobot, FaDatabase, FaNetworkWired, FaQuestionCircle } from 'react-icons/fa';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
@@ -43,16 +42,18 @@ const TechnologyModule: React.FC = () => {
   const currentSection = sections.find(s => s.id === activeSection);
 
   return (
-    <section className="module-container">
-      <article
-        className="module-header"
-        aria-label="Introducción al módulo de Tecnología"
-      >
-        <h1 className="module-title">💻 Módulo Tecnología</h1>
-        <p className="module-description">
-          Introducción teórica y ejemplos prácticos sobre programación, robótica
-          y redes para comprender los conceptos antes de interactuar con las
-          actividades.
+    <div className="module-container">
+      <div className="module-header">
+        <h1 className="module-title">Módulo de Tecnología 💻</h1>
+      </div>
+
+      <article className="module-intro">
+        <h2>Introducción al módulo</h2>
+        <p>
+          Aquí encontrarás lecciones de programación, robótica y redes pensadas para acercarte
+          al mundo de la tecnología y dominar las herramientas del futuro. Usa los botones del
+          lado izquierdo para elegir la lección y observa en el área interactiva cómo se
+          presentan los conceptos, ejemplos de código y actividades prácticas.
         </p>
       </article>
 
@@ -66,9 +67,9 @@ const TechnologyModule: React.FC = () => {
               onClick={() => setActiveSection(section.id)}
             >
               <span className="section-icon">
-                {section.id === 'programming' && <FaCode />}
-                {section.id === 'robotics' && <FaRobot />}
-                {section.id === 'networks' && <FaNetworkWired />}
+                {section.id === 'programming' && '💻'}
+                {section.id === 'robotics' && '🤖'}
+                {section.id === 'networks' && '🌐'}
               </span>
               {section.title}
             </button>
@@ -77,19 +78,17 @@ const TechnologyModule: React.FC = () => {
           <div className="action-buttons">
             <Button 
               variant="primary" 
-              icon={<FaCode />}
               onClick={() => {}}
               fullWidth
             >
-              Editor de Código
+              💻 Editor de código
             </Button>
             <Button 
               variant="outline" 
-              icon={<FaQuestionCircle />}
               onClick={() => setShowQuiz(true)}
               fullWidth
             >
-              Test de Conocimiento
+              ❓ Test de conocimiento
             </Button>
           </div>
         </div>
@@ -103,7 +102,7 @@ const TechnologyModule: React.FC = () => {
                 
                 {currentSection?.codeExample && (
                   <div className="code-section">
-                    <h4><FaCode /> Ejemplo de Código</h4>
+                    <h4>💻 Ejemplo de código</h4>
                     <pre className="code-block">
                       <code>{currentSection.codeExample}</code>
                     </pre>
@@ -155,7 +154,7 @@ const TechnologyModule: React.FC = () => {
           onClose={() => setShowQuiz(false)}
         />
       )}
-    </section>
+    </div>
   );
 };
 

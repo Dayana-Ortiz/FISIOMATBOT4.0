@@ -137,6 +137,19 @@ Estilos:
 - Grids responsivos con `repeat(auto-fit, minmax(...))` para adaptar tarjetas y módulos.
 - Tarjetas blancas con sombras suaves y animación ligera al hacer hover.
 
+### Módulos de contenido
+
+Los cuatro módulos principales (`PhysicsModule`, `MathematicsModule`, `TechnologyModule`, `SimulatorModule`) comparten una estructura visual común:
+
+- Encabezado centrado:
+  - Título tipo “Módulo de Física / Matemáticas / Tecnología / Simulador”.
+  - Descripción corta del enfoque del módulo.
+- `article` de introducción (`.module-intro`):
+  - Tarjeta centrada que explica de forma general cómo usar el módulo y qué encontrará el estudiante.
+- Zona inferior en dos columnas (`.module-content`):
+  - Columna izquierda: lista de lecciones o simulaciones (botones) y acciones secundarias.
+  - Columna derecha: caja de contenido interactivo (`Card` o área de simulación) donde se muestran explicaciones, ejemplos, gráficos o controles.
+
 ### Progreso (`src/pages/ProgressPage.tsx`)
 
 Objetivo:

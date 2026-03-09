@@ -1,15 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-  FaHome,
-  FaAtom,
-  FaCalculator,
-  FaLaptopCode,
-  FaGamepad,
-  FaChartLine,
-  FaUserGraduate,
-  FaCog,
-} from 'react-icons/fa';
 import './Sidebar.css';
 
 interface SidebarProps {
@@ -19,20 +9,20 @@ interface SidebarProps {
 
 interface MenuItem {
   path: string;
-  icon: React.ReactNode;
+  icon: string;
   label: string;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
   const menuItems: MenuItem[] = [
-    { path: '/dashboard', icon: <FaHome />, label: 'Inicio' },
-    { path: '/physics', icon: <FaAtom />, label: 'Física' },
-    { path: '/mathematics', icon: <FaCalculator />, label: 'Matemáticas' },
-    { path: '/technology', icon: <FaLaptopCode />, label: 'Tecnología' },
-    { path: '/simulator', icon: <FaGamepad />, label: 'Simulador' },
-    { path: '/progress', icon: <FaChartLine />, label: 'Progreso' },
-    { path: '/profile', icon: <FaUserGraduate />, label: 'Perfil' },
-    { path: '/admin', icon: <FaCog />, label: 'Admin' },
+    { path: '/dashboard', icon: '🏠', label: 'Inicio' },
+    { path: '/physics', icon: '⚛️', label: 'Física' },
+    { path: '/mathematics', icon: '🧮', label: 'Matemáticas' },
+    { path: '/technology', icon: '💻', label: 'Tecnología' },
+    { path: '/simulator', icon: '🎮', label: 'Simulador' },
+    { path: '/progress', icon: '📈', label: 'Progreso' },
+    { path: '/profile', icon: '👤', label: 'Perfil' },
+    { path: '/admin', icon: '⚙️', label: 'Admin' },
   ];
 
   return (
@@ -56,7 +46,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
                 `nav-item ${isActive ? 'active' : ''}`
               }
             >
-              <span className="nav-icon">{item.icon}</span>
+              <span className="nav-icon" aria-hidden="true">
+                {item.icon}
+              </span>
               {isOpen && <span className="nav-label">{item.label}</span>}
             </NavLink>
           </li>

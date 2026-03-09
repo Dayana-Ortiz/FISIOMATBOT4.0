@@ -43,15 +43,19 @@ const SimulatorModule: React.FC = () => {
   const currentSimulation = simulations.find(s => s.id === activeSimulation);
 
   return (
-    <section className="module-container">
-      <article
-        className="module-header"
-        aria-label="Introducción al módulo Simulador"
-      >
-        <h1 className="module-title">🎮 Módulo Simulador</h1>
-        <p className="module-description">
-          En este módulo podrás explorar distintas simulaciones interactivas
-          para reforzar los conceptos vistos en los demás temas.
+    <div className="module-container">
+      <div className="module-header">
+        <h1 className="module-title">Módulo Simulador 🎮</h1>
+      </div>
+
+      <article className="module-intro">
+        <h2>Introducción al módulo</h2>
+        <p>
+          En el módulo simulador podrás experimentar con distintos escenarios de física,
+          matemáticas y circuitos eléctricos. Primero selecciona una simulación en la columna
+          de la izquierda y, luego, utiliza los controles del panel derecho para ajustar
+          parámetros y observar cómo cambia el comportamiento en el área visual. Es una forma
+          de aprender experimentando con simulaciones interactivas.
         </p>
       </article>
 
@@ -217,7 +221,7 @@ const SimulatorModule: React.FC = () => {
           onClose={() => setShowQuiz(false)}
         />
       )}
-    </section>
+    </div>
   );
 };
 

@@ -1,22 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  FaAtom,
-  FaCalculator,
-  FaLaptopCode,
-  FaGamepad,
-  FaChartLine,
-  FaTrophy,
-  FaCalendarAlt,
-  FaBook,
-} from 'react-icons/fa';
 import './Dashboard.css';
 import { ModuleType } from '../types';
 
 interface ModuleCard {
   id: ModuleType;
   title: string;
-  icon: React.ReactNode;
+  icon: string;
   color: string;
   progress: number;
   description: string;
@@ -28,7 +18,7 @@ const Dashboard: React.FC = () => {
     {
       id: 'physics',
       title: 'Física',
-      icon: <FaAtom />,
+      icon: '⚛️',
       color: 'var(--accent-orange)',
       progress: 65,
       description: 'Movimiento, fuerzas y energía',
@@ -37,7 +27,7 @@ const Dashboard: React.FC = () => {
     {
       id: 'mathematics',
       title: 'Matemáticas',
-      icon: <FaCalculator />,
+      icon: '🧮',
       color: 'var(--secondary-blue)',
       progress: 80,
       description: 'Álgebra, geometría y cálculo',
@@ -46,7 +36,7 @@ const Dashboard: React.FC = () => {
     {
       id: 'technology',
       title: 'Tecnología',
-      icon: <FaLaptopCode />,
+      icon: '💻',
       color: 'var(--medium-gray)',
       progress: 45,
       description: 'Programación y robótica',
@@ -55,7 +45,7 @@ const Dashboard: React.FC = () => {
     {
       id: 'simulator',
       title: 'Simulador',
-      icon: <FaGamepad />,
+      icon: '🎮',
       color: 'var(--accent-green)',
       progress: 90,
       description: 'Prácticas interactivas',
@@ -77,9 +67,7 @@ const Dashboard: React.FC = () => {
         aria-label="Resumen de tu actividad en la plataforma"
       >
         <article className="stat-card">
-          <div className="stat-icon">
-            <FaChartLine />
-          </div>
+          <div className="stat-icon">📈</div>
           <div className="stat-content">
             <h3>Progreso total</h3>
             <p className="stat-value">72%</p>
@@ -87,9 +75,7 @@ const Dashboard: React.FC = () => {
         </article>
 
         <article className="stat-card">
-          <div className="stat-icon">
-            <FaTrophy />
-          </div>
+          <div className="stat-icon">🏆</div>
           <div className="stat-content">
             <h3>Logros</h3>
             <p className="stat-value">8/15</p>
@@ -97,9 +83,7 @@ const Dashboard: React.FC = () => {
         </article>
 
         <article className="stat-card">
-          <div className="stat-icon">
-            <FaCalendarAlt />
-          </div>
+          <div className="stat-icon">📅</div>
           <div className="stat-content">
             <h3>Sesiones esta semana</h3>
             <p className="stat-value">12</p>
@@ -107,9 +91,7 @@ const Dashboard: React.FC = () => {
         </article>
 
         <article className="stat-card">
-          <div className="stat-icon">
-            <FaBook />
-          </div>
+          <div className="stat-icon">📚</div>
           <div className="stat-content">
             <h3>Lecciones completadas</h3>
             <p className="stat-value">24</p>

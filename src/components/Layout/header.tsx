@@ -62,12 +62,12 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
           >
             <li>
               <button className="dropdown-item" type="button">
-                Perfil
+                👤 Perfil
               </button>
             </li>
             <li>
               <button className="dropdown-item" type="button">
-                Configuración
+                ⚙️ Configuración
               </button>
             </li>
             <li>
@@ -75,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
             </li>
             <li>
               <button className="dropdown-item" type="button">
-                Cerrar sesión
+                🚪 Cerrar sesión
               </button>
             </li>
           </ul>

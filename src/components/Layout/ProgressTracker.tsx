@@ -1,26 +1,25 @@
 import React from 'react';
-import { FaChartLine, FaFire, FaCalculator, FaLaptop, FaGamepad } from 'react-icons/fa';
 import './ProgressTracker.css';
 
 interface ModuleProgress {
   name: string;
   progress: number;
-  icon: React.ReactNode;
+  icon: string;
   color: string;
 }
 
 const ProgressTracker: React.FC = () => {
   const modules: ModuleProgress[] = [
-    { name: 'Física', progress: 65, icon: <FaFire />, color: 'var(--primary-blue)' },
-    { name: 'Matemáticas', progress: 80, icon: <FaCalculator />, color: 'var(--secondary-blue)' },
-    { name: 'Tecnología', progress: 45, icon: <FaLaptop />, color: 'var(--medium-gray)' },
-    { name: 'Simulador', progress: 90, icon: <FaGamepad />, color: 'var(--accent-green)' },
+    { name: 'Física', progress: 65, icon: '🔥', color: 'var(--primary-blue)' },
+    { name: 'Matemáticas', progress: 80, icon: '🧮', color: 'var(--secondary-blue)' },
+    { name: 'Tecnología', progress: 45, icon: '💻', color: 'var(--medium-gray)' },
+    { name: 'Simulador', progress: 90, icon: '🎮', color: 'var(--accent-green)' },
   ];
 
   return (
     <div className="progress-tracker">
       <h3 className="tracker-title">
-        <FaChartLine /> Tu Progreso
+        📊 Tu progreso
       </h3>
       
       <div className="overall-progress">

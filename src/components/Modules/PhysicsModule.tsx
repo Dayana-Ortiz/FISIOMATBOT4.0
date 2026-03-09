@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaBook, FaFlask, FaCalculator, FaQuestionCircle, FaPlay } from 'react-icons/fa';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
@@ -45,16 +44,18 @@ const PhysicsModule: React.FC = () => {
   const currentSection = sections.find(s => s.id === activeSection);
 
   return (
-    <section className="module-container">
-      <article
-        className="module-header"
-        aria-label="Introducción al módulo de Física"
-      >
-        <h1 className="module-title">📚 Módulo Física</h1>
-        <p className="module-description">
-          Conoce los conceptos básicos de la física mediante explicaciones,
-          ejemplos y materiales de apoyo antes de experimentar con actividades
-          y simulaciones.
+    <div className="module-container">
+      <div className="module-header">
+        <h1 className="module-title">Módulo de Física ⚛️</h1>
+      </div>
+
+      <article className="module-intro">
+        <h2>Introducción al módulo</h2>
+        <p>
+          En este módulo explorarás conceptos clave de la física a través de explicaciones
+          guiadas y pequeñas simulaciones. Explorarás los principios fundamentales del universo:
+          lee la introducción y, luego, utiliza los botones de lecciones para profundizar en
+          cada tema mientras observas los ejemplos en el panel interactivo de la derecha.
         </p>
       </article>
 
@@ -68,9 +69,9 @@ const PhysicsModule: React.FC = () => {
               onClick={() => setActiveSection(section.id)}
             >
               <span className="section-icon">
-                {section.id === 'intro' && <FaBook />}
-                {section.id === 'movement' && <FaPlay />}
-                {section.id === 'forces' && <FaFlask />}
+                {section.id === 'intro' && '📘'}
+                {section.id === 'movement' && '➡️'}
+                {section.id === 'forces' && '⚙️'}
               </span>
               {section.title}
             </button>
@@ -79,19 +80,17 @@ const PhysicsModule: React.FC = () => {
           <div className="action-buttons">
             <Button 
               variant="primary" 
-              icon={<FaFlask />}
               onClick={() => {}}
               fullWidth
             >
-              Iniciar Simulación
+              🧪 Iniciar simulación
             </Button>
             <Button 
               variant="outline" 
-              icon={<FaQuestionCircle />}
               onClick={() => setShowQuiz(true)}
               fullWidth
             >
-              Tomar Quiz
+              ❓ Tomar quiz
             </Button>
           </div>
         </div>
@@ -105,7 +104,7 @@ const PhysicsModule: React.FC = () => {
                 
                 {currentSection?.formulas && currentSection.formulas.length > 0 && (
                   <div className="formulas-section">
-                    <h4><FaCalculator /> Fórmulas Importantes</h4>
+                    <h4>🧮 Fórmulas importantes</h4>
                     {currentSection.formulas.map((formula, index) => (
                       <div key={index} className="formula-box">
                         <code>{formula}</code>
@@ -145,7 +144,7 @@ const PhysicsModule: React.FC = () => {
           onClose={() => setShowQuiz(false)}
         />
       )}
-    </section>
+    </div>
   );
 };
 
