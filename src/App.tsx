@@ -6,6 +6,7 @@ import PhysicsPage from './pages/PhysicsPage.tsx';
 import MathematicsPage from './pages/MathematicsPage.tsx';
 import TechnologyPage from './pages/TechnologyPage.tsx';
 import SimulatorPage from './pages/SimulatorPage.tsx';
+import ProgressPage from './pages/ProgressPage.tsx';
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
           <Route path="mathematics" element={<MathematicsPage />} />
           <Route path="technology" element={<TechnologyPage />} />
           <Route path="simulator" element={<SimulatorPage />} />
+          <Route path="progress" element={<ProgressPage />} />
         </Route>
       </Routes>
     </Router>

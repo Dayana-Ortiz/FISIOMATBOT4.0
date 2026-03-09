@@ -45,11 +45,17 @@ const MathematicsModule: React.FC = () => {
   const currentSection = sections.find(s => s.id === activeSection);
 
   return (
-    <div className="module-container">
-      <div className="module-header">
-        <h1 className="module-title">🧮 Módulo de Matemáticas</h1>
-        <p className="module-description">Domina los números y las formas</p>
-      </div>
+    <section className="module-container">
+      <article
+        className="module-header"
+        aria-label="Introducción al módulo de Matemáticas"
+      >
+        <h1 className="module-title">🧮 Módulo Matemáticas</h1>
+        <p className="module-description">
+          Aquí encontrarás explicaciones, ejemplos y prácticas para reforzar tus
+          habilidades matemáticas antes de pasar a las actividades interactivas.
+        </p>
+      </article>
 
       <div className="module-content">
         <div className="sidebar-sections">
@@ -142,7 +148,7 @@ const MathematicsModule: React.FC = () => {
           onClose={() => setShowQuiz(false)}
         />
       )}
-    </div>
+    </section>
   );
 };
 

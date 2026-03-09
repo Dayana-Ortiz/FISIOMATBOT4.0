@@ -1,0 +1,298 @@
+DOCUMENTACIÓN FISIOMATHBOT
+===========================
+
+1. Descripción general del proyecto
+-----------------------------------
+
+FISIOMATHBOT es una plataforma web educativa enfocada en áreas STEM para estudiantes de grados 9, 10 y 11.  
+Actualmente el enfoque principal está en la **estructura visual y de navegación**, dejando para más adelante la carga de contenido específico de los módulos.
+
+El frontend está desarrollado con **React + TypeScript**, usando **React Router** para la navegación y estilos personalizados en CSS, complementados ahora con **Bootstrap 5** para algunos componentes y utilidades de diseño responsivo.
+
+
+2. Estructura principal del frontend
+------------------------------------
+
+- `public/index.html`
+  - Define la página base del proyecto.
+  - Se añadió:
+    - `<meta name="viewport" content="width=device-width, initial-scale=1" />` para hacer la interfaz responsive.
+    - Inclusión de **Bootstrap 5** (CSS y JS) desde CDN para aprovechar componentes como dropdowns y utilidades de grid.
+
+- `src/index.tsx`
+  - Punto de entrada de React.
+  - Renderiza el componente raíz `App` dentro del elemento `#root`.
+  - Importa los estilos globales desde `src/styles/globals.css`.
+
+- `src/App.tsx`
+  - Configura las rutas principales de la aplicación usando `react-router-dom`.
+  - Estructura actual de rutas:
+    - Ruta raíz `/` envuelta por el layout principal `Layout`.
+    - Rutas hijas:
+      - `/dashboard` (y `/`) → `Dashboard`.
+      - `/physics` → `PhysicsPage`.
+      - `/mathematics` → `MathematicsPage`.
+      - `/technology` → `TechnologyPage`.
+      - `/simulator` → `SimulatorPage`.
+      - `/progress` → `ProgressPage` (nueva pantalla de progreso).
+
+
+3. Layout general y componentes de estructura
+---------------------------------------------
+
+### 3.1 Layout principal
+
+- Archivo: `src/components/Layout/Layout.tsx`
+
+Responsabilidades:
+- Mostrar la **barra lateral de navegación** (`Sidebar`).
+- Incluir el **header** superior (`Header`).
+- Envolver el contenido principal de cada página dentro de una tarjeta blanca central (`main-view`).
+- Incluir el **footer** en la parte inferior.
+
+Cambios clave:
+- Antes: el layout tenía un `aside` fijo a la derecha con el **panel de progreso** (`ProgressTracker`) en todas las pantallas.
+- Ahora:
+  - El contenido principal se renderiza dentro de:
+    - `<main className="content-wrapper" role="main">`
+      - `<article className="main-view">` con `<Outlet />`, donde se cargan las páginas según la ruta.
+  - Se **eliminó** el `aside` con `ProgressTracker` del layout global, para que el panel de progreso no aparezca en todos los módulos, sino solo en su propia página dedicada.
+
+Estilos asociados:
+- Archivo: `src/components/Layout/Layout.css`
+  - `.layout`:
+    - `display: flex; min-height: 100vh; background-color: var(--light-gray); overflow-x: hidden;`
+    - `overflow-x: hidden` evita barras de scroll horizontales cuando el contenido se ajusta al ancho.
+  - `.main-content`:
+    - Gestiona el área a la derecha del sidebar (header + contenido + footer).
+  - `.content-wrapper`:
+    - Contenedor central del contenido.
+    - `max-width: 1200px; margin: 0 auto; width: 100%;`
+    - Padding responsivo para que el dashboard no se “salga” a 100% de zoom.
+  - `.main-view`:
+    - Tarjeta blanca con borde redondeado y sombra suave donde se muestran las páginas.
+
+
+### 3.2 Sidebar (barra lateral de navegación)
+
+- Archivo: `src/components/Layout/Sidebar.tsx`
+  - Componente funcional que recibe:
+    - `isOpen: boolean` → si el menú está expandido o colapsado.
+    - `onToggle: () => void` → callback que se ejecuta desde el botón del header.
+  - Utiliza `NavLink` de `react-router-dom` para resaltar la ruta activa.
+  - Los enlaces representan los módulos:
+    - Inicio, Física, Matemáticas, Tecnología, Simulador, Progreso, Perfil, Admin.
+  - El contenedor principal ahora es un:
+    - `<nav className="sidebar ...">` con `aria-label="Navegación principal de módulos"`.
+  - Internamente usa una lista:
+    - `<ul className="sidebar-nav list-unstyled">` con `<li>` y cada `NavLink`.
+
+Cambios de UX:
+- Se **eliminó** el botón redondo de colapso dentro del sidebar, para evitar duplicar la funcionalidad con el botón de tres líneas del header.
+- El único control para abrir/cerrar el menú lateral ahora es el botón de menú en el header (icono de tres líneas).
+
+Estilos:
+- Archivo: `src/components/Layout/Sidebar.css`
+  - Sidebar con diseño minimalista:
+    - Fondo blanco, texto gris, resaltado naranja para el elemento activo.
+  - `.nav-item`:
+    - Botones tipo “píldora” con mayor área clicable (padding amplio, borde redondeado).
+  - `.nav-item.active`:
+    - Fondo naranja (`var(--accent-orange)`) y texto blanco.
+  - Soporte para móvil:
+    - En anchos pequeños, el sidebar se muestra como panel fijo con sombra (similar a un offcanvas simple).
+
+
+### 3.3 Header
+
+- Archivo: `src/components/Layout/header.tsx`
+
+Funciones:
+- Botón de menú (icono de tres líneas) que llama a `onMenuToggle` para abrir/cerrar el sidebar.
+- Barra de búsqueda semántica: `<form role="search">` con `input type="search"`.
+- Botón de notificaciones con badge numérico.
+- Menú de usuario en forma de **dropdown** usando clases de Bootstrap:
+  - `dropdown`, `dropdown-toggle`, `dropdown-menu`, etc.
+
+Mejoras realizadas:
+- Aumento del **hitbox** del botón de menú y de notificaciones.
+- Estados `hover` y `focus-visible` con fondo suave naranja, mejorando accesibilidad.
+- El dropdown de usuario agrupa acciones como:
+  - Perfil, Configuración, Cerrar sesión.
+
+Estilos:
+- Archivo: `src/components/Layout/header.css`
+  - Se rediseñó para un estilo más minimalista:
+    - Fondo blanco, bordes y sombras suaves.
+    - Botones con bordes redondeados (píldora) y feedback visual en hover/focus.
+  - El buscador:
+    - Usa `border-radius: 999px`, padding adecuado, y sombras al enfocar.
+  - En móviles (<768px):
+    - El buscador se oculta para dar más espacio al contenido.
+
+
+### 3.4 Footer
+
+- Archivo: `src/components/Layout/Footer.tsx`
+
+Estructura:
+- `<footer className="footer">`
+  - `<div className="footer-content container">` con tres secciones:
+    - Información de la plataforma (PGC OFI).
+    - Lista de módulos.
+    - Bloque de contacto.
+  - `<div className="footer-bottom">` con el texto de derechos y el icono de corazón.
+
+Cambios clave:
+- Antes: footer oscuro de ancho completo con textos menos alineados.
+- Ahora:
+  - Fondo blanco, borde superior gris suave, aspecto más ligero.
+  - Texto reescrito en forma breve y alineado.
+
+Estilos:
+- Archivo: `src/components/Layout/Footer.css`
+  - `footer-content`:
+    - Grid responsive de columnas (`minmax(220px, 1fr)`).
+  - `.footer-section`:
+    - Alineación de texto a la izquierda en escritorio (`text-align: left`).
+    - En móviles (`max-width: 576px`), se centra (`text-align: center`) para una mejor presentación vertical.
+  - `.footer-bottom`:
+    - Texto centrado y más discreto (tipografía pequeña).
+  - `.heart-icon`:
+    - Color naranja (`var(--accent-orange)`) para mantener la paleta.
+
+
+4. Dashboard (pantalla principal)
+---------------------------------
+
+- Archivo: `src/pages/Dashboard.tsx`
+
+Responsabilidades:
+- Mostrar mensaje de bienvenida.
+- Presentar tarjetas con estadísticas generales (progreso total, logros, sesiones, lecciones).
+- Mostrar una grilla de módulos con su avance.
+
+Estructura semántica:
+- `<section className="dashboard">`
+  - `<header className="welcome-section">` con título y subtítulo.
+  - `<section className="stats-cards">` con varias tarjetas `<article className="stat-card">`.
+  - `<section className="modules-section">` con:
+    - Cabecera con título “Tus módulos” y pequeño grupo de filtros visuales.
+    - Grilla de `<article>` para cada módulo, cada uno envuelto en un `Link`.
+
+Módulos:
+- Array de `modules` con:
+  - `id`, `title`, `icon`, `color`, `progress`, `description`, `path`.
+- Cada tarjeta muestra:
+  - Icono, nombre, descripción corta.
+  - Barra de progreso.
+  - Botón **Continuar** (botón Bootstrap `btn btn-sm btn-primary` adaptado a la paleta).
+
+Estilos:
+- Archivo: `src/pages/Dashboard.css`
+  - `.dashboard`:
+    - Layout vertical, con espaciado (`gap`) entre secciones.
+  - `.stats-cards`:
+    - Grid responsivo con `repeat(auto-fit, minmax(250px, 1fr))`.
+  - `.modules-grid`:
+    - Grid responsivo con `minmax(280px, 1fr)`.
+  - `.module-card`:
+    - Tarjeta blanca con sombra suave, animación ligera en hover (`translateY`).
+  - `.continue-btn`:
+    - Botón de ancho completo dentro de la tarjeta, manteniendo buena área clicable.
+
+
+5. Progreso (nueva pantalla específica)
+---------------------------------------
+
+- Archivo: `src/pages/ProgressPage.tsx`
+
+Objetivo:
+- Trasladar el panel de progreso que antes estaba fijo en todas las páginas a un **módulo dedicado** accesible desde la sección “Progreso” del sidebar.
+
+Estructura:
+- `<section aria-labelledby="progress-page-title">`
+  - `<header>` con:
+    - `<h1>` “Tu progreso”.
+    - Párrafo explicativo breve.
+  - `<div className="row g-4">` (utilidades de Bootstrap):
+    - Columna principal (`col-12 col-lg-8`) con un panel blanco tipo resumen (contenido placeholder para futuras ampliaciones).
+    - `aside` (`col-12 col-lg-4`) con el `ProgressTracker` dentro de una tarjeta (`bg-white`, `rounded-3`, `shadow-sm`).
+
+
+6. Panel de Progreso (componente reutilizable)
+----------------------------------------------
+
+- Archivo: `src/components/Layout/ProgressTracker.tsx`
+
+Descripción:
+- Muestra el progreso general y por módulo (Física, Matemáticas, Tecnología, Simulador).
+- Utiliza barras de progreso con distintos colores según el módulo.
+
+Ubicación actual:
+- Ya no se renderiza en el layout global.
+- Solo se muestra en la **página de Progreso** (`ProgressPage.tsx`) dentro del `aside` derecho.
+
+Estilos:
+- Archivo: `src/components/Layout/ProgressTracker.css`
+  - Define estructura en columnas, encabezados, barras de progreso y tipografía.
+
+
+7. Estilos globales y colores
+-----------------------------
+
+- Archivo: `src/styles/globals.css`
+
+Puntos importantes:
+- Reset básico (`* { margin: 0; padding: 0; box-sizing: border-box; }`).
+- Variables CSS (paleta adaptada a naranja/blanco):
+  - `--primary-blue` se usa como naranja (`#FD7B41`).
+  - `--secondary-blue`, `--accent-orange`, `--accent-green`, `--accent-purple`, etc.
+  - Tonos de grises para fondos y textos (`--light-gray`, `--medium-gray`, `--dark-gray`, `--text-primary`, `--text-secondary`).
+- Estilos de `body`:
+  - Tipografía del sistema, fondo gris claro, texto oscuro.
+- Estilos globales de enlaces, botones y scrollbar.
+
+
+8. Resumen de cambios realizados en esta sesión
+-----------------------------------------------
+
+1. **Integración de Bootstrap 5**:
+   - Añadidos enlaces a CSS y JS de Bootstrap en `public/index.html`.
+   - Uso de clases y utilidades de Bootstrap (grid, botones, dropdowns, contenedores) en varios componentes.
+
+2. **Rediseño semántico del layout y dashboard**:
+   - Uso de `header`, `nav`, `main`, `section`, `article`, `aside`, `footer`.
+   - Contenido principal dentro de una tarjeta blanca central (`main-view`).
+   - Eliminación del panel de progreso fijo en todas las páginas.
+
+3. **Nueva pantalla de Progreso**:
+   - Creación de `ProgressPage.tsx`.
+   - Reutilización de `ProgressTracker` exclusivamente en esa ruta.
+   - Registro de la ruta `/progress` en `App.tsx`.
+
+4. **Mejoras en el Header**:
+   - Botón de menú accesible y con mayor área clicable.
+   - Buscador minimalista y responsivo.
+   - Menú de usuario con dropdown de Bootstrap.
+
+5. **Mejoras en el Sidebar**:
+   - Cambio a `nav` + `ul` semánticos.
+   - Estilo más limpio (fondo blanco, acentos naranjas).
+   - Eliminación del botón redondo duplicado; solo queda el botón de menú del header para controlar el sidebar.
+
+6. **Footer reestructurado**:
+   - Alineación de texto ordenada por secciones (izquierda en escritorio, centrado en móvil).
+   - Mensaje de derechos y estilo más ligero y coherente con la paleta.
+
+7. **Correcciones de overflow y responsividad**:
+   - `overflow-x: hidden` en `.layout` para evitar scroll horizontal.
+   - `max-width` y `padding` ajustados en `content-wrapper` para que el dashboard no se salga del viewport a 100% de zoom.
+
+
+9. Notas finales
+----------------
+
+- Los cambios descritos están ya aplicados en el proyecto local bajo `FISIOMATHBOT`.
+- Cuando el diseño visual se considere estable, se pueden extender los mismos patrones (estructura semántica + minimalismo + paleta naranja/blanco) a todas las pantallas de módulos (Física, Matemáticas, Tecnología, Simulador) con componentes reutilizables de cards y secciones.
+

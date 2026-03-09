@@ -43,11 +43,17 @@ const SimulatorModule: React.FC = () => {
   const currentSimulation = simulations.find(s => s.id === activeSimulation);
 
   return (
-    <div className="module-container">
-      <div className="module-header">
+    <section className="module-container">
+      <article
+        className="module-header"
+        aria-label="Introducción al módulo Simulador"
+      >
         <h1 className="module-title">🎮 Módulo Simulador</h1>
-        <p className="module-description">Aprende experimentando con simulaciones interactivas</p>
-      </div>
+        <p className="module-description">
+          En este módulo podrás explorar distintas simulaciones interactivas
+          para reforzar los conceptos vistos en los demás temas.
+        </p>
+      </article>
 
       <div className="module-content">
         <div className="sidebar-sections">
@@ -211,7 +217,7 @@ const SimulatorModule: React.FC = () => {
           onClose={() => setShowQuiz(false)}
         />
       )}
-    </div>
+    </section>
   );
 };
 

@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  FaAtom, FaCalculator, FaLaptopCode, FaGamepad,
-  FaChartLine, FaTrophy, FaCalendarAlt, FaBook 
+import {
+  FaAtom,
+  FaCalculator,
+  FaLaptopCode,
+  FaGamepad,
+  FaChartLine,
+  FaTrophy,
+  FaCalendarAlt,
+  FaBook,
 } from 'react-icons/fa';
 import './Dashboard.css';
 import { ModuleType } from '../types';
@@ -19,63 +25,68 @@ interface ModuleCard {
 
 const Dashboard: React.FC = () => {
   const modules: ModuleCard[] = [
-    { 
-      id: 'physics', 
-      title: 'Física', 
-      icon: <FaAtom />, 
-      color: 'var(--primary-blue)',
+    {
+      id: 'physics',
+      title: 'Física',
+      icon: <FaAtom />,
+      color: 'var(--accent-orange)',
       progress: 65,
       description: 'Movimiento, fuerzas y energía',
-      path: '/physics'
+      path: '/physics',
     },
-    { 
-      id: 'mathematics', 
-      title: 'Matemáticas', 
-      icon: <FaCalculator />, 
+    {
+      id: 'mathematics',
+      title: 'Matemáticas',
+      icon: <FaCalculator />,
       color: 'var(--secondary-blue)',
       progress: 80,
       description: 'Álgebra, geometría y cálculo',
-      path: '/mathematics'
+      path: '/mathematics',
     },
-    { 
-      id: 'technology', 
-      title: 'Tecnología', 
-      icon: <FaLaptopCode />, 
+    {
+      id: 'technology',
+      title: 'Tecnología',
+      icon: <FaLaptopCode />,
       color: 'var(--medium-gray)',
       progress: 45,
       description: 'Programación y robótica',
-      path: '/technology'
+      path: '/technology',
     },
-    { 
-      id: 'simulator', 
-      title: 'Simulador', 
-      icon: <FaGamepad />, 
+    {
+      id: 'simulator',
+      title: 'Simulador',
+      icon: <FaGamepad />,
       color: 'var(--accent-green)',
       progress: 90,
       description: 'Prácticas interactivas',
-      path: '/simulator'
+      path: '/simulator',
     },
   ];
 
   return (
-    <div className="dashboard">
-      <div className="welcome-section">
-        <h1>¡Bienvenido de nuevo! 👋</h1>
-        <p className="subtitle">Continúa tu aprendizaje en los módulos educativos</p>
-      </div>
+    <section className="dashboard">
+      <header className="welcome-section">
+        <h1>¡Bienvenido de nuevo!</h1>
+        <p className="subtitle">
+          Elige un módulo STEM y continúa con tu ruta de aprendizaje.
+        </p>
+      </header>
 
-      <div className="stats-cards">
-        <div className="stat-card">
+      <section
+        className="stats-cards"
+        aria-label="Resumen de tu actividad en la plataforma"
+      >
+        <article className="stat-card">
           <div className="stat-icon">
             <FaChartLine />
           </div>
           <div className="stat-content">
-            <h3>Progreso Total</h3>
+            <h3>Progreso total</h3>
             <p className="stat-value">72%</p>
           </div>
-        </div>
-        
-        <div className="stat-card">
+        </article>
+
+        <article className="stat-card">
           <div className="stat-icon">
             <FaTrophy />
           </div>
@@ -83,9 +94,9 @@ const Dashboard: React.FC = () => {
             <h3>Logros</h3>
             <p className="stat-value">8/15</p>
           </div>
-        </div>
-        
-        <div className="stat-card">
+        </article>
+
+        <article className="stat-card">
           <div className="stat-icon">
             <FaCalendarAlt />
           </div>
@@ -93,9 +104,9 @@ const Dashboard: React.FC = () => {
             <h3>Sesiones esta semana</h3>
             <p className="stat-value">12</p>
           </div>
-        </div>
-        
-        <div className="stat-card">
+        </article>
+
+        <article className="stat-card">
           <div className="stat-icon">
             <FaBook />
           </div>
@@ -103,44 +114,77 @@ const Dashboard: React.FC = () => {
             <h3>Lecciones completadas</h3>
             <p className="stat-value">24</p>
           </div>
-        </div>
-      </div>
+        </article>
+      </section>
 
-      <section className="modules-section">
-        <h2 className="section-title">Tus Módulos</h2>
+      <section className="modules-section" aria-labelledby="modules-title">
+        <div className="modules-section-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <h2 id="modules-title" className="section-title mb-0">
+            Tus módulos
+          </h2>
+          <div className="btn-group" role="group" aria-label="Filtros de módulos">
+            <button type="button" className="btn btn-sm btn-outline-secondary">
+              Todos
+            </button>
+            <button type="button" className="btn btn-sm btn-outline-secondary">
+              En progreso
+            </button>
+            <button type="button" className="btn btn-sm btn-outline-secondary">
+              Completados
+            </button>
+          </div>
+        </div>
+
         <div className="modules-grid">
           {modules.map((module) => (
-            <Link key={module.id} to={module.path} className="module-card-link">
-              <div className="module-card" style={{ borderTop: `4px solid ${module.color}` }}>
-                <div className="module-header">
-                  <div className="module-icon" style={{ backgroundColor: module.color }}>
-                    {module.icon}
+            <article
+              key={module.id}
+              className="module-card-wrapper"
+              aria-label={`Módulo ${module.title}`}
+            >
+              <Link to={module.path} className="module-card-link">
+                <div
+                  className="module-card"
+                  style={{ borderTop: `4px solid ${module.color}` }}
+                >
+                  <header className="module-header">
+                    <div
+                      className="module-icon"
+                      style={{ backgroundColor: module.color }}
+                    >
+                      {module.icon}
+                    </div>
+                    <h3>{module.title}</h3>
+                  </header>
+                  <p className="module-description">{module.description}</p>
+                  <div className="module-progress">
+                    <div className="progress-info">
+                      <span>Progreso</span>
+                      <span>{module.progress}%</span>
+                    </div>
+                    <div className="progress-bar">
+                      <div
+                        className="progress-fill"
+                        style={{
+                          width: `${module.progress}%`,
+                          backgroundColor: module.color,
+                        }}
+                      ></div>
+                    </div>
                   </div>
-                  <h3>{module.title}</h3>
+                  <button
+                    type="button"
+                    className="continue-btn btn btn-sm btn-primary"
+                  >
+                    Continuar
+                  </button>
                 </div>
-                <p className="module-description">{module.description}</p>
-                <div className="module-progress">
-                  <div className="progress-info">
-                    <span>Progreso</span>
-                    <span>{module.progress}%</span>
-                  </div>
-                  <div className="progress-bar">
-                    <div 
-                      className="progress-fill" 
-                      style={{ 
-                        width: `${module.progress}%`,
-                        backgroundColor: module.color 
-                      }}
-                    ></div>
-                  </div>
-                </div>
-                <button className="continue-btn">Continuar</button>
-              </div>
-            </Link>
+              </Link>
+            </article>
           ))}
         </div>
       </section>
-    </div>
+    </section>
   );
 };
 

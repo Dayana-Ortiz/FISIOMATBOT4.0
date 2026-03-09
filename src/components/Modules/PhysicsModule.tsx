@@ -45,11 +45,18 @@ const PhysicsModule: React.FC = () => {
   const currentSection = sections.find(s => s.id === activeSection);
 
   return (
-    <div className="module-container">
-      <div className="module-header">
-        <h1 className="module-title">📚 Módulo de Física</h1>
-        <p className="module-description">Explora los principios fundamentales del universo</p>
-      </div>
+    <section className="module-container">
+      <article
+        className="module-header"
+        aria-label="Introducción al módulo de Física"
+      >
+        <h1 className="module-title">📚 Módulo Física</h1>
+        <p className="module-description">
+          Conoce los conceptos básicos de la física mediante explicaciones,
+          ejemplos y materiales de apoyo antes de experimentar con actividades
+          y simulaciones.
+        </p>
+      </article>
 
       <div className="module-content">
         <div className="sidebar-sections">
@@ -138,7 +145,7 @@ const PhysicsModule: React.FC = () => {
           onClose={() => setShowQuiz(false)}
         />
       )}
-    </div>
+    </section>
   );
 };
 

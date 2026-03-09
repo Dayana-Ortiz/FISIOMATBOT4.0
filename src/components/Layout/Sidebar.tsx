@@ -1,8 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { 
-  FaHome, FaAtom, FaCalculator, FaLaptopCode, 
-  FaGamepad, FaChartLine, FaUserGraduate, FaCog 
+import {
+  FaHome,
+  FaAtom,
+  FaCalculator,
+  FaLaptopCode,
+  FaGamepad,
+  FaChartLine,
+  FaUserGraduate,
+  FaCog,
 } from 'react-icons/fa';
 import './Sidebar.css';
 
@@ -30,32 +36,33 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
   ];
 
   return (
-    <aside className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
+    <nav
+      className={`sidebar ${isOpen ? 'open' : 'closed'}`}
+      aria-label="Navegación principal de módulos"
+    >
       <div className="sidebar-header">
         <div className="logo">
           <span className="logo-icon">🎓</span>
-          {isOpen && <span className="logo-text">PGC OFI</span>}
+          {isOpen && <span className="logo-text">FisioMathBoth</span>}
         </div>
-        <button className="toggle-btn" onClick={onToggle}>
-          {isOpen ? '‹' : '›'}
-        </button>
       </div>
-      
-      <nav className="sidebar-nav">
+
+      <ul className="sidebar-nav list-unstyled">
         {menuItems.map((item) => (
-          <NavLink
-            key={item.path}
-            to={item.path}
-            className={({ isActive }) => 
-              `nav-item ${isActive ? 'active' : ''}`
-            }
-          >
-            <span className="nav-icon">{item.icon}</span>
-            {isOpen && <span className="nav-label">{item.label}</span>}
-          </NavLink>
+          <li key={item.path}>
+            <NavLink
+              to={item.path}
+              className={({ isActive }) =>
+                `nav-item ${isActive ? 'active' : ''}`
+              }
+            >
+              <span className="nav-icon">{item.icon}</span>
+              {isOpen && <span className="nav-label">{item.label}</span>}
+            </NavLink>
+          </li>
         ))}
-      </nav>
-    </aside>
+      </ul>
+    </nav>
   );
 };
 

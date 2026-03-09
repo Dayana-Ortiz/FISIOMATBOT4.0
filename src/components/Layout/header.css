@@ -1,99 +1,149 @@
 .header {
-  background: white;
-  padding: 0 25px;
-  height: 70px;
+  background: #ffffff;
+  padding: 0 1.75rem;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--medium-gray);
-  box-shadow: var(--shadow-sm);
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 1.5rem;
 }
 
 .menu-toggle {
-  background: none;
+  background: transparent;
   border: none;
-  font-size: 1.5rem;
-  color: var(--primary-blue);
+  font-size: 1.6rem;
+  color: var(--accent-orange);
   cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
+  padding: 0.75rem;
+  border-radius: 999px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus-visible {
+  background-color: rgba(253, 123, 65, 0.08);
+  outline: none;
+  transform: translateY(-1px);
 }
 
 .search-container {
   position: relative;
+  max-width: 420px;
+  width: 100%;
 }
 
 .search-icon {
   position: absolute;
-  left: 15px;
+  left: 1.1rem;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-secondary);
+  pointer-events: none;
 }
 
 .search-input {
-  padding: 12px 20px 12px 45px;
+  padding: 0.65rem 1rem 0.65rem 2.5rem;
+  border-radius: 999px;
   border: 1px solid var(--medium-gray);
-  border-radius: 25px;
-  width: 400px;
+  font-size: 0.95rem;
+  background-color: #ffffff;
+}
+
+.search-input:focus {
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 0 0.15rem rgba(253, 123, 65, 0.2);
+  outline: none;
 }
 
 .header-right {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 1.75rem;
 }
 
 .notification-btn {
-  position: relative;
-  background: none;
+  background: transparent;
   border: none;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   color: var(--text-secondary);
+  padding: 0.5rem;
+  border-radius: 999px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.notification-btn:hover,
+.notification-btn:focus-visible {
+  background-color: rgba(253, 123, 65, 0.08);
+  color: var(--accent-orange);
+  outline: none;
+  transform: translateY(-1px);
 }
 
 .notification-badge {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 4px;
+  right: 4px;
   background: var(--accent-orange);
   color: white;
   font-size: 0.7rem;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .user-profile {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.6rem;
+  padding: 0.35rem 0.9rem 0.35rem 0.4rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
+}
+
+.user-profile:hover,
+.user-profile:focus-visible {
+  box-shadow: var(--shadow-sm);
+  border-color: var(--accent-orange);
+  outline: none;
+  transform: translateY(-1px);
 }
 
 .user-avatar {
-  font-size: 2.5rem;
-  color: var(--primary-blue);
+  font-size: 2rem;
+  color: var(--accent-orange);
 }
 
 .user-info {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .user-name {
   font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .user-grade {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .search-container {
+    display: none;
+  }
 }

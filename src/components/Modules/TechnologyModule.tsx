@@ -43,11 +43,18 @@ const TechnologyModule: React.FC = () => {
   const currentSection = sections.find(s => s.id === activeSection);
 
   return (
-    <div className="module-container">
-      <div className="module-header">
-        <h1 className="module-title">💻 Módulo de Tecnología</h1>
-        <p className="module-description">Domina las herramientas del futuro</p>
-      </div>
+    <section className="module-container">
+      <article
+        className="module-header"
+        aria-label="Introducción al módulo de Tecnología"
+      >
+        <h1 className="module-title">💻 Módulo Tecnología</h1>
+        <p className="module-description">
+          Introducción teórica y ejemplos prácticos sobre programación, robótica
+          y redes para comprender los conceptos antes de interactuar con las
+          actividades.
+        </p>
+      </article>
 
       <div className="module-content">
         <div className="sidebar-sections">
@@ -148,7 +155,7 @@ const TechnologyModule: React.FC = () => {
           onClose={() => setShowQuiz(false)}
         />
       )}
-    </div>
+    </section>
   );
 };
 
