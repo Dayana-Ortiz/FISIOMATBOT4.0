@@ -17,7 +17,7 @@ const Dashboard: React.FC = () => {
   const modules: ModuleCard[] = [
     {
       id: 'physics',
-      title: 'Física',
+      title: 'Ciencia',
       icon: '⚛️',
       color: 'var(--accent-orange)',
       progress: 65,

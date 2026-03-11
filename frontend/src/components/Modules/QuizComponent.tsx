@@ -226,11 +226,11 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ module, onClose }) => {
               
               <div className="result-message">
                 {score === questions.length ? (
-                  <p>¡Excelente! Dominas completamente este tema. 🏆</p>
+                  <p>🏆 ¡Excelente! Dominas completamente este tema.</p>
                 ) : score >= questions.length / 2 ? (
-                  <p>¡Buen trabajo! Tienes un buen entendimiento del tema. 👍</p>
+                  <p>👍 ¡Buen trabajo! Tienes un buen entendimiento del tema.</p>
                 ) : (
-                  <p>Sigue practicando. Revisa las lecciones e inténtalo de nuevo. 📚</p>
+                  <p>📚 Sigue practicando. Revisa las lecciones e inténtalo de nuevo.</p>
                 )}
               </div>
               

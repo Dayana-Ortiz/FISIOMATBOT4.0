@@ -9,5 +9,4 @@ const PhysicsPage: React.FC = () => {
     </div>
   );
 };
-
 export default PhysicsPage;

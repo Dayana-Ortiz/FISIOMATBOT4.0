@@ -10,7 +10,7 @@ interface ModuleProgress {
 
 const ProgressTracker: React.FC = () => {
   const modules: ModuleProgress[] = [
-    { name: 'Física', progress: 65, icon: '🔥', color: 'var(--primary-blue)' },
+    { name: 'Ciencia', progress: 65, icon: '🔥', color: 'var(--primary-blue)' },
     { name: 'Matemáticas', progress: 80, icon: '🧮', color: 'var(--secondary-blue)' },
     { name: 'Tecnología', progress: 45, icon: '💻', color: 'var(--medium-gray)' },
     { name: 'Simulador', progress: 90, icon: '🎮', color: 'var(--accent-green)' },

@@ -16,7 +16,7 @@ interface MenuItem {
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
   const menuItems: MenuItem[] = [
     { path: '/dashboard', icon: '🏠', label: 'Inicio' },
-    { path: '/physics', icon: '⚛️', label: 'Física' },
+    { path: '/physics', icon: '⚛️', label: 'Ciencia' },
     { path: '/mathematics', icon: '🧮', label: 'Matemáticas' },
     { path: '/technology', icon: '💻', label: 'Tecnología' },
     { path: '/simulator', icon: '🎮', label: 'Simulador' },

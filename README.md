@@ -14,20 +14,35 @@ Actualmente el foco principal está en el diseño visual, la navegación y la ex
 
 ---
 
+## Estructura monorepo
+
+Este repositorio está organizado como monorepo:
+
+- `frontend/`: aplicación React (CRA).
+- `backend/`: reservado para backend (vacío por ahora).
+- Raíz del repo: documentación (`README.md`, `DocumentacionFMB.txt`, `ManualUsuarioFMB.txt`) y `.gitignore`.
+
+Ejecución local:
+- Desde `frontend/`:
+  - `npm start`
+  - `npm run build`
+
+---
+
 ## Estructura general del frontend
 
-- `public/index.html`
+- `frontend/public/index.html`
   - Página base de la aplicación.
   - Incluye:
     - `<meta name="viewport" content="width=device-width, initial-scale=1" />` para diseño responsive.
     - CSS y JS de **Bootstrap 5** desde CDN.
 
-- `src/index.tsx`
+- `frontend/src/index.tsx`
   - Punto de entrada de React.
   - Renderiza `App` en `#root`.
-  - Importa estilos globales desde `src/styles/globals.css`.
+  - Importa estilos globales desde `frontend/src/styles/globals.css`.
 
-- `src/App.tsx`
+- `frontend/src/App.tsx`
   - Define la navegación principal con `react-router-dom`:
     - `/` y `/dashboard` → `Dashboard` (pantalla principal).
     - `/physics` → `PhysicsPage`.
@@ -41,7 +56,7 @@ Actualmente el foco principal está en el diseño visual, la navegación y la ex
 
 ## Layout y componentes de estructura
 
-### Layout principal (`src/components/Layout/Layout.tsx`)
+### Layout principal (`frontend/src/components/Layout/Layout.tsx`)
 
 Responsabilidades:
 - Mostrar la barra lateral (`Sidebar`).
@@ -56,7 +71,7 @@ Detalles:
 - Se eliminó el `aside` fijo con `ProgressTracker` del layout global.  
   Ahora el panel de progreso solo aparece en la página `/progress`.
 
-Estilos asociados (`src/components/Layout/Layout.css`):
+Estilos asociados (`frontend/src/components/Layout/Layout.css`):
 - `.layout`:
   - `display: flex; min-height: 100vh; background-color: var(--light-gray); overflow-x: hidden;`.
   - `overflow-x: hidden` evita scroll horizontal no deseado.
@@ -65,7 +80,7 @@ Estilos asociados (`src/components/Layout/Layout.css`):
 - `.main-view`:
   - Tarjeta blanca con borde redondeado y sombra suave.
 
-### Sidebar (`src/components/Layout/Sidebar.tsx` / `.css`)
+### Sidebar (`frontend/src/components/Layout/Sidebar.tsx` / `.css`)
 
 - Componente de navegación lateral implementado como:
   - `<nav className="sidebar ..." aria-label="Navegación principal de módulos">`
@@ -82,7 +97,7 @@ Mejoras recientes:
   - Botones tipo píldora con mayor área clicable.
   - Comportamiento tipo panel fijo con sombra en móviles.
 
-### Header (`src/components/Layout/header.tsx` / `.css`)
+### Header (`frontend/src/components/Layout/header.tsx` / `.css`)
 
 Funciones:
 - Botón de menú (icono de tres líneas) que controla la apertura/cierre del sidebar.
@@ -96,7 +111,7 @@ Mejoras recientes:
 - El buscador es minimalista, con bordes redondeados tipo pill y sombras al enfocar.
 - En móviles se oculta el buscador para ganar espacio.
 
-### Footer (`src/components/Layout/Footer.tsx` / `.css`)
+### Footer (`frontend/src/components/Layout/Footer.tsx` / `.css`)
 
 Estructura:
 - `<footer className="footer">`
@@ -118,7 +133,7 @@ Mejoras recientes:
 
 ## Páginas principales
 
-### Dashboard (`src/pages/Dashboard.tsx` / `.css`)
+### Dashboard (`frontend/src/pages/Dashboard.tsx` / `.css`)
 
 Responsabilidades:
 - Pantalla de bienvenida al estudiante.
@@ -150,7 +165,7 @@ Los cuatro módulos principales (`PhysicsModule`, `MathematicsModule`, `Technolo
   - Columna izquierda: lista de lecciones o simulaciones (botones) y acciones secundarias.
   - Columna derecha: caja de contenido interactivo (`Card` o área de simulación) donde se muestran explicaciones, ejemplos, gráficos o controles.
 
-### Progreso (`src/pages/ProgressPage.tsx`)
+### Progreso (`frontend/src/pages/ProgressPage.tsx`)
 
 Objetivo:
 - Centralizar toda la información de progreso del estudiante.
@@ -162,7 +177,7 @@ Estructura:
     - Columna principal (`col-12 col-lg-8`) para resumen/historial.
     - `aside` (`col-12 col-lg-4`) con el componente `ProgressTracker` dentro de una tarjeta blanca.
 
-### Panel de progreso (`src/components/Layout/ProgressTracker.tsx` / `.css`)
+### Panel de progreso (`frontend/src/components/Layout/ProgressTracker.tsx` / `.css`)
 
 - Muestra progreso general y por módulo (Física, Matemáticas, Tecnología, Simulador).
 - Usa barras de progreso con diferentes colores.
@@ -172,7 +187,7 @@ Estructura:
 
 ## Estilos globales y paleta
 
-- Archivo: `src/styles/globals.css`
+- Archivo: `frontend/src/styles/globals.css`
 - Incluye:
   - Reset básico (`* { margin: 0; padding: 0; box-sizing: border-box; }`).
   - Variables de color:

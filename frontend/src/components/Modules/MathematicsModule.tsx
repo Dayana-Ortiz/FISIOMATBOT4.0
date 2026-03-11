@@ -46,7 +46,7 @@ const MathematicsModule: React.FC = () => {
   return (
     <div className="module-container">
       <div className="module-header">
-        <h1 className="module-title">Módulo de Matemáticas 🧮</h1>
+        <h1 className="module-title">🧮 Módulo de Matemáticas</h1>
       </div>
 
       <article className="module-intro">

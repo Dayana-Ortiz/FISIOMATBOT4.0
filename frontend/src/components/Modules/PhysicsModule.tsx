@@ -20,7 +20,7 @@ const PhysicsModule: React.FC = () => {
   const sections: Section[] = [
     {
       id: 'intro',
-      title: 'Introducción a la Física',
+      title: 'Introducción a la Ciencia',
       content: 'La física es la ciencia que estudia las propiedades de la materia y la energía, y las relaciones entre ellas. Se basa en la observación y experimentación para formular leyes que describen el comportamiento del universo.',
       formulas: ['F = m × a', 'v = d/t'],
       examples: ['Un carro que acelera a 2 m/s² con masa de 1000kg tiene una fuerza de 2000N']
@@ -46,7 +46,7 @@ const PhysicsModule: React.FC = () => {
   return (
     <div className="module-container">
       <div className="module-header">
-        <h1 className="module-title">Módulo de Física ⚛️</h1>
+        <h1 className="module-title">⚛️ Módulo de Ciencia</h1>
       </div>
 
       <article className="module-intro">
