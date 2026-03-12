@@ -7,6 +7,8 @@ import MathematicsPage from './pages/MathematicsPage.tsx';
 import TechnologyPage from './pages/TechnologyPage.tsx';
 import SimulatorPage from './pages/SimulatorPage.tsx';
 import ProgressPage from './pages/ProgressPage.tsx';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 const App: React.FC = () => {
   return (
@@ -20,6 +22,7 @@ const App: React.FC = () => {
           <Route path="technology" element={<TechnologyPage />} />
           <Route path="simulator" element={<SimulatorPage />} />
           <Route path="progress" element={<ProgressPage />} />
+          
         </Route>
       </Routes>
     </Router>
