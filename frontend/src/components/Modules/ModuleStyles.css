@@ -50,27 +50,53 @@
   gap: 30px;
 }
 
+<<<<<<< HEAD
 .sidebar-sections {
   display: flex;
   flex-direction: column;
   gap: 15px;
+=======
+.module-content.simulator-layout {
+  grid-template-columns: 1fr 300px;
+}
+
+.sidebar-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-self: start;
+>>>>>>> master
 }
 
 .sidebar-sections h3 {
   color: var(--dark-gray);
+<<<<<<< HEAD
   font-size: 1.3rem;
   margin-bottom: 10px;
+=======
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+>>>>>>> master
 }
 
 .section-btn {
   display: flex;
   align-items: center;
+<<<<<<< HEAD
   gap: 15px;
   padding: 15px 20px;
   background: white;
   border: 2px solid var(--medium-gray);
   border-radius: 10px;
   font-size: 1rem;
+=======
+  gap: 12px;
+  padding: 10px 16px;
+  background: white;
+  border: 1px solid var(--medium-gray);
+  border-radius: 8px;
+  font-size: 0.9rem;
+>>>>>>> master
   text-align: left;
   cursor: pointer;
   transition: all 0.3s;
@@ -277,6 +303,7 @@
   gap: 15px;
 }
 
+<<<<<<< HEAD
 /* Estilos específicos para Simulador */
 .simulation-container {
   padding: 25px;
@@ -295,11 +322,251 @@
   padding: 20px;
   min-height: 300px;
   border: 2px dashed var(--medium-gray);
+=======
+/* Estilos Inmersivos Identidad Fisiomatbot - Versión Pro */
+.fmb-inmersive-layout {
+  position: relative;
+  width: calc(100% + 60px); 
+  height: calc(100vh - 120px);
+  min-height: 650px;
+  margin: -30px -30px 0 -30px;
+  background: #0f172a; /* Fondo oscuro profundo */
+  border-radius: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.simulation-canvas-area {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.inmersive-view {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 100%);
+}
+
+/* Fondos Branding */
+.physics-bg { background: linear-gradient(135deg, #075985 0%, #0369a1 100%); }
+.math-bg { background: #ffffff; }
+.circuit-bg { background: #111827; }
+
+/* PANEL FLOTANTE FISIOMATBOT */
+.fmb-floating-panel {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  width: 280px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(253, 123, 65, 0.2); /* Borde naranja sutil */
+  border-radius: 20px;
+  z-index: 10;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.fmb-panel-header h4 {
+  margin: 0 0 15px 0;
+  font-size: 1.1rem;
+  color: var(--dark-gray);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 2px solid rgba(253, 123, 65, 0.1);
+  padding-bottom: 12px;
+}
+
+.fmb-control-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.fmb-check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.fmb-check-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #FD7B41;
+}
+
+.fmb-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.05);
+  margin: 5px 0;
+}
+
+.fmb-slider-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.fmb-brand-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 10px;
+  background: #e2e8f0;
+  accent-color: #FD7B41;
+  cursor: pointer;
+}
+
+/* BARRA DE ACCIÓN FLOTANTE */
+.fmb-action-bar {
+  position: absolute;
+  bottom: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.fmb-playback-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(15, 23, 42, 0.7);
+  padding: 8px 15px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.fmb-round-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fmb-round-btn.primary-action {
+  background: #FD7B41; /* Naranja FMB */
+  color: white;
+  box-shadow: 0 4px 15px rgba(253, 123, 65, 0.4);
+}
+
+.fmb-round-btn.secondary-action {
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f172a;
+}
+
+.fmb-round-btn:hover {
+  transform: scale(1.1) translateY(-2px);
+}
+
+.fmb-speed-selector {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px;
+  border-radius: 30px;
+  margin-left: 10px;
+}
+
+.speed-tab {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.speed-tab.active {
+  background: white;
+  color: #0f172a;
+}
+
+/* NAVEGACIÓN INFERIOR FISIOMATBOT */
+.fmb-mode-navigation {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  z-index: 20;
+  padding: 0 40px;
+  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.1);
+}
+
+.fmb-mode-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 10px 20px;
+  border-radius: 12px;
+  min-width: 100px;
+}
+
+.fmb-mode-btn.active {
+  color: #FD7B41;
+  background: rgba(253, 123, 65, 0.1);
+}
+
+.fmb-mode-icon {
+  font-size: 1.6rem;
+  margin-bottom: 4px;
+}
+
+.fmb-mode-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.fmb-nav-separator {
+  width: 2px;
+  height: 40px;
+  background: #f1f5f9;
+}
+
+.quiz-accent {
+  color: #3b82f6 !important;
+}
+
+.quiz-accent.active {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+/* Ajustes de simulación BRANDED */
+.physics-simulation, .math-simulation, .circuit-simulation {
+  width: 100%;
+  height: 100%;
+>>>>>>> master
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+<<<<<<< HEAD
 .physics-simulation {
   width: 100%;
   height: 100%;
@@ -386,6 +653,22 @@
 .stat-value {
   font-weight: 600;
   color: var(--dark-gray);
+=======
+.projectile-trajectory {
+  width: 85%;
+  height: 450px;
+  border-bottom: 20px solid #fbbf24; /* Suelo color arena/marca */
+  position: relative;
+}
+
+.projectile {
+  width: 32px;
+  height: 32px;
+  background: #FD7B41;
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+>>>>>>> master
 }
 
 /* Estilos para el Quiz */

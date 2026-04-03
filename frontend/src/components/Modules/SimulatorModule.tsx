@@ -59,6 +59,7 @@ const SimulatorModule: React.FC = () => {
         </p>
       </article>
 
+<<<<<<< HEAD
       <div className="module-content">
         <div className="sidebar-sections">
           <h3>Simulaciones Disponibles</h3>
@@ -213,6 +214,131 @@ const SimulatorModule: React.FC = () => {
             </div>
           </Card>
         </div>
+=======
+      <div className="module-content fmb-inmersive-layout">
+        {/* Capa Principal: Simulación */}
+        <div className="simulation-canvas-area">
+          <div className={`simulation-visualization inmersive-view ${activeSimulation}-bg`}>
+            {activeSimulation === 'physics' && (
+              <div className="physics-simulation">
+                <div className="projectile-trajectory">
+                  <div className="projectile" style={{ 
+                    left: `${simulationTime * 10}%`,
+                    bottom: `${Math.sin(simulationTime * 0.5) * 50}%`
+                  }} />
+                </div>
+              </div>
+            )}
+            
+            {activeSimulation === 'math' && (
+              <div className="math-simulation">
+                <div className="graph-container">
+                  <div className="graph-axis">
+                    <div className="graph-line" style={{ 
+                      height: '2px',
+                      width: '100%',
+                      background: 'var(--primary-blue)'
+                    }} />
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {activeSimulation === 'circuit' && (
+              <div className="circuit-simulation">
+                <div className="circuit-diagram">
+                  <div className="battery">🔋</div>
+                  <div className="wire">━━━━</div>
+                  <div className="resistor">⏚</div>
+                  <div className="wire">━━━━</div>
+                  <div className="led">💡</div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Panel de Control Fisiomatbot: Flotante Derecho */}
+        <aside className="fmb-floating-panel">
+          <header className="fmb-panel-header">
+            <h4><FaChartBar /> Parámetros</h4>
+          </header>
+          
+          <div className="fmb-panel-body">
+            <div className="fmb-control-list">
+              <div className="fmb-check-item">
+                <input type="checkbox" id="grid" defaultChecked />
+                <label htmlFor="grid">Ver Cuadrícula</label>
+              </div>
+              <div className="fmb-check-item">
+                <input type="checkbox" id="vectors" />
+                <label htmlFor="vectors">Ver Vectores</label>
+              </div>
+              
+              <div className="fmb-divider" />
+
+              {currentSimulation?.parameters.map((param, index) => (
+                <div key={index} className="fmb-slider-group">
+                  <label>{param}</label>
+                  <div className="fmb-slider-wrapper">
+                    <input type="range" min="0" max="100" className="fmb-brand-slider" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </aside>
+
+        {/* Controles de Acción: Barra Central Inferior */}
+        <div className="fmb-action-bar">
+          <div className="fmb-playback-controls">
+            <button 
+              className="fmb-round-btn primary-action"
+              onClick={() => setIsRunning(!isRunning)}
+              title={isRunning ? 'Pausar' : 'Iniciar'}
+            >
+              {isRunning ? <FaPause /> : <FaPlay />}
+            </button>
+            <button 
+              className="fmb-round-btn secondary-action"
+              onClick={() => setSimulationTime(0)}
+              title="Reiniciar"
+            >
+              <FaRedo />
+            </button>
+            <div className="fmb-speed-selector">
+              <button className="speed-tab active">Normal</button>
+              <button className="speed-tab">Lento</button>
+            </div>
+          </div>
+        </div>
+
+        {/* Navegación Modular: Barra Inferior Fisiomatbot */}
+        <nav className="fmb-mode-navigation">
+          {simulations.map((sim) => (
+            <button
+              key={sim.id}
+              className={`fmb-mode-btn ${activeSimulation === sim.id ? 'active' : ''}`}
+              onClick={() => setActiveSimulation(sim.id)}
+            >
+              <div className="fmb-mode-icon">
+                {sim.id === 'physics' && '⚡'}
+                {sim.id === 'math' && '📈'}
+                {sim.id === 'circuit' && '🔌'}
+              </div>
+              <span className="fmb-mode-name">{sim.title}</span>
+            </button>
+          ))}
+          <div className="fmb-nav-separator" />
+          <button 
+            className="fmb-mode-btn quiz-accent"
+            onClick={() => setShowQuiz(true)}
+          >
+            <div className="fmb-mode-icon"><FaQuestionCircle /></div>
+            <span className="fmb-mode-name">Quiz</span>
+          </button>
+        </nav>
+>>>>>>> master
       </div>
 
       {showQuiz && (
