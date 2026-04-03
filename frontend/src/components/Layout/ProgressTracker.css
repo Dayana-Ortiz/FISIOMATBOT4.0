@@ -1,0 +1,87 @@
+.progress-tracker {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.tracker-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4rem;
+  color: var(--dark-gray);
+  margin-bottom: 10px;
+}
+
+.overall-progress {
+  background: var(--light-gray);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--medium-gray);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.progress-percent {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--primary-blue);
+}
+
+.progress-bar {
+  height: 12px;
+  background: var(--medium-gray);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--primary-blue);
+  border-radius: 6px;
+}
+
+.modules-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modules-progress h4 {
+  color: var(--dark-gray);
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.module-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.module-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.module-icon {
+  font-size: 1.2rem;
+  margin-right: 10px;
+}
+
+.module-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+.module-percent {
+  font-weight: 600;
+  color: var(--dark-gray);
+}

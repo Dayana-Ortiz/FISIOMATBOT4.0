@@ -1,0 +1,336 @@
+MANUAL DE USUARIO FISIOMATHBOT (PRELIMINAR)
+===========================================
+
+NOTA IMPORTANTE
+---------------
+- Este es un borrador inicial del manual de usuario.
+- Las secciones donde se requiere contenido audiovisual (imágenes, vídeos, audios) están marcadas entre líneas de asteriscos y el texto está en MAYÚSCULAS para que sea fácil de localizar.
+- Más adelante puedes reemplazar esos marcadores con el material correspondiente.
+
+
+1. Introducción
+----------------
+
+FISIOMATHBOT es una plataforma web educativa orientada a estudiantes de educación media (grados 9, 10 y 11) que desean fortalecer sus conocimientos en áreas STEM:
+- Física
+- Matemáticas
+- Tecnología
+- Simulaciones interactivas
+
+El objetivo principal es ofrecer un entorno simple, ordenado y amigable para que el estudiante pueda:
+- Acceder rápidamente a los módulos.
+- Visualizar su progreso.
+- Navegar sin distracciones con una interfaz clara (paleta naranja/blanco, diseño minimalista).
+
+
+2. Requisitos mínimos
+----------------------
+
+- **Dispositivo**:
+  - Computadora portátil o de escritorio.
+  - También se puede usar en tabletas; en teléfonos funciona, pero se recomienda pantalla de al menos 10" para mejor visualización.
+
+- **Navegador recomendado**:
+  - Google Chrome (versión reciente).
+  - También compatible con Microsoft Edge y Mozilla Firefox.
+
+- **Conexión a Internet**:
+  - Estable, suficiente para cargar contenidos web (no requiere grandes anchos de banda salvo para futuros recursos multimedia).
+
+
+3. Acceso a la plataforma
+--------------------------
+
+3.1. Inicio de la aplicación (entorno de pruebas)
+-------------------------------------------------
+
+En el entorno local de desarrollo (para pruebas) la aplicación suele abrirse desde:
+- Un servidor de desarrollo de React (`npm start`), que abre el navegador en una URL similar a:
+  - `http://localhost:3000/`
+
+Una vez abierto el navegador en esa URL, la primera pantalla visible es el **Dashboard** (pantalla principal de inicio).
+
+************************************************************
+*** [AQUÍ INSERTAR CAPTURA DE PANTALLA DEL DASHBOARD]    ***
+*** Vista completa de la pantalla inicial a 100% zoom.   ***
+************************************************************
+
+
+4. Estructura general de la interfaz
+-------------------------------------
+
+La interfaz de FISIOMATHBOT se organiza en cuatro zonas principales:
+
+1. **Barra lateral izquierda (Sidebar)**:
+   - Contiene el menú de navegación con los módulos:
+     - Inicio
+     - Física
+     - Matemáticas
+     - Tecnología
+     - Simulador
+     - Progreso
+     - Perfil
+     - Admin (para futuras funciones administrativas)
+
+2. **Barra superior (Header)**:
+   - Botón de menú (tres líneas) para mostrar u ocultar la barra lateral en pantallas pequeñas.
+   - Barra de búsqueda.
+   - Icono de notificaciones.
+   - Menú de usuario (perfil) desplegable.
+
+3. **Área central de contenido**:
+   - Donde se muestran las pantallas: Dashboard, Física, Matemáticas, etc.
+
+4. **Pie de página (Footer)**:
+   - Información de la plataforma.
+   - Lista de módulos.
+   - Texto de contacto.
+
+************************************************************
+*** [AQUÍ INSERTAR CAPTURA GENERAL CON FLECHAS/ETIQUETAS] ***
+*** Señalando: sidebar, header, contenido, footer.       ***
+************************************************************
+
+
+5. Navegación principal
+------------------------
+
+5.1. Menú lateral (Sidebar)
+---------------------------
+
+- Para abrir/cerrar el menú lateral:
+  - Hacer clic en el botón de **tres líneas** situado en la esquina superior izquierda (en el header).
+- Una vez visible el menú:
+  - Hacer clic en cualquiera de las opciones:
+    - **Inicio**: vuelve al Dashboard general.
+    - **Física**: página de contenidos de física.
+    - **Matemáticas**: página de contenidos de matemáticas.
+    - **Tecnología**: página de contenidos de tecnología y programación.
+    - **Simulador**: acceso a simulaciones y actividades interactivas.
+    - **Progreso**: vista dedicada a estadísticas y avance del estudiante.
+    - **Perfil**: datos del usuario (pendiente de implementación completa).
+    - **Admin**: área administrativa (pendiente de implementación).
+
+El elemento actualmente seleccionado aparece resaltado en color **naranja**, indicando la sección activa.
+
+************************************************************
+*** [AQUÍ INSERTAR CAPTURA DEL SIDEBAR ABIERTO]          ***
+*** Resaltando un módulo activo, por ejemplo "Inicio".   ***
+************************************************************
+
+
+5.2. Barra superior (Header)
+-----------------------------
+
+Elementos principales:
+
+- **Botón de menú (tres líneas)**:
+  - Abre o cierra el menú lateral.
+  - Útil en pantallas pequeñas donde el menú se oculta para ganar espacio.
+
+- **Barra de búsqueda**:
+  - Campo de texto para buscar lecciones, quizzes u otros recursos (funcionalidad ampliable en el futuro).
+  - La barra puede ocultarse en pantallas muy pequeñas para priorizar el contenido.
+
+- **Icono de notificaciones**:
+  - Muestra un pequeño indicador numérico con la cantidad de notificaciones pendientes.
+  - En futuras versiones puede enlazar a una lista de mensajes, recordatorios o avisos del docente.
+
+- **Perfil de usuario (avatar y nombre)**:
+  - Al hacer clic, se despliega un menú con opciones:
+    - Perfil
+    - Configuración
+    - Cerrar sesión
+  - Algunas de estas opciones son placeholders para futuras funcionalidades.
+
+************************************************************
+*** [AQUÍ INSERTAR CAPTURA DEL HEADER]                   ***
+*** Detallando cada icono y la barra de búsqueda.        ***
+************************************************************
+
+
+6. Uso del Dashboard (pantalla de inicio)
+------------------------------------------
+
+El Dashboard es la primera vista al entrar a la plataforma. Está dividido en:
+
+1. **Mensaje de bienvenida**:
+   - Indica que el estudiante ha ingresado nuevamente.
+   - Puede mostrar un breve texto motivacional.
+
+2. **Tarjetas de estadísticas**:
+   - Progreso total (% de avance global).
+   - Número de logros.
+   - Sesiones realizadas en la semana.
+   - Lecciones completadas.
+
+3. **Sección "Tus módulos"**:
+   - Muestra tarjetas para:
+     - Física
+     - Matemáticas
+     - Tecnología
+     - Simulador
+   - Cada tarjeta incluye:
+     - Icono representativo.
+     - Nombre del módulo.
+     - Descripción corta.
+     - Barra de progreso (%).
+     - Botón **"Continuar"**.
+
+Acciones típicas del usuario:
+- Revisar las tarjetas de estadísticas para tener una idea rápida de su avance.
+- Seleccionar un módulo haciendo clic en la tarjeta o en el botón "Continuar".
+
+************************************************************
+*** [AQUÍ INSERTAR CAPTURA DEL BLOQUE DE ESTADÍSTICAS]   ***
+*** Con los valores de ejemplo (progreso, logros, etc.). ***
+************************************************************
+
+************************************************************
+*** [AQUÍ INSERTAR CAPTURA DE LAS TARJETAS DE MÓDULOS]   ***
+*** Mostrando Física, Matemáticas, Tecnología, Simulador.***
+************************************************************
+
+
+7. Página de Progreso
+----------------------
+
+En la sección **Progreso** (accesible desde el menú lateral), el estudiante puede consultar:
+
+- **Resumen de estudio**:
+  - Texto general donde se puede explicar el rendimiento global, hábitos de estudio, etc.
+  - Actualmente es un bloque de texto informativo, pensado para ampliarse en el futuro con más datos.
+
+- **Panel lateral de progreso (ProgressTracker)**:
+  - Muestra:
+    - Progreso general (porcentaje global).
+    - Progreso específico en cada módulo:
+      - Física
+      - Matemáticas
+      - Tecnología
+      - Simulador
+  - Cada módulo tiene una barra independiente con su porcentaje.
+
+Pasos para el usuario:
+1. Desde el menú lateral, hacer clic en **Progreso**.
+2. Revisar el panel central para leer el resumen.
+3. Observar el panel lateral con las barras de progreso por módulo.
+
+************************************************************
+*** [AQUÍ INSERTAR CAPTURA DE LA PÁGINA "PROGRESO"]      ***
+*** Mostrando la columna central y el panel lateral.      ***
+************************************************************
+
+
+8. Módulos de contenido (Física, Matemáticas, Tecnología, Simulador)
+---------------------------------------------------------------------
+
+8.1. Estructura común de los módulos
+------------------------------------
+
+Cada módulo (Física, Matemáticas, Tecnología y Simulador) comparte la misma organización visual:
+
+1. **Título del módulo**  
+   - En la parte superior aparece un título como:
+     - "Módulo de Física"
+     - "Módulo de Matemáticas"
+     - "Módulo de Tecnología"
+     - "Módulo Simulador"
+
+2. **Artículo de introducción (sección central)**  
+   - Justo debajo del título hay una tarjeta centrada (equivalente a un `<article>` en HTML) con:
+     - Un subtítulo, por ejemplo: "Introducción al módulo".
+     - Un párrafo que explica brevemente:
+       - Qué se estudia en ese módulo.
+       - Cómo se recomienda usar las lecciones o simulaciones.
+   - Esta sección sirve como material de apoyo inicial para el estudiante antes de entrar a los detalles.
+
+3. **Zona inferior en dos columnas**  
+   Debajo de la introducción se encuentra la parte interactiva dividida en:
+
+   - **Columna izquierda (botones de lecciones/simulaciones)**:
+     - Una lista de botones con las diferentes lecciones o simulaciones disponibles.
+     - Cada botón cambia el contenido que se muestra en la columna derecha.
+     - En algunos módulos hay botones adicionales para:
+       - Empezar una simulación.
+       - Abrir un quiz o evaluación.
+       - Abrir un editor de código, etc.
+
+   - **Columna derecha (caja de contenido interactivo)**:
+     - Es un panel donde se presenta el contenido según la opción elegida:
+       - Explicaciones teóricas.
+       - Fórmulas y ejemplos.
+       - Gráficas o áreas de simulación.
+       - Actividades prácticas y campos de respuesta.
+
+************************************************************
+*** [AQUÍ INSERTAR CAPTURA DE UN MÓDULO CUALQUIERA]      ***
+*** Mostrando: título, intro centrada y dos columnas.     ***
+************************************************************
+
+
+8.2. Acceder y usar un módulo paso a paso
+-----------------------------------------
+
+Para entrar y trabajar dentro de un módulo:
+
+1. Abrir el menú lateral (si no está visible).
+2. Hacer clic en el nombre del módulo deseado:
+   - Física
+   - Matemáticas
+   - Tecnología
+   - Simulador
+3. Leer primero la **introducción del módulo** (tarjeta centrada).
+4. Bajar a la zona de dos columnas:
+   - Usar los **botones de la columna izquierda** para seleccionar la lección/simulación.
+   - Observar el contenido en la **caja interactiva de la derecha**.
+
+Recomendación de uso:
+- Siempre comenzar por la introducción, luego avanzar lección por lección usando los botones.
+
+************************************************************
+*** [AQUÍ INSERTAR CAPTURA ZOOM A BOTONES + CAJA]        ***
+*** Enfocando la interacción botones ↔ contenido.         ***
+************************************************************
+
+
+9. Buenas prácticas de uso para el estudiante
+---------------------------------------------
+
+- Trabajar en sesiones de tiempo razonables (por ejemplo 30–45 minutos) para no fatigarse.
+- Revisar con frecuencia la sección **Progreso** para:
+  - Identificar módulos con menor avance.
+  - Planificar qué temas reforzar.
+- Utilizar la barra de búsqueda (cuando esté completamente implementada) para:
+  - Encontrar lecciones específicas o quizzes relacionados con un tema.
+
+
+10. Notas para futuros añadidos audiovisuales
+----------------------------------------------
+
+En este manual se han dejado marcados los puntos donde se recomienda añadir:
+- Capturas de pantalla con anotaciones.
+- Posibles GIFs o vídeos cortos mostrando:
+  - Cómo abrir/cerrar el menú.
+  - Cómo navegar entre módulos.
+  - Cómo interpretar la sección de Progreso.
+- Audios explicativos (por ejemplo, breves introducciones habladas a la plataforma).
+
+Recomendaciones:
+- Mantener el mismo estilo visual en las capturas (mismo zoom, misma resolución).
+- Guardar las imágenes en una carpeta del proyecto (por ejemplo, `docs/assets`) y nombrarlas de forma clara:
+  - `dashboard_general.png`
+  - `sidebar_abierto.png`
+  - `pagina_progreso.png`
+
+
+11. Historial de versiones del manual
+--------------------------------------
+
+- Versión 0.1 (preliminar, texto plano):
+  - Estructura básica del manual.
+  - Descripción de navegación y pantallas principales.
+  - Marcadores para contenido audiovisual.
+
+Fin del documento.
+
