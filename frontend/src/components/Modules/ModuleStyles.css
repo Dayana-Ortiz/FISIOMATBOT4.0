@@ -1,4 +1,4 @@
-﻿/* Estilos para todos los m├│dulos */
+/* Estilos para todos los módulos */
 .module-container {
   display: flex;
   flex-direction: column;
@@ -186,7 +186,7 @@
   border-top: 1px solid var(--medium-gray);
 }
 
-/* Estilos espec├¡ficos para Matem├íticas */
+/* Estilos específicos para Matemáticas */
 .problem-box {
   background: white;
   padding: 15px;
@@ -220,7 +220,7 @@
   margin: 10px 0;
 }
 
-/* Estilos espec├¡ficos para Tecnolog├¡a */
+/* Estilos específicos para Tecnología */
 .code-section {
   background: var(--dark-gray);
   padding: 20px;
@@ -282,7 +282,7 @@
   gap: 15px;
 }
 
-/* Estilos Inmersivos Identidad Fisiomatbot - Versi├│n Pro */
+/* Estilos Inmersivos Identidad Fisiomatbot - Versión Pro */
 .fmb-inmersive-layout {
   position: relative;
   width: calc(100% + 60px); 
@@ -383,7 +383,7 @@
   cursor: pointer;
 }
 
-/* BARRA DE ACCI├ôN FLOTANTE */
+/* BARRA DE ACCIÓN FLOTANTE */
 .fmb-action-bar {
   position: absolute;
   bottom: 110px;
@@ -455,7 +455,7 @@
   color: #0f172a;
 }
 
-/* NAVEGACI├ôN INFERIOR FISIOMATBOT */
+/* NAVEGACIÓN INFERIOR FISIOMATBOT */
 .fmb-mode-navigation {
   position: absolute;
   bottom: 0;
@@ -515,7 +515,7 @@
   background: rgba(59, 130, 246, 0.1);
 }
 
-/* Ajustes de simulaci├│n BRANDED */
+/* Ajustes de simulación BRANDED */
 .physics-simulation, .math-simulation, .circuit-simulation {
   width: 100%;
   height: 100%;

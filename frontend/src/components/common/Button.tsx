@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import './CommonStyles.css';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'danger';

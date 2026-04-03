@@ -1,4 +1,4 @@
-﻿import React, { CSSProperties } from 'react';
+import React, { CSSProperties } from 'react';
 import { motion } from 'framer-motion';
 import './CommonStyles.css';
 

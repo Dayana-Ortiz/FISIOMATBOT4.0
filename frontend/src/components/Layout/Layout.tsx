@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './header.tsx';
 import Sidebar from './Sidebar.tsx';
@@ -10,7 +10,7 @@ const Layout: React.FC = () => {
 
   return (
     <div className="layout">
-      {/* Backdrop (fondo oscuro) al abrir el men├║ en m├│viles o desktop */}
+      {/* Backdrop (fondo oscuro) al abrir el menú en móviles o desktop */}
       {sidebarOpen && (
         <div 
           className="sidebar-overlay" 

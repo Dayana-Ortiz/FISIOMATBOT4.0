@@ -1,4 +1,4 @@
-﻿.sidebar {
+.sidebar {
   position: fixed;
   inset-block: 0;
   left: 0;
@@ -19,7 +19,7 @@
 }
 
 .sidebar.closed {
-  /* No se usa ancho m├¡nimo, se oculta completamente */
+  /* No se usa ancho mínimo, se oculta completamente */
   transform: translateX(-100%);
 }
 
