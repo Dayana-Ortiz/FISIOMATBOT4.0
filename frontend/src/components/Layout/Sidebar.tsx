@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
 
@@ -15,29 +15,25 @@ interface MenuItem {
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
   const menuItems: MenuItem[] = [
-    { path: '/dashboard', icon: '🏠', label: 'Inicio' },
-    { path: '/physics', icon: '⚛️', label: 'Ciencia' },
-    { path: '/mathematics', icon: '🧮', label: 'Matemáticas' },
-    { path: '/technology', icon: '💻', label: 'Tecnología' },
-    { path: '/simulator', icon: '🎮', label: 'Simulador' },
-    { path: '/progress', icon: '📈', label: 'Progreso' },
-    { path: '/profile', icon: '👤', label: 'Perfil' },
-    { path: '/admin', icon: '⚙️', label: 'Admin' },
+    { path: '/dashboard', icon: '­ƒÅá', label: 'Inicio' },
+    { path: '/physics', icon: 'ÔÜø´©Å', label: 'Ciencia' },
+    { path: '/mathematics', icon: '­ƒº«', label: 'Matem├íticas' },
+    { path: '/technology', icon: '­ƒÆ╗', label: 'Tecnolog├¡a' },
+    { path: '/simulator', icon: '­ƒÄ«', label: 'Simulador' },
+    { path: '/progress', icon: '­ƒôê', label: 'Progreso' },
+    { path: '/profile', icon: '­ƒæñ', label: 'Perfil' },
+    { path: '/admin', icon: 'ÔÜÖ´©Å', label: 'Admin' },
   ];
 
   return (
     <nav
       className={`sidebar ${isOpen ? 'open' : 'closed'}`}
-      aria-label="Navegación principal de módulos"
+      aria-label="Navegaci├│n principal de m├│dulos"
     >
       <div className="sidebar-header">
         <div className="logo">
-          <span className="logo-icon">🎓</span>
-<<<<<<< HEAD
-          {isOpen && <span className="logo-text">FisioMathBoth</span>}
-=======
+          <span className="logo-icon">­ƒÄô</span>
           <span className="logo-text">FisioMathBoth</span>
->>>>>>> master
         </div>
       </div>
 
@@ -49,19 +45,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
               className={({ isActive }) =>
                 `nav-item ${isActive ? 'active' : ''}`
               }
-<<<<<<< HEAD
-=======
-              onClick={onToggle} // Al hacer clic en un enlace, cerramos el menú
->>>>>>> master
+              onClick={onToggle} // Al hacer clic en un enlace, cerramos el men├║
             >
               <span className="nav-icon" aria-hidden="true">
                 {item.icon}
               </span>
-<<<<<<< HEAD
-              {isOpen && <span className="nav-label">{item.label}</span>}
-=======
               <span className="nav-label">{item.label}</span>
->>>>>>> master
             </NavLink>
           </li>
         ))}

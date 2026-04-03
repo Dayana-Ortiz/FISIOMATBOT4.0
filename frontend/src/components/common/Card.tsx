@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+﻿import React, { CSSProperties } from 'react';
 import { motion } from 'framer-motion';
 import './CommonStyles.css';
 
@@ -9,10 +9,7 @@ interface CardProps {
   onClick?: () => void;
   color?: string;
   style?: CSSProperties;
-<<<<<<< HEAD
-=======
   noPadding?: boolean;
->>>>>>> master
 }
 
 const Card: React.FC<CardProps> = ({
@@ -21,13 +18,6 @@ const Card: React.FC<CardProps> = ({
   hoverable = true,
   onClick,
   color,
-<<<<<<< HEAD
-  style
-}) => {
-  const cardStyle: CSSProperties = {
-    ...style,
-    ...(color ? { borderTop: `4px solid ${color}` } : {})
-=======
   style,
   noPadding = false
 }) => {
@@ -35,16 +25,11 @@ const Card: React.FC<CardProps> = ({
     ...style,
     ...(color ? { borderTop: `4px solid ${color}` } : {}),
     ...(noPadding ? { padding: 0 } : {})
->>>>>>> master
   };
 
   return (
     <motion.div
-<<<<<<< HEAD
-      className={`card ${className} ${hoverable ? 'hoverable' : ''}`}
-=======
       className={`card ${className} ${hoverable ? 'hoverable' : ''} ${noPadding ? 'no-padding' : ''}`}
->>>>>>> master
       style={cardStyle}
       onClick={onClick}
       role={onClick ? 'button' : undefined}

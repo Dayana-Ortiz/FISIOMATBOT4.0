@@ -1,4 +1,4 @@
-/* Estilos para Card */
+﻿/* Estilos para Card */
 .card {
   background: white;
   border-radius: var(--border-radius);
@@ -11,13 +11,10 @@
   cursor: pointer;
 }
 
-<<<<<<< HEAD
-=======
 .card.no-padding {
   padding: 0 !important;
 }
 
->>>>>>> master
 /* Estilos para Button */
 .btn {
   display: inline-flex;

@@ -1,4 +1,4 @@
-/* Estilos para todos los módulos */
+﻿/* Estilos para todos los m├│dulos */
 .module-container {
   display: flex;
   flex-direction: column;
@@ -50,12 +50,6 @@
   gap: 30px;
 }
 
-<<<<<<< HEAD
-.sidebar-sections {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-=======
 .module-content.simulator-layout {
   grid-template-columns: 1fr 300px;
 }
@@ -65,38 +59,23 @@
   flex-direction: column;
   gap: 12px;
   align-self: start;
->>>>>>> master
 }
 
 .sidebar-sections h3 {
   color: var(--dark-gray);
-<<<<<<< HEAD
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-=======
   font-size: 1.1rem;
   margin-bottom: 5px;
->>>>>>> master
 }
 
 .section-btn {
   display: flex;
   align-items: center;
-<<<<<<< HEAD
-  gap: 15px;
-  padding: 15px 20px;
-  background: white;
-  border: 2px solid var(--medium-gray);
-  border-radius: 10px;
-  font-size: 1rem;
-=======
   gap: 12px;
   padding: 10px 16px;
   background: white;
   border: 1px solid var(--medium-gray);
   border-radius: 8px;
   font-size: 0.9rem;
->>>>>>> master
   text-align: left;
   cursor: pointer;
   transition: all 0.3s;
@@ -207,7 +186,7 @@
   border-top: 1px solid var(--medium-gray);
 }
 
-/* Estilos específicos para Matemáticas */
+/* Estilos espec├¡ficos para Matem├íticas */
 .problem-box {
   background: white;
   padding: 15px;
@@ -241,7 +220,7 @@
   margin: 10px 0;
 }
 
-/* Estilos específicos para Tecnología */
+/* Estilos espec├¡ficos para Tecnolog├¡a */
 .code-section {
   background: var(--dark-gray);
   padding: 20px;
@@ -303,27 +282,7 @@
   gap: 15px;
 }
 
-<<<<<<< HEAD
-/* Estilos específicos para Simulador */
-.simulation-container {
-  padding: 25px;
-}
-
-.simulation-area {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 30px;
-  margin: 25px 0;
-}
-
-.simulation-visualization {
-  background: var(--light-gray);
-  border-radius: 12px;
-  padding: 20px;
-  min-height: 300px;
-  border: 2px dashed var(--medium-gray);
-=======
-/* Estilos Inmersivos Identidad Fisiomatbot - Versión Pro */
+/* Estilos Inmersivos Identidad Fisiomatbot - Versi├│n Pro */
 .fmb-inmersive-layout {
   position: relative;
   width: calc(100% + 60px); 
@@ -424,7 +383,7 @@
   cursor: pointer;
 }
 
-/* BARRA DE ACCIÓN FLOTANTE */
+/* BARRA DE ACCI├ôN FLOTANTE */
 .fmb-action-bar {
   position: absolute;
   bottom: 110px;
@@ -496,7 +455,7 @@
   color: #0f172a;
 }
 
-/* NAVEGACIÓN INFERIOR FISIOMATBOT */
+/* NAVEGACI├ôN INFERIOR FISIOMATBOT */
 .fmb-mode-navigation {
   position: absolute;
   bottom: 0;
@@ -556,104 +515,15 @@
   background: rgba(59, 130, 246, 0.1);
 }
 
-/* Ajustes de simulación BRANDED */
+/* Ajustes de simulaci├│n BRANDED */
 .physics-simulation, .math-simulation, .circuit-simulation {
   width: 100%;
   height: 100%;
->>>>>>> master
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-<<<<<<< HEAD
-.physics-simulation {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.projectile-trajectory {
-  width: 100%;
-  height: 200px;
-  background: linear-gradient(to top, var(--medium-gray), white);
-  border-radius: 8px;
-  position: relative;
-  overflow: hidden;
-}
-
-.projectile {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: var(--primary-blue);
-  border-radius: 50%;
-  transform: translate(-50%, 50%);
-}
-
-.control-panel {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid var(--medium-gray);
-}
-
-.control-group {
-  margin: 15px 0;
-}
-
-.control-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
-  color: var(--dark-gray);
-}
-
-.control-slider {
-  width: 100%;
-  height: 8px;
-  border-radius: 4px;
-  background: var(--light-gray);
-  outline: none;
-}
-
-.simulation-buttons {
-  display: flex;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.simulation-info {
-  background: var(--light-gray);
-  padding: 20px;
-  border-radius: 12px;
-  margin-top: 25px;
-}
-
-.simulation-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.stat {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px;
-  background: white;
-  border-radius: 8px;
-  border: 1px solid var(--medium-gray);
-}
-
-.stat-label {
-  color: var(--text-secondary);
-}
-
-.stat-value {
-  font-weight: 600;
-  color: var(--dark-gray);
-=======
 .projectile-trajectory {
   width: 85%;
   height: 450px;
@@ -668,7 +538,6 @@
   border: 3px solid white;
   border-radius: 50%;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
->>>>>>> master
 }
 
 /* Estilos para el Quiz */

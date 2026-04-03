@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import './CommonStyles.css';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'danger';
@@ -14,10 +14,7 @@ interface ButtonProps {
   icon?: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
   className?: string;
-<<<<<<< HEAD
-=======
   title?: string;
->>>>>>> master
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -29,12 +26,8 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   icon,
   type = 'button',
-<<<<<<< HEAD
-  className = ''
-=======
   className = '',
   title
->>>>>>> master
 }) => {
   return (
     <button
@@ -44,10 +37,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       aria-disabled={disabled}
       tabIndex={disabled ? -1 : undefined}
-<<<<<<< HEAD
-=======
       title={title}
->>>>>>> master
     >
       {icon && <span className="btn-icon">{icon}</span>}
       {children}
