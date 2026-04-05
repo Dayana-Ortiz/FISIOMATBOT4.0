@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
@@ -60,48 +59,67 @@ const MathematicsModule: React.FC = () => {
       </article>
 
       <div className="module-content">
-        <div className="sidebar-sections">
-          <h3>Lecciones</h3>
-          {sections.map((section) => (
-            <button
-              key={section.id}
-              className={`section-btn ${activeSection === section.id ? 'active' : ''}`}
-              onClick={() => setActiveSection(section.id)}
-            >
-              <span className="section-icon">
-                {section.id === 'algebra' && '📊'}
-                {section.id === 'geometry' && '📐'}
-                {section.id === 'calculus' && '📈'}
-              </span>
-              {section.title}
-            </button>
-          ))}
-          
-          <div className="action-buttons">
-            <Button 
-              variant="primary" 
-              onClick={() => {}}
-              fullWidth
-            >
-              🧩 Ejercicios interactivos
-            </Button>
-            <Button 
-              variant="outline" 
-              onClick={() => setShowQuiz(true)}
-              fullWidth
-            >
-              ❓ Evaluación
-            </Button>
-          </div>
+        <div className="module-panels">
+          <aside className="panel left-panel">
+            <div className="sidebar-sections">
+              <h3>Lecciones</h3>
+              {sections.map((section) => (
+                <button
+                  key={section.id}
+                  className={`section-btn ${activeSection === section.id ? 'active' : ''}`}
+                  onClick={() => setActiveSection(section.id)}
+                >
+                  <span className="section-icon">
+                    {section.id === 'algebra' && '📊'}
+                    {section.id === 'geometry' && '📐'}
+                    {section.id === 'calculus' && '📈'}
+                  </span>
+                  {section.title}
+                </button>
+              ))}
+
+              <div className="action-buttons">
+                <Button 
+                  variant="primary" 
+                  onClick={() => {}}
+                  fullWidth
+                >
+                  🧩 Ejercicios interactivos
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowQuiz(true)}
+                  fullWidth
+                >
+                  ❓ Evaluación
+                </Button>
+              </div>
+            </div>
+          </aside>
+
+          <aside className="panel right-panel">
+            <div className="fmb-panel-header">
+              <h4>Resumen rápido</h4>
+            </div>
+            <div className="fmb-panel-body">
+              <p>Sección activa: <strong>{currentSection?.title}</strong></p>
+              <p>Incluye fórmulas clave, ejemplos específicos y práctica guiada.</p>
+              <ul>
+                <li>Duración estimada: 15 min</li>
+                <li>Nivel: Intermedio</li>
+                <li>Práctica recomendada: 3 ejercicios</li>
+              </ul>
+            </div>
+          </aside>
         </div>
 
-        <div className="main-content">
+        <div className="module-detail-area">
           <Card color={'var(--secondary-blue)'}>
             <div className="section-content">
               <h2>{currentSection?.title}</h2>
               <div className="content-body">
                 <p>{currentSection?.content}</p>
-                
+
                 <div className="formulas-section">
                   <h4>📐 Fórmulas Clave</h4>
                   {currentSection?.formulas.map((formula, index) => (
@@ -113,7 +131,7 @@ const MathematicsModule: React.FC = () => {
                     </div>
                   ))}
                 </div>
-                
+
                 <div className="examples-section">
                   <h4>💡 Problemas Resueltos</h4>
                   {currentSection?.problems.map((problem, index) => (
@@ -125,16 +143,16 @@ const MathematicsModule: React.FC = () => {
                     </div>
                   ))}
                 </div>
-              </div>
-              
-              <div className="practice-section">
-                <h4>✏️ Práctica Rápida</h4>
-                <div className="practice-problem">
-                  <p>Resuelve: 3(x - 2) = 15</p>
-                  <input type="text" placeholder="Tu respuesta..." className="answer-input" />
-                  <Button variant="primary" size="small">
-                    Verificar
-                  </Button>
+
+                <div className="practice-section">
+                  <h4>✏️ Práctica Rápida</h4>
+                  <div className="practice-problem">
+                    <p>Resuelve: 3(x - 2) = 15</p>
+                    <input type="text" placeholder="Tu respuesta..." className="answer-input" />
+                    <Button variant="primary" size="small">
+                      Verificar
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>

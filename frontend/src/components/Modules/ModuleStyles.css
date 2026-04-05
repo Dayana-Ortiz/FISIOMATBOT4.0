@@ -46,19 +46,239 @@
 
 .module-content {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 30px;
+  gap: 24px;
+}
+
+.module-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: stretch;
+}
+
+.panel {
+  background: white;
+  border: 1px solid rgba(208, 208, 208, 0.9);
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  padding: 24px;
+}
+
+.left-panel {
+  min-width: 280px;
+}
+
+.right-panel {
+  min-width: 280px;
+}
+
+.module-detail-area {
+  background: #0b1b3a;
+  border-radius: 24px;
+  padding: 28px;
+}
+
+.module-detail-area .section-content {
+  padding: 0;
+}
+
+.module-detail-area .content-body {
+  margin-bottom: 0;
 }
 
 .module-content.simulator-layout {
   grid-template-columns: 1fr 300px;
 }
 
+.fmb-inmersive-layout {
+  grid-template-columns: 300px 1fr;
+}
+
 .sidebar-sections {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  align-self: start;
+}
+
+.main-content {
+  display: grid;
+  gap: 24px;
+}
+
+.fmb-floating-panel {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  border: 1px solid rgba(208, 208, 208, 0.8);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  overflow: hidden;
+}
+
+.fmb-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: var(--dark-gray);
+}
+
+.fmb-panel-header h4 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.fmb-panel-body {
+  display: grid;
+  gap: 14px;
+}
+
+.fmb-panel-body p,
+.fmb-panel-body li {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.fmb-control-list {
+  display: grid;
+  gap: 16px;
+}
+
+.fmb-check-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-secondary);
+}
+
+.fmb-check-item input {
+  width: 18px;
+  height: 18px;
+}
+
+.fmb-divider {
+  height: 1px;
+  background: var(--light-gray);
+  margin: 10px 0;
+}
+
+.fmb-slider-group {
+  display: grid;
+  gap: 8px;
+}
+
+.fmb-slider-wrapper input[type="range"] {
+  width: 100%;
+}
+
+.fmb-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  border-radius: 18px;
+  background: white;
+  border: 1px solid rgba(208, 208, 208, 0.8);
+  box-shadow: var(--shadow-sm);
+}
+
+.fmb-playback-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.fmb-round-btn {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--medium-gray);
+  background: white;
+  color: var(--dark-gray);
+  transition: all 0.2s ease;
+}
+
+.fmb-round-btn:hover {
+  border-color: var(--primary-blue);
+  color: var(--primary-blue);
+}
+
+.fmb-round-btn.primary-action {
+  background: var(--primary-blue);
+  color: white;
+  border-color: var(--primary-blue);
+}
+
+.fmb-round-btn.secondary-action {
+  background: var(--light-gray);
+}
+
+.fmb-speed-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.speed-tab {
+  background: var(--light-gray);
+  border: none;
+  border-radius: 999px;
+  padding: 10px 16px;
+  color: var(--dark-gray);
+  cursor: pointer;
+}
+
+.speed-tab.active {
+  background: var(--primary-blue);
+  color: white;
+}
+
+.fmb-mode-navigation {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.fmb-mode-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid var(--medium-gray);
+  background: white;
+  color: var(--dark-gray);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: left;
+}
+
+.fmb-mode-btn:hover,
+.fmb-mode-btn.active {
+  border-color: var(--primary-blue);
+  background: var(--secondary-blue);
+  color: var(--dark-gray);
+}
+
+.fmb-mode-icon {
+  font-size: 1.25rem;
+}
+
+.fmb-mode-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.fmb-nav-separator {
+  width: 100%;
+  height: 1px;
+  background: var(--light-gray);
+  margin: 4px 0;
 }
 
 .sidebar-sections h3 {
@@ -257,6 +477,16 @@
   text-align: center;
   font-size: 0.9rem;
   border: 1px solid var(--medium-gray);
+}
+
+@media (max-width: 980px) {
+  .module-panels {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    padding: 20px;
+  }
 }
 
 .hands-on-section {

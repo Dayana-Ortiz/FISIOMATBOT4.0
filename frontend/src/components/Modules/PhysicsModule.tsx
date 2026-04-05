@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
@@ -60,48 +59,67 @@ const PhysicsModule: React.FC = () => {
       </article>
 
       <div className="module-content">
-        <div className="sidebar-sections">
-          <h3>Lecciones</h3>
-          {sections.map((section) => (
-            <button
-              key={section.id}
-              className={`section-btn ${activeSection === section.id ? 'active' : ''}`}
-              onClick={() => setActiveSection(section.id)}
-            >
-              <span className="section-icon">
-                {section.id === 'intro' && '📘'}
-                {section.id === 'movement' && '➡️'}
-                {section.id === 'forces' && '⚙️'}
-              </span>
-              {section.title}
-            </button>
-          ))}
-          
-          <div className="action-buttons">
-            <Button 
-              variant="primary" 
-              onClick={() => {}}
-              fullWidth
-            >
-              🧪 Iniciar simulación
-            </Button>
-            <Button 
-              variant="outline" 
-              onClick={() => setShowQuiz(true)}
-              fullWidth
-            >
-              ❓ Tomar quiz
-            </Button>
-          </div>
+        <div className="module-panels">
+          <aside className="panel left-panel">
+            <div className="sidebar-sections">
+              <h3>Lecciones</h3>
+              {sections.map((section) => (
+                <button
+                  key={section.id}
+                  className={`section-btn ${activeSection === section.id ? 'active' : ''}`}
+                  onClick={() => setActiveSection(section.id)}
+                >
+                  <span className="section-icon">
+                    {section.id === 'intro' && '📘'}
+                    {section.id === 'movement' && '➡️'}
+                    {section.id === 'forces' && '⚙️'}
+                  </span>
+                  {section.title}
+                </button>
+              ))}
+
+              <div className="action-buttons">
+                <Button 
+                  variant="primary" 
+                  onClick={() => {}}
+                  fullWidth
+                >
+                  🧪 Iniciar simulación
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowQuiz(true)}
+                  fullWidth
+                >
+                  ❓ Tomar quiz
+                </Button>
+              </div>
+            </div>
+          </aside>
+
+          <aside className="panel right-panel">
+            <div className="fmb-panel-header">
+              <h4>Resumen científico</h4>
+            </div>
+            <div className="fmb-panel-body">
+              <p>Sección activa: <strong>{currentSection?.title}</strong></p>
+              <p>Explora conceptos con ejemplos prácticos y fórmulas clave.</p>
+              <ul>
+                <li>Tiempo estimado: 12 min</li>
+                <li>Modalidad: explicación + práctica</li>
+                <li>Requiere lectura y ejercicios breves</li>
+              </ul>
+            </div>
+          </aside>
         </div>
 
-        <div className="main-content">
+        <div className="module-detail-area">
           <Card color={'var(--primary-blue)'}>
             <div className="section-content">
               <h2>{currentSection?.title}</h2>
               <div className="content-body">
                 <p>{currentSection?.content}</p>
-                
+
                 {currentSection?.formulas && currentSection.formulas.length > 0 && (
                   <div className="formulas-section">
                     <h4>🧮 Fórmulas importantes</h4>
@@ -112,7 +130,7 @@ const PhysicsModule: React.FC = () => {
                     ))}
                   </div>
                 )}
-                
+
                 {currentSection?.examples && currentSection.examples.length > 0 && (
                   <div className="examples-section">
                     <h4>📝 Ejemplos Prácticos</h4>
@@ -123,15 +141,15 @@ const PhysicsModule: React.FC = () => {
                     ))}
                   </div>
                 )}
-              </div>
-              
-              <div className="section-footer">
-                <Button variant="primary">
-                  Marcar como Completado
-                </Button>
-                <Button variant="outline">
-                  Descargar Apuntes
-                </Button>
+
+                <div className="section-footer">
+                  <Button variant="primary">
+                    Marcar como Completado
+                  </Button>
+                  <Button variant="outline">
+                    Descargar Apuntes
+                  </Button>
+                </div>
               </div>
             </div>
           </Card>

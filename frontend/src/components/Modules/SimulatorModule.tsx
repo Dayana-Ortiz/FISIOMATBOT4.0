@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { FaPlay, FaPause, FaRedo, FaChartBar, FaQuestionCircle } from 'react-icons/fa';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';

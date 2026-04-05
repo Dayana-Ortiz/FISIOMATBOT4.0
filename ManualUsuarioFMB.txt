@@ -263,6 +263,13 @@ Cada módulo (Física, Matemáticas, Tecnología y Simulador) comparte la misma 
        - Gráficas o áreas de simulación.
        - Actividades prácticas y campos de respuesta.
 
+8.1.1. Cambios recientes de diseño
+---------------------------------
+
+- Las páginas de **Ciencia**, **Matemáticas** y **Tecnología** fueron actualizadas para coincidir con el estilo del módulo **Simulador**.
+- Ahora cada módulo incluye un **panel de acciones** y un **panel de resumen rápido** al estilo inmersivo del simulador.
+- Este cambio mejora la consistencia al moverse entre módulos y ofrece una experiencia más homogénea al usuario.
+
 ************************************************************
 *** [AQUÍ INSERTAR CAPTURA DE UN MÓDULO CUALQUIERA]      ***
 *** Mostrando: título, intro centrada y dos columnas.     ***
