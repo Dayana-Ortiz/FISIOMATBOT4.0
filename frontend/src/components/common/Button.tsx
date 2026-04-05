@@ -14,6 +14,7 @@ interface ButtonProps {
   icon?: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
   className?: string;
+  title?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -25,7 +26,8 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   icon,
   type = 'button',
-  className = ''
+  className = '',
+  title
 }) => {
   return (
     <button
@@ -35,6 +37,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       aria-disabled={disabled}
       tabIndex={disabled ? -1 : undefined}
+      title={title}
     >
       {icon && <span className="btn-icon">{icon}</span>}
       {children}

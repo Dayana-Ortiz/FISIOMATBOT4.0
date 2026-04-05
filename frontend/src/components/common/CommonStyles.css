@@ -11,6 +11,10 @@
   cursor: pointer;
 }
 
+.card.no-padding {
+  padding: 0 !important;
+}
+
 /* Estilos para Button */
 .btn {
   display: inline-flex;

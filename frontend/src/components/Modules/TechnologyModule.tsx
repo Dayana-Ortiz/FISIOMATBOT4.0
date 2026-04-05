@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
@@ -58,48 +57,67 @@ const TechnologyModule: React.FC = () => {
       </article>
 
       <div className="module-content">
-        <div className="sidebar-sections">
-          <h3>Lecciones</h3>
-          {sections.map((section) => (
-            <button
-              key={section.id}
-              className={`section-btn ${activeSection === section.id ? 'active' : ''}`}
-              onClick={() => setActiveSection(section.id)}
-            >
-              <span className="section-icon">
-                {section.id === 'programming' && '💻'}
-                {section.id === 'robotics' && '🤖'}
-                {section.id === 'networks' && '🌐'}
-              </span>
-              {section.title}
-            </button>
-          ))}
-          
-          <div className="action-buttons">
-            <Button 
-              variant="primary" 
-              onClick={() => {}}
-              fullWidth
-            >
-              💻 Editor de código
-            </Button>
-            <Button 
-              variant="outline" 
-              onClick={() => setShowQuiz(true)}
-              fullWidth
-            >
-              ❓ Test de conocimiento
-            </Button>
-          </div>
+        <div className="module-panels">
+          <aside className="panel left-panel">
+            <div className="sidebar-sections">
+              <h3>Lecciones</h3>
+              {sections.map((section) => (
+                <button
+                  key={section.id}
+                  className={`section-btn ${activeSection === section.id ? 'active' : ''}`}
+                  onClick={() => setActiveSection(section.id)}
+                >
+                  <span className="section-icon">
+                    {section.id === 'programming' && '💻'}
+                    {section.id === 'robotics' && '🤖'}
+                    {section.id === 'networks' && '🌐'}
+                  </span>
+                  {section.title}
+                </button>
+              ))}
+
+              <div className="action-buttons">
+                <Button 
+                  variant="primary" 
+                  onClick={() => {}}
+                  fullWidth
+                >
+                  💻 Editor de código
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowQuiz(true)}
+                  fullWidth
+                >
+                  ❓ Test de conocimiento
+                </Button>
+              </div>
+            </div>
+          </aside>
+
+          <aside className="panel right-panel">
+            <div className="fmb-panel-header">
+              <h4>Resumen tecnológico</h4>
+            </div>
+            <div className="fmb-panel-body">
+              <p>Sección activa: <strong>{currentSection?.title}</strong></p>
+              <p>Incluye conceptos clave, ejemplos de código y actividades prácticas.</p>
+              <ul>
+                <li>Tiempo estimado: 18 min</li>
+                <li>Tipo: teoría + práctica</li>
+                <li>Recomendado para: estudiantes curiosos</li>
+              </ul>
+            </div>
+          </aside>
         </div>
 
-        <div className="main-content">
+        <div className="module-detail-area">
           <Card color={'var(--medium-gray)'}>
             <div className="section-content">
               <h2>{currentSection?.title}</h2>
               <div className="content-body">
                 <p>{currentSection?.content}</p>
-                
+
                 {currentSection?.codeExample && (
                   <div className="code-section">
                     <h4>💻 Ejemplo de código</h4>
@@ -111,7 +129,7 @@ const TechnologyModule: React.FC = () => {
                     </Button>
                   </div>
                 )}
-                
+
                 <div className="concepts-section">
                   <h4>🔧 Conceptos Clave</h4>
                   <div className="concepts-grid">
@@ -122,7 +140,7 @@ const TechnologyModule: React.FC = () => {
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="hands-on-section">
                   <h4>🛠️ Actividad Práctica</h4>
                   <div className="activity-box">

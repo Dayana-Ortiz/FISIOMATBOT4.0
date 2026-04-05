@@ -9,6 +9,7 @@ interface CardProps {
   onClick?: () => void;
   color?: string;
   style?: CSSProperties;
+  noPadding?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -17,16 +18,18 @@ const Card: React.FC<CardProps> = ({
   hoverable = true,
   onClick,
   color,
-  style
+  style,
+  noPadding = false
 }) => {
   const cardStyle: CSSProperties = {
     ...style,
-    ...(color ? { borderTop: `4px solid ${color}` } : {})
+    ...(color ? { borderTop: `4px solid ${color}` } : {}),
+    ...(noPadding ? { padding: 0 } : {})
   };
 
   return (
     <motion.div
-      className={`card ${className} ${hoverable ? 'hoverable' : ''}`}
+      className={`card ${className} ${hoverable ? 'hoverable' : ''} ${noPadding ? 'no-padding' : ''}`}
       style={cardStyle}
       onClick={onClick}
       role={onClick ? 'button' : undefined}

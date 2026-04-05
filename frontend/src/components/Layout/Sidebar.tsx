@@ -33,7 +33,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
       <div className="sidebar-header">
         <div className="logo">
           <span className="logo-icon">🎓</span>
-          {isOpen && <span className="logo-text">FisioMathBoth</span>}
+          <span className="logo-text">FisioMathBoth</span>
         </div>
       </div>
 
@@ -45,11 +45,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
               className={({ isActive }) =>
                 `nav-item ${isActive ? 'active' : ''}`
               }
+              onClick={onToggle} // Al hacer clic en un enlace, cerramos el menú
             >
               <span className="nav-icon" aria-hidden="true">
                 {item.icon}
               </span>
-              {isOpen && <span className="nav-label">{item.label}</span>}
+              <span className="nav-label">{item.label}</span>
             </NavLink>
           </li>
         ))}

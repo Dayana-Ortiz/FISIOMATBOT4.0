@@ -206,6 +206,9 @@ Estructura:
 5. Mejora del **Sidebar** (nav semántico, estilo limpio, eliminación del botón redondo).
 6. Reestructuración del **Footer** (texto alineado, estilo ligero, responsive).
 7. Ajustes de responsividad y eliminación de overflow horizontal.
+8. Unificación visual de los módulos de Ciencia, Matemáticas y Tecnología con el diseño del módulo Simulador.
+   - Las páginas ahora comparten el mismo layout inmersivo, panel de acciones y panel de resumen.
+   - Archivos modificados: `frontend/src/components/Modules/MathematicsModule.tsx`, `frontend/src/components/Modules/PhysicsModule.tsx`, `frontend/src/components/Modules/TechnologyModule.tsx`, `frontend/src/components/Modules/ModuleStyles.css`.
 
 ---
 

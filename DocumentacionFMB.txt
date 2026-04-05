@@ -289,6 +289,11 @@ Puntos importantes:
    - `overflow-x: hidden` en `.layout` para evitar scroll horizontal.
    - `max-width` y `padding` ajustados en `content-wrapper` para que el dashboard no se salga del viewport a 100% de zoom.
 
+8. **Unificación de diseño de módulos**:
+   - Las vistas de `PhysicsPage`, `MathematicsPage` y `TechnologyPage` se adaptaron al mismo estilo visual del `SimulatorPage`.
+   - Se añadieron paneles de acción y paneles de resumen en cada módulo para mantener la coherencia.
+   - Archivos modificados: `src/components/Modules/MathematicsModule.tsx`, `src/components/Modules/PhysicsModule.tsx`, `src/components/Modules/TechnologyModule.tsx`, `src/components/Modules/ModuleStyles.css`.
+
 
 9. Notas finales
 ----------------

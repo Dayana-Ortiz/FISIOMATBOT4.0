@@ -6,10 +6,18 @@ import Footer from './Footer.tsx';
 import './Layout.css';
 
 const Layout: React.FC = () => {
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
   return (
     <div className="layout">
+      {/* Backdrop (fondo oscuro) al abrir el menú en móviles o desktop */}
+      {sidebarOpen && (
+        <div 
+          className="sidebar-overlay" 
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
 
       <div className="main-content">
