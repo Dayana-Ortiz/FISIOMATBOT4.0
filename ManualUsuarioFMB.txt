@@ -22,6 +22,8 @@ El objetivo principal es ofrecer un entorno simple, ordenado y amigable para que
 - Visualizar su progreso.
 - Navegar sin distracciones con una interfaz clara (paleta naranja/blanco, diseño minimalista).
 
+Nota sobre autenticación: A partir de esta versión, la plataforma cuenta con páginas de Login y Registro para acceder de manera segura.
+
 
 2. Requisitos mínimos
 ----------------------
@@ -38,17 +40,60 @@ El objetivo principal es ofrecer un entorno simple, ordenado y amigable para que
   - Estable, suficiente para cargar contenidos web (no requiere grandes anchos de banda salvo para futuros recursos multimedia).
 
 
-3. Acceso a la plataforma
---------------------------
+ACTUALIZACIÓN: PÁGINAS DE AUTENTICACIÓN
+========================================
 
-3.1. Inicio de la aplicación (entorno de pruebas)
--------------------------------------------------
+Nuevamente se han añadido dos nuevas páginas al inicio de la plataforma:
 
-En el entorno local de desarrollo (para pruebas) la aplicación suele abrirse desde:
-- Un servidor de desarrollo de React (`npm start`), que abre el navegador en una URL similar a:
-  - `http://localhost:3000/`
+- **Página de Login** (`/login`)
+- **Página de Registro** (`/register`)
 
-Una vez abierto el navegador en esa URL, la primera pantalla visible es el **Dashboard** (pantalla principal de inicio).
+Estas páginas cuentan con:
+- Diseño minimalista coherente con la paleta naranja/blanco del proyecto
+- Formularios limpios y fáciles de usar
+- Validación de campos
+- Mensajes de error y éxito
+- Botón para mostrar/ocultar contraseña
+- Enlaces rápidos entre Login y Registro
+- Botón flotante de "Ayuda" en la esquina inferior derecha
+- Responsive en todos los tamaños de pantalla
+
+3.1. Acceso a la plataforma (Login)
+-----------------------------------
+
+Pasos para iniciar sesión:
+1. Accede a la URL de bienvenida (ruta raíz `/`).
+2. Se redirigirá automáticamente a `/login` si no estás autenticado.
+3. Ingresa tu correo electrónico en el campo "Correo electrónico".
+4. Ingresa tu contraseña en el campo "Contraseña".
+5. Haz clic en el botón "Acceder" para iniciar sesión.
+6. Si olvidas tu contraseña, haz clic en el enlace "¿Olvidaste tu contraseña?" (próximamente).
+7. Si no tienes cuenta, haz clic en "Regístrate aquí" en la parte inferior.
+
+El botón del ojo en el campo de contraseña permite mostrar u ocultar la contraseña según necesites.
+
+3.2. Registro de nuevo usuario (Register)
+------------------------------------------
+
+Pasos para crear una cuenta:
+1. Desde la página de Login, haz clic en "Regístrate aquí".
+2. Se abrirá la página de registro (`/register`).
+3. Completa los siguientes campos:
+   - **Nombre completo**: tu nombre y apellido.
+   - **Correo electrónico**: dirección de email válida (usada para acceder).
+   - **Institución** (opcional): nombre de tu colegio o institución educativa.
+   - **Contraseña**: crea una contraseña con mínimo 6 caracteres.
+   - **Confirmar contraseña**: repite tu contraseña para verificarla.
+4. Lee el aviso de términos de uso en la parte inferior.
+5. Haz clic en el botón "Crear Cuenta".
+6. Si el registro es exitoso, serás redirigido a la página de Login.
+7. Si ya tienes cuenta, haz clic en "Inicia sesión" en la parte inferior.
+
+Validaciones automáticas:
+- Todos los campos menos "Institución" son obligatorios.
+- La contraseña debe tener mínimo 6 caracteres.
+- Las dos contraseñas deben coincidir.
+- El email debe tener un formato válido.
 
 ************************************************************
 *** [AQUÍ INSERTAR CAPTURA DE PANTALLA DEL DASHBOARD]    ***
