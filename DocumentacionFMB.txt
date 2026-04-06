@@ -27,14 +27,38 @@ El frontend está desarrollado con **React + TypeScript**, usando **React Router
 - `src/App.tsx`
   - Configura las rutas principales de la aplicación usando `react-router-dom`.
   - Estructura actual de rutas:
-    - Ruta raíz `/` envuelta por el layout principal `Layout`.
-    - Rutas hijas:
-      - `/dashboard` (y `/`) → `Dashboard`.
+    - Rutas de autenticación (sin Layout):
+      - `/login` → `Login` (página de inicio de sesión).
+      - `/register` → `Register` (página de registro).
+    - Rutas principales (con Layout):
+      - `/` y `/dashboard` → `Dashboard` (pantalla de bienvenida).
       - `/physics` → `PhysicsPage`.
       - `/mathematics` → `MathematicsPage`.
       - `/technology` → `TechnologyPage`.
       - `/simulator` → `SimulatorPage`.
-      - `/progress` → `ProgressPage` (nueva pantalla de progreso).
+      - `/progress` → `ProgressPage` (pantalla dedicada al progreso).
+
+- `src/pages/Login.tsx`
+  - Nueva página de acceso a la plataforma.
+  - Componentes: formulario con email/password, botón para mostrar/ocultar contraseña, enlace a "olvidé mi contraseña" y enlace a registrarse.
+  - Utiliza componentes compartidos Card y Button.
+  - Estilos minimalistas con paleta naranja/blanco.
+  - Incluye validación básica de formulario.
+
+- `src/pages/Register.tsx`
+  - Nueva página de registro de usuarios.
+  - Formulario con campos: nombre, email, institución (opcional), contraseña y confirmación de contraseña.
+  - Validación de campos obligatorios, longitud de contraseña, confirmación de contraseña.
+  - Enlace a inicio de sesión en la parte inferior.
+  - Alerta sobre términos de uso y política de privacidad.
+  - Integración completa con componentes Card, Button y paleta del proyecto.
+
+- `src/pages/AuthPages.css`
+  - Estilos compartidos entre Login y Register.
+  - Define estructura de contenedor, formulario, inputs con efecto focus, botones, password toggle, dividers.
+  - Incluye estados de error y éxito.
+  - Estilos responsivos para móvil y escritorio.
+  - Botón flotante de ayuda al lado inferior derecho.
 
 
 3. Layout general y componentes de estructura
