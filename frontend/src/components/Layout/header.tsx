@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaSearch, FaBell, FaUserCircle, FaBars } from 'react-icons/fa';
 import './header.css';
 
@@ -7,8 +7,17 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 8);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="header shadow-sm">
+    <header className={`header shadow-sm ${scrolled ? 'scrolled' : ''}`}>
       <div className="header-left">
         <button
           className="menu-toggle"
