@@ -37,6 +37,7 @@ El frontend está desarrollado con **React + TypeScript**, usando **React Router
       - `/technology` → `TechnologyPage`.
       - `/simulator` → `SimulatorPage`.
       - `/progress` → `ProgressPage` (pantalla dedicada al progreso).
+      - `/profile` → `ProfilePage` (gestión del perfil de usuario).
 
 - `src/pages/Login.tsx`
   - Nueva página de acceso a la plataforma.
@@ -59,6 +60,37 @@ El frontend está desarrollado con **React + TypeScript**, usando **React Router
   - Incluye estados de error y éxito.
   - Estilos responsivos para móvil y escritorio.
   - Botón flotante de ayuda al lado inferior derecho.
+
+
+### 2.2 Página de Perfil
+
+- Archivo: `src/pages/ProfilePage.tsx`
+
+Funcionalidades principales:
+- **Vista de información personal**: Muestra avatar, nombre, email, grado, institución y biografía del usuario.
+- **Modo edición**: Permite modificar toda la información personal con validación básica.
+- **Estadísticas del usuario**: Muestra lecciones completadas, puntos totales y logros obtenidos.
+- **Acciones rápidas**: Botones para configuración adicional (cambiar contraseña, preferencias, etc.).
+
+Estructura del componente:
+- **Header de página**: Título "👤 Mi Perfil" y descripción.
+- **Layout de dos columnas**:
+  - Columna principal (8/12): Información del perfil con modo vista/edición.
+  - Columna lateral (4/12): Estadísticas y acciones rápidas.
+- **Estados interactivos**: Toggle entre modo vista y edición con botones de guardar/cancelar.
+
+Componentes utilizados:
+- `Card`: Para organizar secciones de información.
+- `Button`: Para acciones de edición y configuración.
+- `Input`: Para campos de formulario en modo edición.
+
+Estilos asociados:
+- Archivo: `src/pages/ProfilePage.css`
+  - Diseño responsive con grid layout.
+  - Cards con sombras y bordes redondeados.
+  - Estados hover y focus para mejor UX.
+  - Formulario de edición con validación visual.
+  - Layout adaptativo para móviles y tablets.
 
 
 3. Layout general y componentes de estructura
@@ -88,8 +120,7 @@ Estilos asociados:
     - `display: flex; min-height: 100vh; background-color: var(--light-gray); overflow-x: hidden;`
     - `overflow-x: hidden` evita barras de scroll horizontales cuando el contenido se ajusta al ancho.
   - `.main-content`:
-    - Gestiona el área a la derecha del sidebar (header + contenido + footer).
-  - `.content-wrapper`:
+    - Gestiona el área a la derecha del sidebar (header + contenido + footer).    - `padding-top: 96px` agregado para evitar superposición del header fijo.  - `.content-wrapper`:
     - Contenedor central del contenido.
     - `max-width: 1200px; margin: 0 auto; width: 100%;`
     - Padding responsivo para que el dashboard no se “salga” a 100% de zoom.

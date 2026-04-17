@@ -153,7 +153,7 @@ La interfaz de FISIOMATHBOT se organiza en cuatro zonas principales:
     - **Tecnología**: página de contenidos de tecnología y programación.
     - **Simulador**: acceso a simulaciones y actividades interactivas.
     - **Progreso**: vista dedicada a estadísticas y avance del estudiante.
-    - **Perfil**: datos del usuario (pendiente de implementación completa).
+    - **Perfil**: gestión completa del perfil de usuario (información personal, estadísticas, configuración).
     - **Admin**: área administrativa (pendiente de implementación).
 
 El elemento actualmente seleccionado aparece resaltado en color **naranja**, indicando la sección activa.
@@ -237,7 +237,62 @@ Acciones típicas del usuario:
 ************************************************************
 
 
-7. Página de Progreso
+7. Gestión del Perfil de Usuario
+---------------------------------
+
+La página de Perfil permite al estudiante gestionar su información personal, revisar sus estadísticas de aprendizaje y acceder a configuraciones adicionales.
+
+### 7.1. Acceso a la página de Perfil
+
+- Desde el menú lateral (sidebar), hacer clic en la opción **"👤 Perfil"**.
+- También se puede acceder desde el menú desplegable del header (avatar de usuario → "👤 Perfil").
+
+### 7.2. Información Personal
+
+En la sección principal se muestra:
+
+- **Avatar y datos básicos**: Foto de perfil, nombre completo, grado académico y dirección de email.
+- **Información adicional**: Institución educativa y biografía personal.
+- **Estado de la cuenta**: Fecha de registro y estado de actividad.
+
+### 7.3. Edición del Perfil
+
+Para modificar la información personal:
+
+1. Hacer clic en el botón **"✏️ Editar Perfil"**.
+2. Se activará el modo de edición donde podrás modificar:
+   - Nombre completo
+   - Dirección de email
+   - Grado académico
+   - Institución educativa
+   - Biografía personal
+3. Una vez realizados los cambios, hacer clic en **"Guardar Cambios"**.
+4. Si deseas cancelar, hacer clic en **"Cancelar"**.
+
+### 7.4. Estadísticas de Aprendizaje
+
+En el panel lateral derecho se muestran las estadísticas principales:
+
+- **Lecciones Completadas**: Número total de lecciones finalizadas.
+- **Puntos Totales**: Puntuación acumulada en la plataforma.
+- **Logros**: Número de medallas o reconocimientos obtenidos.
+
+### 7.5. Acciones Rápidas
+
+El panel lateral también incluye botones para acciones comunes:
+
+- **🔒 Cambiar Contraseña**: Modificar la contraseña de acceso.
+- **🔔 Preferencias de Notificaciones**: Configurar alertas y recordatorios.
+- **🎨 Tema de la Interfaz**: Personalizar colores y apariencia.
+- **📱 Descargar Datos**: Exportar información personal y progreso.
+
+************************************************************
+*** [AQUÍ INSERTAR CAPTURA DE LA PÁGINA DE PERFIL]       ***
+*** Vista completa mostrando información y estadísticas.  ***
+************************************************************
+
+
+8. Página de Progreso
 ----------------------
 
 En la sección **Progreso** (accesible desde el menú lateral), el estudiante puede consultar:
