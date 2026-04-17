@@ -50,6 +50,7 @@ Ejecución local:
     - `/technology` → `TechnologyPage`.
     - `/simulator` → `SimulatorPage`.
     - `/progress` → `ProgressPage` (pantalla dedicada al progreso).
+    - `/profile` → `ProfilePage` (gestión del perfil de usuario).
   - Todas las rutas están envueltas por el layout principal `Layout`.
 
 ---
@@ -77,6 +78,8 @@ Estilos asociados (`frontend/src/components/Layout/Layout.css`):
   - `overflow-x: hidden` evita scroll horizontal no deseado.
 - `.content-wrapper`:
   - Contenedor central con `max-width: 1200px; margin: 0 auto;`.
+- `.main-content`:
+  - Área principal con `padding-top: 96px` para evitar superposición del header fijo.
 - `.main-view`:
   - Tarjeta blanca con borde redondeado y sombra suave.
 
@@ -176,7 +179,24 @@ Estructura:
   - Layout de dos columnas con utilidades de Bootstrap:
     - Columna principal (`col-12 col-lg-8`) para resumen/historial.
     - `aside` (`col-12 col-lg-4`) con el componente `ProgressTracker` dentro de una tarjeta blanca.
+### Perfil (`frontend/src/pages/ProfilePage.tsx` / `.css`)
 
+Funcionalidades:
+- **Vista de información personal**: Avatar, nombre, email, grado, institución y biografía.
+- **Modo edición**: Formulario para modificar datos personales con validación.
+- **Estadísticas**: Lecciones completadas, puntos totales y logros.
+- **Acciones rápidas**: Botones para configuración (contraseña, notificaciones, tema, etc.).
+
+Estructura:
+- Layout de dos columnas (similar a ProgressPage).
+- Columna principal: Información del perfil con toggle vista/edición.
+- Columna lateral: Estadísticas y acciones rápidas.
+- Utiliza componentes comunes: `Card`, `Button`, `Input`.
+
+Estilos:
+- Diseño responsive con grid layout.
+- Cards con sombras y animaciones hover.
+- Formulario de edición con estados visuales.
 ### Panel de progreso (`frontend/src/components/Layout/ProgressTracker.tsx` / `.css`)
 
 - Muestra progreso general y por módulo (Física, Matemáticas, Tecnología, Simulador).
@@ -198,6 +218,25 @@ Estructura:
 ---
 
 ## Resumen de cambios realizados (sesión actual)
+
+### ✅ Página de Perfil Implementada
+- **Nueva página**: `/profile` con gestión completa del perfil de usuario
+- **Funcionalidades**:
+  - Vista y edición de información personal (nombre, email, grado, institución, biografía)
+  - Estadísticas de aprendizaje (lecciones completadas, puntos, logros)
+  - Acciones rápidas (cambiar contraseña, preferencias, tema, descargar datos)
+- **Componentes**: Utiliza `Card`, `Button`, `Input` del sistema común
+- **Responsive**: Diseño adaptativo para móviles y tablets
+- **Estilos**: `ProfilePage.css` con paleta de colores consistente
+
+### ✅ Mejora del Layout
+- **Header fijo**: Agregado `padding-top: 96px` al contenedor principal para evitar superposición
+- **Mejor UX**: El navbar permanece visible durante el scroll sin tapar contenido
+
+### ✅ Actualización de Documentación
+- **DocumentacionFMB.txt**: Agregada documentación técnica completa de la página de perfil
+- **ManualUsuarioFMB.txt**: Instrucciones detalladas de uso de la página de perfil
+- **README.md**: Actualizada estructura de rutas y documentación de la nueva página
 
 1. Integración de **Bootstrap 5** en `public/index.html`.
 2. Rediseño semántico y minimalista del **layout** y del **dashboard**.

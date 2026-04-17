@@ -7,6 +7,7 @@ import MathematicsPage from './pages/MathematicsPage.tsx';
 import TechnologyPage from './pages/TechnologyPage.tsx';
 import SimulatorPage from './pages/SimulatorPage.tsx';
 import ProgressPage from './pages/ProgressPage.tsx';
+import ProfilePage from './pages/ProfilePage.tsx';
 import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
 
@@ -29,6 +30,7 @@ const App: React.FC = () => {
           <Route path="technology" element={<TechnologyPage />} />
           <Route path="simulator" element={<SimulatorPage />} />
           <Route path="progress" element={<ProgressPage />} />
+          <Route path="profile" element={<ProfilePage />} />
         </Route>
 
         {/* Rutas no encontradas vuelven al login */}
