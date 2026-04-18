@@ -7,8 +7,8 @@ const Footer: React.FC = () => {
     <footer className="footer">
       <div className="footer-content container">
         <section className="footer-section">
-          <h4>PGC OFI</h4>
-          <p>Plataforma educativa STEM para grados 9, 10 y 11.</p>
+          <h4>FisioMathBoth</h4>
+          <p>Plataforma educativa STEM para grado 11.</p>
         </section>
 
         <section className="footer-section">
@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
 
       <div className="footer-bottom">
         <p>
-          © 2024 PGC OFI · Diseñado para estudiantes STEM{' '}
+          © 2024 FisioMathBoth · Diseñado para estudiantes STEM{' '}
           <span className="heart-icon"><FaHeart aria-hidden="true" /></span>
         </p>
       </div>
