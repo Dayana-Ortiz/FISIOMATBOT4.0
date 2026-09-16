@@ -1,13 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { FaPlay, FaPause, FaRedo, FaChartBar, FaQuestionCircle, FaExpand, FaCompress } from 'react-icons/fa';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { FaPlay, FaPause, FaRedo, FaChartBar, FaQuestionCircle } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import Card from '../common/Card.tsx';
+import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
+// TypeScript does not have a declaration for CSS side-effect imports.
+// @ts-expect-error CSS is handled by the bundler at runtime.
 import './ModuleStyles.css';
+
+interface Parameter {
+  id: string;
+  name: string;
+  unit: string;
+  min: number;
+  max: number;
+  step: number;
+  defaultValue: number;
+}
 
 interface Simulation {
   id: string;
   title: string;
   description: string;
-  parameters: string[];
+  parameters: Parameter[];
 }
 
 const SimulatorModule: React.FC = () => {
@@ -15,92 +30,127 @@ const SimulatorModule: React.FC = () => {
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [simulationTime, setSimulationTime] = useState<number>(0);
   const [showQuiz, setShowQuiz] = useState<boolean>(false);
-  const [mass, setMass] = useState<number>(5);
-  const [gravity, setGravity] = useState<number>(9.8);
-  const [launchAngle, setLaunchAngle] = useState<number>(45);
-  const [initialVelocity, setInitialVelocity] = useState<number>(20);
-  const [showGrid, setShowGrid] = useState<boolean>(true);
-  const [showVectors, setShowVectors] = useState<boolean>(false);
-  const [playbackSpeed, setPlaybackSpeed] = useState<number>(1);
-  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-  const [switchOn, setSwitchOn] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (!isRunning || activeSimulation !== 'physics') return undefined;
-
-    let animationFrame = 0;
-    let previousTimestamp: number | undefined;
-    const animate = (timestamp: number) => {
-      if (previousTimestamp === undefined) previousTimestamp = timestamp;
-      const elapsed = (timestamp - previousTimestamp) / 1000;
-      previousTimestamp = timestamp;
-      setSimulationTime((currentTime) => currentTime + elapsed * playbackSpeed);
-      animationFrame = requestAnimationFrame(animate);
-    };
-
-    animationFrame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrame);
-  }, [activeSimulation, isRunning, playbackSpeed]);
+  const [paramValues, setParamValues] = useState<Record<string, number>>({});
+  const [speedMultiplier, setSpeedMultiplier] = useState<number>(1);
+  const [hasHitGround, setHasHitGround] = useState<boolean>(false);
+  
+  // Refs for animation loop
+  const requestRef = useRef<number | null>(null);
+  const lastTimeRef = useRef<number | null>(null);
 
   const simulations: Simulation[] = [
     {
       id: 'physics',
       title: 'Simulador de Movimiento',
-      description: 'Observa cómo cambia el movimiento de un objeto al variar su velocidad, masa y ángulo de lanzamiento.',
-      parameters: ['Velocidad inicial', 'Ángulo de lanzamiento', 'Gravedad', 'Masa']
+      description: 'Estudia el movimiento parabólico de un proyectil aplicando las leyes de la cinemática en el sistema MKS.',
+      parameters: [
+        { id: 'v0', name: 'Velocidad inicial', unit: 'm/s', min: 0, max: 200, step: 1, defaultValue: 50 },
+        { id: 'angle', name: 'Ángulo de lanzamiento', unit: '°', min: 0, max: 90, step: 1, defaultValue: 45 },
+        { id: 'gravity', name: 'Gravedad', unit: 'm/s²', min: 0, max: 25, step: 0.1, defaultValue: 9.8 },
+        { id: 'mass', name: 'Masa', unit: 'kg', min: 0.1, max: 200, step: 0.1, defaultValue: 10 }
+      ]
     },
     {
       id: 'math',
       title: 'Gráfico de Funciones',
       description: 'Visualiza funciones matemáticas en tiempo real y analiza su comportamiento.',
-      parameters: ['Función f(x)', 'Rango de x', 'Color de gráfica', 'Espesor de línea']
+      parameters: [
+        { id: 'freq', name: 'Frecuencia', unit: 'Hz', min: 0.1, max: 10, step: 0.1, defaultValue: 1 },
+        { id: 'amp', name: 'Amplitud', unit: 'm', min: 0, max: 50, step: 1, defaultValue: 25 },
+        { id: 'phase', name: 'Fase', unit: 'rad', min: 0, max: 6.28, step: 0.01, defaultValue: 0 }
+      ]
     },
     {
       id: 'circuit',
       title: 'Simulador de Circuitos',
       description: 'Construye circuitos eléctricos virtuales y mide voltaje, corriente y resistencia.',
-      parameters: ['Resistencia', 'Voltaje', 'Corriente', 'Tipo de componente']
+      parameters: [
+        { id: 'voltage', name: 'Voltaje', unit: 'V', min: 0, max: 24, step: 0.5, defaultValue: 12 },
+        { id: 'resistance', name: 'Resistencia', unit: 'Ω', min: 1, max: 1000, step: 1, defaultValue: 100 }
+      ]
     }
   ];
 
-  const currentSimulation = simulations.find(s => s.id === activeSimulation);
-  const angleInRadians = (launchAngle * Math.PI) / 180;
-  const horizontalVelocity = initialVelocity * Math.cos(angleInRadians);
-  const verticalVelocity = initialVelocity * Math.sin(angleInRadians);
-  const flightTime = (2 * verticalVelocity) / gravity;
-  const maxHeight = (verticalVelocity ** 2) / (2 * gravity);
-  const range = horizontalVelocity * flightTime;
-  const currentTime = Math.min(simulationTime, flightTime);
-  const horizontalPosition = horizontalVelocity * currentTime;
-  const verticalPosition = Math.max(0, verticalVelocity * currentTime - 0.5 * gravity * currentTime ** 2);
-  const kineticEnergy = 0.5 * mass * initialVelocity ** 2;
-  const projectileSize = 22 + mass * 1.8;
-  const trajectoryX = range > 0 ? (horizontalPosition / range) * 85 : 0;
-  const trajectoryY = maxHeight > 0 ? (verticalPosition / maxHeight) * 76 : 0;
-  const vectorAngle = Math.atan2(verticalVelocity - gravity * currentTime, horizontalVelocity) * (180 / Math.PI);
+  // Initialize parameters when simulation changes
+  useEffect(() => {
+    const currentSim = simulations.find(s => s.id === activeSimulation);
+    if (currentSim) {
+      const initialValues: Record<string, number> = {};
+      currentSim.parameters.forEach(p => {
+        initialValues[p.id] = p.defaultValue;
+      });
+      setParamValues(initialValues);
+      setSimulationTime(0);
+      setIsRunning(false);
+      setHasHitGround(false);
+    }
+  }, [activeSimulation]);
+
+  const animate = useCallback((time: number) => {
+    if (lastTimeRef.current !== undefined && lastTimeRef.current !== null) {
+      const deltaTime = (time - lastTimeRef.current) / 1000;
+      if (isRunning && !hasHitGround) {
+        setSimulationTime(prev => prev + deltaTime * speedMultiplier);
+      }
+    }
+    lastTimeRef.current = time;
+    requestRef.current = requestAnimationFrame(animate);
+  }, [isRunning, speedMultiplier, hasHitGround]);
 
   useEffect(() => {
-    if (simulationTime >= flightTime && isRunning) setIsRunning(false);
-  }, [flightTime, isRunning, simulationTime]);
+    requestRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (requestRef.current !== null) {
+        cancelAnimationFrame(requestRef.current);
+        requestRef.current = null;
+      }
+    };
+  }, [animate]);
 
-  const handleReset = () => {
-    setIsRunning(false);
-    setSimulationTime(0);
-  };
-
-  const toggleFullscreen = async () => {
-    if (!document.fullscreenElement) {
-      await document.querySelector('.fmb-inmersive-layout')?.requestFullscreen();
-    } else {
-      await document.exitFullscreen();
+  const handleParamChange = (id: string, value: number) => {
+    setParamValues(prev => ({ ...prev, [id]: value }));
+    // Reset if we changed param while stopped
+    if (!isRunning) {
+        setSimulationTime(0);
+        setHasHitGround(false);
     }
   };
 
-  useEffect(() => {
-    const handleFullscreenChange = () => setIsFullscreen(Boolean(document.fullscreenElement));
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
-  }, []);
+  const resetSimulation = () => {
+    setSimulationTime(0);
+    setIsRunning(false);
+    setHasHitGround(false);
+  };
+
+  // Kinematics calculations for physics simulation
+  const getProjectilePosition = () => {
+    const v0 = paramValues['v0'] || 40;
+    const angleRad = ((paramValues['angle'] || 45) * Math.PI) / 180;
+    const g = paramValues['gravity'] || 9.8;
+    const t = simulationTime;
+
+    // x = v0 * cos(theta) * t
+    // y = v0 * sin(theta) * t - 0.5 * g * t^2
+    let x_m = v0 * Math.cos(angleRad) * t;
+    let y_m = v0 * Math.sin(angleRad) * t - 0.5 * g * Math.pow(t, 2);
+
+    // Scaling for visualization
+    const scale = 0.8; 
+    let xPos = x_m * scale;
+    let yPos = y_m * scale;
+
+    // Check for ground collision
+    if (yPos < 0 && t > 0.1) {
+      if (!hasHitGround) setHasHitGround(true);
+      yPos = 0;
+    }
+
+    return { xPos, yPos };
+  };
+
+  const { xPos, yPos } = getProjectilePosition();
+
+  const currentSimulation = simulations.find(s => s.id === activeSimulation);
 
   return (
     <div className="module-container">
@@ -111,133 +161,171 @@ const SimulatorModule: React.FC = () => {
       <article className="module-intro">
         <h2>Introducción al módulo</h2>
         <p>
-          En el módulo simulador podrás experimentar con distintos escenarios de física,
-          matemáticas y circuitos eléctricos. Primero selecciona una simulación en la columna
-          de la izquierda y, luego, utiliza los controles del panel derecho para ajustar
-          parámetros y observar cómo cambia el comportamiento en el área visual. Es una forma
-          de aprender experimentando con simulaciones interactivas.
+          Experimenta con el sistema estándar <strong>MKS (Metro, Kilogramo, Segundo)</strong> en nuestro entorno inmersivo. 
+          Ajusta los parámetros con los deslizadores y observa cómo las leyes de la física dictan el comportamiento de la esfera en tiempo real.
         </p>
       </article>
 
       <div className="module-content fmb-inmersive-layout">
-        {/* Capa Principal: Simulación */}
         <div className="simulation-canvas-area">
-          <div className={`simulation-visualization inmersive-view ${activeSimulation}-bg ${showGrid ? 'show-grid' : ''}`}>
-            <button className="fullscreen-button" onClick={toggleFullscreen} title={isFullscreen ? 'Salir de pantalla completa' : 'Entrar en pantalla completa'} aria-label={isFullscreen ? 'Salir de pantalla completa' : 'Entrar en pantalla completa'}>
-              {isFullscreen ? <FaCompress /> : <FaExpand />}
-            </button>
+          <div className={`simulation-visualization inmersive-view ${activeSimulation}-bg`}>
             {activeSimulation === 'physics' && (
               <div className="physics-simulation">
-                <div className="physics-stage">
-                  <div className="physics-copy"><span className="eyebrow">Tiro parabólico</span><h2>Laboratorio de lanzamiento</h2><p>Ajusta los parámetros y observa el movimiento en tiempo real.</p></div>
-                  <div className="projectile-trajectory">
-                    <div className="trajectory-curve" />
-                    <div className="launch-point" />
-                    <div className="projectile-vector" style={{ transform: `rotate(${vectorAngle}deg)` }} hidden={!showVectors} />
-                    <div className="projectile" style={{ left: `${trajectoryX}%`, bottom: `${trajectoryY}%`, width: `${projectileSize}px`, height: `${projectileSize}px` }} />
-                    <div className="ground-label">x = {horizontalPosition.toFixed(1)} m</div>
-                  </div>
+                <div className="projectile-trajectory">
+                  <motion.div 
+                    className="projectile" 
+                    animate={{ 
+                      x: `${xPos}%`,
+                      y: `${-yPos}%`
+                    }}
+                    transition={{ type: 'spring', stiffness: 120, damping: 18 }}
+                    style={{ 
+                      position: 'absolute',
+                      bottom: '20px',
+                      left: '50px'
+                    }} 
+                  />
+                  <div className="visual-floor" style={{
+                    position: 'absolute',
+                    bottom: '0',
+                    width: '100%',
+                    height: '20px',
+                    background: '#fbbf24',
+                    borderTop: '2px solid rgba(0,0,0,0.1)'
+                  }} />
                 </div>
               </div>
             )}
-            
+
             {activeSimulation === 'math' && (
               <div className="math-simulation">
                 <div className="graph-container">
-                  <div className="graph-axis">
-                    <div className="graph-line" style={{ 
-                      height: '2px',
-                      width: '100%',
-                      background: 'var(--primary-blue)'
-                    }} />
-                  </div>
+                  <motion.div 
+                    className="projectile"
+                    animate={{
+                      y: Math.sin(simulationTime * (paramValues['freq'] || 1)) * (paramValues['amp'] || 25)
+                    }}
+                    style={{ position: 'relative' }}
+                  />
+                   <div className="graph-axis" style={{ height: '2px', width: '80%', background: 'rgba(255,255,255,0.3)', position: 'absolute' }} />
                 </div>
               </div>
             )}
-            
+
             {activeSimulation === 'circuit' && (
               <div className="circuit-simulation">
-                <div className="circuit-board">
-                  <div className="circuit-heading"><span className="eyebrow">Corriente alterna</span><h2>Circuito de iluminación</h2><p>Activa el switch para cerrar el circuito y encender el LED.</p></div>
-                  <div className={`circuit-diagram ${switchOn ? 'circuit-live' : ''}`}>
-                    <div className="circuit-node source-node"><span className="component-symbol">~</span><small>Fuente AC</small></div>
-                    <div className="circuit-wire wire-top" />
-                    <div className="circuit-component fuse-component"><span>F</span><small>Fusible</small></div>
-                    <div className="circuit-wire wire-top" />
-                    <button className="circuit-switch" onClick={() => setSwitchOn(!switchOn)} aria-pressed={switchOn} title={switchOn ? 'Abrir switch' : 'Cerrar switch'}><span className="switch-base" /><span className="switch-lever" /></button>
-                    <div className="circuit-wire wire-top" />
-                    <div className="circuit-component led-component"><span className="led-bulb" /><small>LED {switchOn ? 'encendido' : 'apagado'}</small></div>
-                    <div className="circuit-wire wire-bottom" />
-                    <div className="circuit-component resistor-component"><span className="resistor-mark">▱</span><small>Resistencia</small></div>
-                    <div className="circuit-wire wire-bottom" />
-                    <div className="circuit-node return-node"><span className="component-symbol">N</span><small>Neutro</small></div>
-                  </div>
-                  <div className={`circuit-status ${switchOn ? 'status-on' : ''}`}><span className="status-light" />{switchOn ? 'Circuito cerrado: hay corriente' : 'Circuito abierto: no hay corriente'}</div>
+                <div className="circuit-diagram">
+                   <div className="battery">🔋</div>
+                   <div className="wire">━━━━</div>
+                  <motion.div 
+                    className="projectile"
+                    style={{ width: '15px', height: '15px', background: '#3b82f6' }}
+                    animate={{ x: isRunning ? [0, 200, 0] : 0 }}
+                    transition={{ 
+                        duration: Math.max(0.1, 5 / ((paramValues['voltage'] || 12) / (paramValues['resistance'] || 100) * 10)), 
+                        repeat: Infinity, 
+                        ease: "linear" 
+                    }}
+                  />
+                  <div className="resistor">⏚</div>
+                   <div className="wire">━━━━</div>
+                  <div className="led">💡</div>
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        {/* Panel de Control Fisiomatbot: Flotante Derecho */}
         <aside className="fmb-floating-panel">
           <header className="fmb-panel-header">
-            <h4><FaChartBar /> Parámetros</h4>
+            <h4><FaChartBar /> Parámetros (MKS)</h4>
           </header>
-          
+
           <div className="fmb-panel-body">
             <div className="fmb-control-list">
-              <div className="fmb-check-item">
-                <input type="checkbox" id="grid" checked={showGrid} onChange={(event) => setShowGrid(event.target.checked)} />
-                <label htmlFor="grid">Ver Cuadrícula</label>
+              <div className="fmb-check-group" style={{ display: 'flex', gap: '15px' }}>
+                <div className="fmb-check-item">
+                  <input type="checkbox" id="grid" defaultChecked />
+                  <label htmlFor="grid">Cuadrícula</label>
+                </div>
+                <div className="fmb-check-item">
+                  <input type="checkbox" id="vectors" />
+                  <label htmlFor="vectors">Vectores</label>
+                </div>
               </div>
-              <div className="fmb-check-item">
-                <input type="checkbox" id="vectors" checked={showVectors} onChange={(event) => setShowVectors(event.target.checked)} />
-                <label htmlFor="vectors">Ver Vectores</label>
-              </div>
-              
+
               <div className="fmb-divider" />
 
-              {activeSimulation === 'physics' ? <>
-                <div className="fmb-slider-group"><label htmlFor="mass">Masa <strong>{mass.toFixed(1)} kg</strong></label><input id="mass" type="range" min="1" max="10" step="0.1" value={mass} onChange={(event) => setMass(Number(event.target.value))} className="fmb-brand-slider" /></div>
-                <div className="fmb-slider-group"><label htmlFor="gravity">Gravedad <strong>{gravity.toFixed(1)} m/s²</strong></label><input id="gravity" type="range" min="1.6" max="20" step="0.1" value={gravity} onChange={(event) => setGravity(Number(event.target.value))} className="fmb-brand-slider" /></div>
-                <div className="fmb-slider-group"><label htmlFor="angle">Ángulo de lanzamiento <strong>{launchAngle}°</strong></label><input id="angle" type="range" min="15" max="75" value={launchAngle} onChange={(event) => setLaunchAngle(Number(event.target.value))} className="fmb-brand-slider" /></div>
-                <div className="fmb-slider-group"><label htmlFor="velocity">Velocidad inicial <strong>{initialVelocity} m/s</strong></label><input id="velocity" type="range" min="5" max="40" value={initialVelocity} onChange={(event) => setInitialVelocity(Number(event.target.value))} className="fmb-brand-slider" /></div>
-              </> : currentSimulation?.parameters.map((param, index) => <div key={index} className="fmb-slider-group"><label>{param}</label><input type="range" min="0" max="100" className="fmb-brand-slider" /></div>)}
+              {currentSimulation?.parameters.map((param) => (
+                <div key={param.id} className="fmb-slider-group">
+                  <div className="fmb-slider-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>{param.name}</label>
+                    <span style={{ fontSize: '0.9rem', color: '#FD7B41', fontWeight: '800' }}>
+                      {paramValues[param.id]?.toFixed(param.step < 1 ? 1 : 0)} 
+                      <small style={{ marginLeft: '2px', opacity: 0.8 }}>{param.unit}</small>
+                    </span>
+                  </div>
+                  <div className="fmb-slider-wrapper">
+                    <input 
+                      type="range" 
+                      min={param.min} 
+                      max={param.max} 
+                      step={param.step}
+                      value={paramValues[param.id] || param.defaultValue}
+                      onChange={(e) => handleParamChange(param.id, parseFloat(e.target.value))}
+                      className="fmb-brand-slider" 
+                    />
+                    <div className="fmb-slider-limits" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', opacity: 0.5 }}>
+                      <span>{param.min}</span>
+                      <span>{param.max}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-            {activeSimulation === 'physics' && <div className="simulation-metrics"><span><b>Tiempo</b>{currentTime.toFixed(2)} s</span><span><b>Altura máxima</b>{maxHeight.toFixed(1)} m</span><span><b>Alcance</b>{range.toFixed(1)} m</span><span><b>Energía cinética</b>{kineticEnergy.toFixed(0)} J</span><span><b>Aceleración</b>{gravity.toFixed(1)} m/s²</span></div>}
           </div>
         </aside>
 
-        {/* Controles de Acción: Barra Central Inferior */}
         <div className="fmb-action-bar">
           <div className="fmb-playback-controls">
             <button 
-              className="fmb-round-btn primary-action"
+              className={`fmb-round-btn ${isRunning ? 'secondary-action' : 'primary-action'}`}
               onClick={() => setIsRunning(!isRunning)}
+              disabled={hasHitGround && isRunning}
               title={isRunning ? 'Pausar' : 'Iniciar'}
             >
               {isRunning ? <FaPause /> : <FaPlay />}
             </button>
-            <button 
+            <button
+              type="button"
               className="fmb-round-btn secondary-action"
-              onClick={handleReset}
+              onClick={resetSimulation}
               title="Reiniciar"
             >
               <FaRedo />
             </button>
             <div className="fmb-speed-selector">
-              <button className={`speed-tab ${playbackSpeed === 1 ? 'active' : ''}`} onClick={() => setPlaybackSpeed(1)}>Normal</button>
-              <button className={`speed-tab ${playbackSpeed === 0.35 ? 'active' : ''}`} onClick={() => setPlaybackSpeed(0.35)}>Lento</button>
+              <button 
+                className={`speed-tab ${speedMultiplier === 1 ? 'active' : ''}`}
+                onClick={() => setSpeedMultiplier(1)}
+              >
+                Normal
+              </button>
+              <button 
+                className={`speed-tab ${speedMultiplier === 0.2 ? 'active' : ''}`}
+                onClick={() => setSpeedMultiplier(0.2)}
+              >
+                Lento
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Navegación Modular: Barra Inferior Fisiomatbot */}
         <nav className="fmb-mode-navigation">
           {simulations.map((sim) => (
             <button
               key={sim.id}
+              type="button"
               className={`fmb-mode-btn ${activeSimulation === sim.id ? 'active' : ''}`}
               onClick={() => setActiveSimulation(sim.id)}
             >
@@ -250,7 +338,7 @@ const SimulatorModule: React.FC = () => {
             </button>
           ))}
           <div className="fmb-nav-separator" />
-          <button 
+          <button
             className="fmb-mode-btn quiz-accent"
             onClick={() => setShowQuiz(true)}
           >
@@ -260,12 +348,21 @@ const SimulatorModule: React.FC = () => {
         </nav>
       </div>
 
-      {showQuiz && (
-        <QuizComponent 
-          module="simulator"
-          onClose={() => setShowQuiz(false)}
-        />
-      )}
+      <AnimatePresence>
+        {showQuiz && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="quiz-modal-overlay"
+          >
+            <QuizComponent 
+              module="simulator"
+              onClose={() => setShowQuiz(false)}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
