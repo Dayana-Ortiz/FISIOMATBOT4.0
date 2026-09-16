@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
+// TypeScript does not have a declaration for CSS side-effect imports.
+// @ts-expect-error CSS is handled by the bundler at runtime.
 import './ModuleStyles.css';
 
 interface Parameter {
@@ -33,8 +35,8 @@ const SimulatorModule: React.FC = () => {
   const [hasHitGround, setHasHitGround] = useState<boolean>(false);
   
   // Refs for animation loop
-  const requestRef = useRef<number>(null);
-  const lastTimeRef = useRef<number>(null);
+  const requestRef = useRef<number | null>(null);
+  const lastTimeRef = useRef<number | null>(null);
 
   const simulations: Simulation[] = [
     {
@@ -98,7 +100,10 @@ const SimulatorModule: React.FC = () => {
   useEffect(() => {
     requestRef.current = requestAnimationFrame(animate);
     return () => {
-      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+      if (requestRef.current !== null) {
+        cancelAnimationFrame(requestRef.current);
+        requestRef.current = null;
+      }
     };
   }, [animate]);
 
@@ -174,7 +179,7 @@ const SimulatorModule: React.FC = () => {
                       x: `${xPos}%`,
                       y: `${-yPos}%`
                     }}
-                    transition={{ type: "just" }}
+                    transition={{ type: 'spring', stiffness: 120, damping: 18 }}
                     style={{ 
                       position: 'absolute',
                       bottom: '20px',
