@@ -5,12 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
-<<<<<<< HEAD
 import { moduleIcons } from '../../Utils/moduleIcons';
-=======
 // TypeScript does not have a declaration for CSS side-effect imports.
 // @ts-expect-error CSS is handled by the bundler at runtime.
->>>>>>> main
 import './ModuleStyles.css';
 
 interface Parameter {
