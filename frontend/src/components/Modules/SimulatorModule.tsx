@@ -5,7 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
+<<<<<<< HEAD
 import { moduleIcons } from '../../Utils/moduleIcons';
+=======
+// TypeScript does not have a declaration for CSS side-effect imports.
+// @ts-expect-error CSS is handled by the bundler at runtime.
+>>>>>>> main
 import './ModuleStyles.css';
 
 interface Parameter {
@@ -35,8 +40,8 @@ const SimulatorModule: React.FC = () => {
   const [hasHitGround, setHasHitGround] = useState<boolean>(false);
   
   // Refs for animation loop
-  const requestRef = useRef<number>(null);
-  const lastTimeRef = useRef<number>(null);
+  const requestRef = useRef<number | null>(null);
+  const lastTimeRef = useRef<number | null>(null);
 
   const simulations: Simulation[] = [
     {
@@ -100,7 +105,10 @@ const SimulatorModule: React.FC = () => {
   useEffect(() => {
     requestRef.current = requestAnimationFrame(animate);
     return () => {
-      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+      if (requestRef.current !== null) {
+        cancelAnimationFrame(requestRef.current);
+        requestRef.current = null;
+      }
     };
   }, [animate]);
 
@@ -164,7 +172,6 @@ const SimulatorModule: React.FC = () => {
       </article>
 
       <div className="module-content fmb-inmersive-layout">
-        {/* Capa Principal: Simulación */}
         <div className="simulation-canvas-area">
           <div className={`simulation-visualization inmersive-view ${activeSimulation}-bg`}>
             {activeSimulation === 'physics' && (
@@ -176,7 +183,7 @@ const SimulatorModule: React.FC = () => {
                       x: `${xPos}%`,
                       y: `${-yPos}%`
                     }}
-                    transition={{ type: "just" }}
+                    transition={{ type: 'spring', stiffness: 120, damping: 18 }}
                     style={{ 
                       position: 'absolute',
                       bottom: '20px',
@@ -194,7 +201,7 @@ const SimulatorModule: React.FC = () => {
                 </div>
               </div>
             )}
-            
+
             {activeSimulation === 'math' && (
               <div className="math-simulation">
                 <div className="graph-container">
@@ -209,7 +216,7 @@ const SimulatorModule: React.FC = () => {
                 </div>
               </div>
             )}
-            
+
             {activeSimulation === 'circuit' && (
               <div className="circuit-simulation">
                 <div className="circuit-diagram">
@@ -234,12 +241,11 @@ const SimulatorModule: React.FC = () => {
           </div>
         </div>
 
-        {/* Panel de Control Fisiomatbot: Flotante Derecho */}
         <aside className="fmb-floating-panel">
           <header className="fmb-panel-header">
             <h4><FaChartBar /> Parámetros (MKS)</h4>
           </header>
-          
+
           <div className="fmb-panel-body">
             <div className="fmb-control-list">
               <div className="fmb-check-group" style={{ display: 'flex', gap: '15px' }}>
@@ -252,7 +258,7 @@ const SimulatorModule: React.FC = () => {
                   <label htmlFor="vectors">Vectores</label>
                 </div>
               </div>
-              
+
               <div className="fmb-divider" />
 
               {currentSimulation?.parameters.map((param) => (
@@ -285,7 +291,6 @@ const SimulatorModule: React.FC = () => {
           </div>
         </aside>
 
-        {/* Controles de Acción: Barra Central Inferior */}
         <div className="fmb-action-bar">
           <div className="fmb-playback-controls">
             <button 
@@ -296,7 +301,8 @@ const SimulatorModule: React.FC = () => {
             >
               {isRunning ? <FaPause /> : <FaPlay />}
             </button>
-            <button 
+            <button
+              type="button"
               className="fmb-round-btn secondary-action"
               onClick={resetSimulation}
               title="Reiniciar"
@@ -320,11 +326,11 @@ const SimulatorModule: React.FC = () => {
           </div>
         </div>
 
-        {/* Navegación Modular: Barra Inferior Fisiomatbot */}
         <nav className="fmb-mode-navigation">
           {simulations.map((sim) => (
             <button
               key={sim.id}
+              type="button"
               className={`fmb-mode-btn ${activeSimulation === sim.id ? 'active' : ''}`}
               onClick={() => setActiveSimulation(sim.id)}
             >

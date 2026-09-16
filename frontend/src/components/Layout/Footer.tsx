@@ -1,5 +1,7 @@
 import React from 'react';
 import { FaHeart } from 'react-icons/fa';
+// TypeScript does not have a declaration for CSS side-effect imports.
+// @ts-expect-error CSS is handled by the bundler at runtime.
 import './Footer.css';
 
 const Footer: React.FC = () => {
