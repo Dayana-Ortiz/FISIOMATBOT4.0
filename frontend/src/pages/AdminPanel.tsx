@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   FaGear,
   FaUsers,
@@ -19,26 +19,18 @@ import { useUser } from '../context/UserContext';
 import { useNotifications } from '../context/NotificationContext';
 import { moduleIcons } from '../Utils/moduleIcons';
 import { UserRole } from '../types';
+import * as adminService from '../services/adminService';
+import { ApiError } from '../services/api';
 import './AdminPanel.css';
 
 interface ManagedUser {
-  id: string;
+  id: number;
   name: string;
   email: string;
   role: UserRole;
-  grade?: number;
+  grade?: number | null;
   status: 'active' | 'inactive';
 }
-
-// TODO: reemplazar por datos reales cuando exista el backend (endpoint de administración de usuarios).
-const initialUsers: ManagedUser[] = [
-  { id: '1', name: 'María López', email: 'maria.lopez@fisiomatbot.com', role: 'student', grade: 9, status: 'active' },
-  { id: '2', name: 'Juan Pérez', email: 'juan.perez@fisiomatbot.com', role: 'student', grade: 10, status: 'active' },
-  { id: '3', name: 'Camila Ríos', email: 'camila.rios@fisiomatbot.com', role: 'student', grade: 11, status: 'inactive' },
-  { id: '4', name: 'Carlos Gómez', email: 'profesor@fisiomatbot.com', role: 'teacher', status: 'active' },
-  { id: '5', name: 'Ana Torres', email: 'ana.torres@fisiomatbot.com', role: 'teacher', status: 'active' },
-  { id: '6', name: 'Administrador Demo', email: 'admin@fisiomatbot.com', role: 'admin', status: 'active' },
-];
 
 const ROLE_LABELS: Record<UserRole, string> = {
   student: 'Estudiante',
@@ -56,9 +48,45 @@ const MODULES = [
 const AdminPanel: React.FC = () => {
   const { user } = useUser();
   const { addNotification } = useNotifications();
-  const [users, setUsers] = useState<ManagedUser[]>(initialUsers);
+  const [users, setUsers] = useState<ManagedUser[]>([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [roleFilter, setRoleFilter] = useState<UserRole | 'all'>('all');
+
+  useEffect(() => {
+    let cancelled = false;
+
+    adminService
+      .listUsers()
+      .then((remoteUsers) => {
+        if (cancelled) return;
+        setUsers(
+          remoteUsers.map((u) => ({
+            id: u.id,
+            name: u.name,
+            email: u.email,
+            role: u.role,
+            grade: u.grade,
+            status: u.status,
+          }))
+        );
+      })
+      .catch((err) => {
+        addNotification({
+          title: 'No se pudieron cargar los usuarios',
+          message: err instanceof ApiError ? err.message : 'Verifica que el backend esté corriendo.',
+          kind: 'warning',
+        });
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const filteredUsers = useMemo(() => {
     return users.filter((u) => {
@@ -80,29 +108,44 @@ const AdminPanel: React.FC = () => {
     [users]
   );
 
-  const toggleStatus = (id: string) => {
+  const toggleStatus = async (id: number) => {
     const target = users.find((u) => u.id === id);
-    const nextStatus = target?.status === 'active' ? 'inactive' : 'active';
-    setUsers((prev) =>
-      prev.map((u) => (u.id === id ? { ...u, status: nextStatus } : u))
-    );
-    if (target) {
+    if (!target) return;
+
+    try {
+      const { status } = await adminService.toggleUserStatus(id);
+      setUsers((prev) => prev.map((u) => (u.id === id ? { ...u, status } : u)));
       addNotification({
-        title: nextStatus === 'active' ? 'Cuenta activada' : 'Cuenta desactivada',
-        message: `${target.name} fue ${nextStatus === 'active' ? 'activado' : 'desactivado'}.`,
-        kind: nextStatus === 'active' ? 'success' : 'warning',
+        title: status === 'active' ? 'Cuenta activada' : 'Cuenta desactivada',
+        message: `${target.name} fue ${status === 'active' ? 'activado' : 'desactivado'}.`,
+        kind: status === 'active' ? 'success' : 'warning',
+      });
+    } catch (err) {
+      addNotification({
+        title: 'No se pudo actualizar el estado',
+        message: err instanceof ApiError ? err.message : 'Intenta de nuevo.',
+        kind: 'warning',
       });
     }
   };
 
-  const changeRole = (id: string, role: UserRole) => {
+  const changeRole = async (id: number, role: UserRole) => {
     const target = users.find((u) => u.id === id);
-    setUsers((prev) => prev.map((u) => (u.id === id ? { ...u, role } : u)));
-    if (target && target.role !== role) {
+    if (!target || target.role === role) return;
+
+    try {
+      await adminService.changeUserRole(id, role);
+      setUsers((prev) => prev.map((u) => (u.id === id ? { ...u, role } : u)));
       addNotification({
         title: 'Rol actualizado',
         message: `${target.name} ahora es ${ROLE_LABELS[role]}.`,
         kind: 'info',
+      });
+    } catch (err) {
+      addNotification({
+        title: 'No se pudo cambiar el rol',
+        message: err instanceof ApiError ? err.message : 'Solo un administrador puede hacer este cambio.',
+        kind: 'warning',
       });
     }
   };
@@ -223,7 +266,14 @@ const AdminPanel: React.FC = () => {
                       </td>
                     </tr>
                   ))}
-                  {filteredUsers.length === 0 && (
+                  {loading && (
+                    <tr>
+                      <td colSpan={5} className="admin-table-empty">
+                        Cargando usuarios...
+                      </td>
+                    </tr>
+                  )}
+                  {!loading && filteredUsers.length === 0 && (
                     <tr>
                       <td colSpan={5} className="admin-table-empty">
                         No se encontraron usuarios con ese filtro.

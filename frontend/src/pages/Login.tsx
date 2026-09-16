@@ -5,7 +5,8 @@ import Card from '../components/common/Card';
 import Button from '../components/common/Button';
 import { useUser } from '../context/UserContext';
 import { useNotifications } from '../context/NotificationContext';
-import { findUserByEmail } from '../data/users';
+import { ApiError } from '../services/api';
+import * as authService from '../services/authService';
 import logo from '../assets/logo.png';
 import './AuthPages.css';
 
@@ -45,34 +46,21 @@ const Login: React.FC = () => {
     }
 
     try {
-      // TODO: Integrar con servicio de autenticación del backend
-      // const response = await authService.login(formData);
-      // if (response.success) {
-      //   navigate('/dashboard');
-      // }
-
-      // Por ahora, se resuelve el rol contra una lista de usuarios de
-      // referencia (ver src/data/users.ts) y cualquier otro correo entra
-      // como estudiante. Esto permite probar la vista de Admin.
-      setTimeout(() => {
-        const matchedUser = findUserByEmail(formData.email);
-        const loggedInUser = matchedUser ?? {
-          id: `guest-${Date.now()}`,
-          name: formData.email.split('@')[0],
-          email: formData.email,
-          role: 'student' as const,
-        };
-        login(loggedInUser);
-        addNotification({
-          title: 'Sesión iniciada',
-          message: `Bienvenido, ${loggedInUser.name}`,
-          kind: 'success',
-        });
-        navigate('/dashboard');
-        setLoading(false);
-      }, 1000);
+      const loggedInUser = await authService.login(formData.email, formData.password);
+      login(loggedInUser);
+      addNotification({
+        title: 'Sesión iniciada',
+        message: `Bienvenido, ${loggedInUser.name}`,
+        kind: 'success',
+      });
+      navigate('/dashboard');
     } catch (err) {
-      setError('Error al iniciar sesión. Verifica tus datos e intenta de nuevo.');
+      if (err instanceof ApiError) {
+        setError(err.message);
+      } else {
+        setError('No se pudo conectar con el servidor. Intenta de nuevo más tarde.');
+      }
+    } finally {
       setLoading(false);
     }
   };

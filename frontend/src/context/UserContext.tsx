@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User } from '../types';
+import { setToken } from '../services/api';
 
 const STORAGE_KEY = 'fmb_user';
 
@@ -35,7 +36,10 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [user]);
 
   const login = (nextUser: User) => setUser(nextUser);
-  const logout = () => setUser(null);
+  const logout = () => {
+    setUser(null);
+    setToken(null);
+  };
 
   const value: UserContextValue = {
     user,

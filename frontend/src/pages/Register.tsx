@@ -3,6 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash, FaQuestionCircle } from 'react-icons/fa';
 import Card from '../components/common/Card';
 import Button from '../components/common/Button';
+import { ApiError } from '../services/api';
+import * as authService from '../services/authService';
 import logo from '../assets/logo.png';
 import './AuthPages.css';
 
@@ -73,24 +75,26 @@ const Register: React.FC = () => {
     }
 
     try {
-      // TODO: Integrar con servicio de autenticación del backend
-      // const response = await authService.register({
-      //   name: formData.name,
-      //   email: formData.email,
-      //   password: formData.password,
-      //   institution: formData.institution
-      // });
-      
-      // Por ahora, simular registro exitoso
+      await authService.register({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        institution: formData.institution || undefined,
+      });
+      // El registro deja un token guardado (auto-login), pero aquí se pide
+      // iniciar sesión explícitamente desde /login, así que se descarta.
+      authService.logout();
+
+      setSuccess('¡Registro exitoso! Redirigiendo al login...');
       setTimeout(() => {
-        setSuccess('¡Registro exitoso! Redirigiendo al login...');
-        setTimeout(() => {
-          navigate('/login');
-          setLoading(false);
-        }, 2000);
-      }, 1000);
+        navigate('/login');
+      }, 2000);
     } catch (err) {
-      setError('Error al registrarse. Intenta de nuevo.');
+      if (err instanceof ApiError) {
+        setError(err.message);
+      } else {
+        setError('No se pudo conectar con el servidor. Intenta de nuevo más tarde.');
+      }
       setLoading(false);
     }
   };

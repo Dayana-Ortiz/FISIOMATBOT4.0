@@ -18,14 +18,24 @@ Actualmente el foco principal está en el diseño visual, la navegación y la ex
 
 Este repositorio está organizado como monorepo:
 
-- `frontend/`: aplicación React (CRA).
-- `backend/`: reservado para backend (vacío por ahora).
+- `frontend/`: aplicación React + Vite + TypeScript.
+- `backend/`: API REST en Node.js + Express + MySQL que implementa el modelo
+  relacional de `database/`. Ver [`backend/README.md`](backend/README.md).
+- `database/`: modelo relacional de la base de datos (MySQL).
+  - [`database/schema.sql`](database/schema.sql): estructura de tablas (DDL).
+  - [`database/seed.sql`](database/seed.sql): datos de ejemplo.
+  - [`database/MODELO_RELACIONAL.md`](database/MODELO_RELACIONAL.md): diccionario de
+    datos, diagrama entidad-relación y permisos por rol (estudiante/profesor/admin).
+- [`DEPLOY.md`](DEPLOY.md): cómo levantar la base de datos en XAMPP (local) o Railway
+  (producción), y cómo enlazar el frontend con el backend/base de datos.
 - Raíz del repo: documentación (`README.md`, `DocumentacionFMB.txt`, `ManualUsuarioFMB.txt`) y `.gitignore`.
 
 Ejecución local:
-- Desde `frontend/`:
-  - `npm start`
-  - `npm run build`
+- `npm run install-all` (desde la raíz): instala dependencias de `frontend/` y `backend/`.
+- `npm run dev` (desde la raíz): levanta backend + frontend en paralelo.
+- O por separado:
+  - Backend: `cd backend && npm install && npm run migrate -- --seed && npm run dev`.
+  - Frontend: `cd frontend && npm install && npm run dev`.
 
 ---
 
