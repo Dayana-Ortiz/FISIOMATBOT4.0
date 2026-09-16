@@ -55,8 +55,9 @@
   color: var(--accent-orange);
 }
 
-.logo-icon {
-  font-size: 1.8rem;
+.logo-image {
+  height: 42px;
+  width: auto;
 }
 
 .sidebar-nav {

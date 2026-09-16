@@ -1,0 +1,224 @@
+/* AdminPanel.css */
+
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.admin-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.admin-stat-icon {
+  font-size: 1.75rem;
+}
+
+.admin-stat-number {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--accent-orange);
+  line-height: 1;
+}
+
+.admin-stat-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.25rem;
+}
+
+/* Users card */
+.admin-users-card {
+  padding: 1.5rem;
+}
+
+.admin-users-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.5rem 1.5rem 1rem;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.admin-users-filters {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.admin-search-input {
+  min-width: 220px;
+}
+
+.admin-role-select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--medium-gray);
+  border-radius: var(--border-radius);
+  font-family: inherit;
+  font-size: 0.9rem;
+  background: white;
+  color: var(--text-primary);
+}
+
+.admin-table-wrapper {
+  overflow-x: auto;
+  padding: 0 1.5rem 1.5rem;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-table th {
+  text-align: left;
+  padding: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--light-gray);
+}
+
+.admin-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--light-gray);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.admin-table-email {
+  color: var(--text-secondary);
+}
+
+.admin-table-empty {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 1.5rem;
+}
+
+.admin-role-badge {
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--medium-gray);
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--light-gray);
+  color: var(--text-primary);
+}
+
+.admin-role-badge.role-admin {
+  background: var(--accent-purple);
+  color: white;
+  border-color: var(--accent-purple);
+}
+
+.admin-role-badge.role-teacher {
+  background: var(--secondary-blue);
+  border-color: var(--secondary-blue);
+}
+
+.admin-role-badge.role-student {
+  background: var(--light-gray);
+}
+
+.admin-status-badge {
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.admin-status-badge.active {
+  background: rgba(76, 175, 80, 0.15);
+  color: #2e7d32;
+}
+
+.admin-status-badge.inactive {
+  background: rgba(158, 158, 158, 0.2);
+  color: var(--text-secondary);
+}
+
+/* Modules card */
+.admin-modules-card,
+.admin-actions-card {
+  padding: 1.5rem;
+}
+
+.admin-modules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.admin-module-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--light-gray);
+  border-radius: var(--border-radius);
+}
+
+.admin-module-icon {
+  font-size: 1.5rem;
+}
+
+.admin-module-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-module-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.admin-module-meta {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.admin-actions-card .actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .admin-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-users-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-search-input {
+    min-width: 0;
+  }
+}

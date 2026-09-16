@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaCheck, FaArrowRight, FaArrowLeft } from 'react-icons/fa';
+import { FaTrophy, FaThumbsUp, FaBookOpen, FaCircleCheck } from 'react-icons/fa6';
 import { ModuleType } from '../../types';
 import Button from '../common/Button.tsx';
 import './ModuleStyles.css';
@@ -211,7 +212,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ module, onClose }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
-              <h3>🎉 ¡Quiz Completado!</h3>
+              <h3 className="icon-inline"><FaCircleCheck /> ¡Quiz Completado!</h3>
               
               <div className="score-circle">
                 <div className="circle-content">
@@ -226,11 +227,11 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ module, onClose }) => {
               
               <div className="result-message">
                 {score === questions.length ? (
-                  <p>🏆 ¡Excelente! Dominas completamente este tema.</p>
+                  <p className="icon-inline"><FaTrophy /> ¡Excelente! Dominas completamente este tema.</p>
                 ) : score >= questions.length / 2 ? (
-                  <p>👍 ¡Buen trabajo! Tienes un buen entendimiento del tema.</p>
+                  <p className="icon-inline"><FaThumbsUp /> ¡Buen trabajo! Tienes un buen entendimiento del tema.</p>
                 ) : (
-                  <p>📚 Sigue practicando. Revisa las lecciones e inténtalo de nuevo.</p>
+                  <p className="icon-inline"><FaBookOpen /> Sigue practicando. Revisa las lecciones e inténtalo de nuevo.</p>
                 )}
               </div>
               

@@ -1,5 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { FaHouse, FaChartLine, FaUser, FaGear } from 'react-icons/fa6';
+import { useUser } from '../../context/UserContext';
+import { moduleIcons } from '../../Utils/moduleIcons';
+import logo from '../../assets/logo.png';
 import './Sidebar.css';
 
 interface SidebarProps {
@@ -9,20 +13,23 @@ interface SidebarProps {
 
 interface MenuItem {
   path: string;
-  icon: string;
+  icon: React.ReactNode;
   label: string;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
+  const { isTeacherOrAdmin } = useUser();
+
   const menuItems: MenuItem[] = [
-    { path: '/dashboard', icon: '🏠', label: 'Inicio' },
-    { path: '/physics', icon: '⚛️', label: 'Ciencia' },
-    { path: '/mathematics', icon: '🧮', label: 'Matemáticas' },
-    { path: '/technology', icon: '💻', label: 'Tecnología' },
-    { path: '/simulator', icon: '🎮', label: 'Simulador' },
-    { path: '/progress', icon: '📈', label: 'Progreso' },
-    { path: '/profile', icon: '👤', label: 'Perfil' },
-    { path: '/admin', icon: '⚙️', label: 'Admin' },
+    { path: '/dashboard', icon: <FaHouse />, label: 'Inicio' },
+    { path: '/physics', icon: moduleIcons.physics, label: 'Ciencia' },
+    { path: '/mathematics', icon: moduleIcons.mathematics, label: 'Matemáticas' },
+    { path: '/technology', icon: moduleIcons.technology, label: 'Tecnología' },
+    { path: '/simulator', icon: moduleIcons.simulator, label: 'Simulador' },
+    { path: '/progress', icon: <FaChartLine />, label: 'Progreso' },
+    { path: '/profile', icon: <FaUser />, label: 'Perfil' },
+    // Solo visible para profesores o administradores.
+    ...(isTeacherOrAdmin ? [{ path: '/admin', icon: <FaGear />, label: 'Admin' }] : []),
   ];
 
   return (
@@ -32,7 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
     >
       <div className="sidebar-header">
         <div className="logo">
-          <span className="logo-icon">🎓</span>
+          <img src={logo} alt="FisioMathBoth" className="logo-image" />
           <span className="logo-text">FisioMathBoth</span>
         </div>
       </div>

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FaChartSimple, FaDrawPolygon, FaChartLine, FaPuzzlePiece, FaCircleQuestion, FaRulerCombined, FaLightbulb, FaPen } from 'react-icons/fa6';
+import { moduleIcons } from '../../Utils/moduleIcons';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
@@ -45,7 +47,7 @@ const MathematicsModule: React.FC = () => {
   return (
     <div className="module-container">
       <div className="module-header">
-        <h1 className="module-title">🧮 Módulo de Matemáticas</h1>
+        <h1 className="module-title icon-inline">{moduleIcons.mathematics} Módulo de Matemáticas</h1>
       </div>
 
       <article className="module-intro">
@@ -70,9 +72,9 @@ const MathematicsModule: React.FC = () => {
                   onClick={() => setActiveSection(section.id)}
                 >
                   <span className="section-icon">
-                    {section.id === 'algebra' && '📊'}
-                    {section.id === 'geometry' && '📐'}
-                    {section.id === 'calculus' && '📈'}
+                    {section.id === 'algebra' && <FaChartSimple />}
+                    {section.id === 'geometry' && <FaDrawPolygon />}
+                    {section.id === 'calculus' && <FaChartLine />}
                   </span>
                   {section.title}
                 </button>
@@ -84,14 +86,14 @@ const MathematicsModule: React.FC = () => {
                   onClick={() => {}}
                   fullWidth
                 >
-                  🧩 Ejercicios interactivos
+                  <FaPuzzlePiece /> Ejercicios interactivos
                 </Button>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   onClick={() => setShowQuiz(true)}
                   fullWidth
                 >
-                  ❓ Evaluación
+                  <FaCircleQuestion /> Evaluación
                 </Button>
               </div>
             </div>
@@ -121,7 +123,7 @@ const MathematicsModule: React.FC = () => {
                 <p>{currentSection?.content}</p>
 
                 <div className="formulas-section">
-                  <h4>📐 Fórmulas Clave</h4>
+                  <h4 className="icon-inline"><FaRulerCombined /> Fórmulas Clave</h4>
                   {currentSection?.formulas.map((formula, index) => (
                     <div 
                       key={index} 
@@ -133,7 +135,7 @@ const MathematicsModule: React.FC = () => {
                 </div>
 
                 <div className="examples-section">
-                  <h4>💡 Problemas Resueltos</h4>
+                  <h4 className="icon-inline"><FaLightbulb /> Problemas Resueltos</h4>
                   {currentSection?.problems.map((problem, index) => (
                     <div key={index} className="problem-box">
                       <p><strong>Problema {index + 1}:</strong> {problem}</p>
@@ -145,7 +147,7 @@ const MathematicsModule: React.FC = () => {
                 </div>
 
                 <div className="practice-section">
-                  <h4>✏️ Práctica Rápida</h4>
+                  <h4 className="icon-inline"><FaPen /> Práctica Rápida</h4>
                   <div className="practice-problem">
                     <p>Resuelve: 3(x - 2) = 15</p>
                     <input type="text" placeholder="Tu respuesta..." className="answer-input" />

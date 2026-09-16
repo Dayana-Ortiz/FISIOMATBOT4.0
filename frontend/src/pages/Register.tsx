@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash, FaQuestionCircle } from 'react-icons/fa';
 import Card from '../components/common/Card';
 import Button from '../components/common/Button';
+import logo from '../assets/logo.png';
 import './AuthPages.css';
 
 interface RegisterFormData {
@@ -98,7 +99,8 @@ const Register: React.FC = () => {
     <div className="auth-container">
       <div className="auth-wrapper">
         <div className="auth-header">
-          <h1>🎓 FisioMathBot</h1>
+          <img src={logo} alt="FisioMathBoth" className="auth-logo" />
+          <h1>FisioMathBot</h1>
           <p>Crea tu cuenta para comenzar</p>
         </div>
 

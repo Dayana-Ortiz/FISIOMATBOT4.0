@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
+import { FaUser, FaPen, FaChartColumn, FaBolt, FaLock, FaBell, FaPalette, FaDownload } from 'react-icons/fa6';
 import Card from '../components/common/Card';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
+import { useNotifications } from '../context/NotificationContext';
 import './ProfilePage.css';
 
 const ProfilePage: React.FC = () => {
+  const { addNotification } = useNotifications();
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState({
     name: 'Estudiante',
     email: 'estudiante@ejemplo.com',
     grade: 'Grado 10',
     school: 'Instituto Educativo',
-    avatar: '👤',
     bio: 'Estudiante apasionado por la ciencia y las matemáticas.',
     joinDate: 'Enero 2024',
     completedLessons: 45,
@@ -24,6 +26,11 @@ const ProfilePage: React.FC = () => {
   const handleSave = () => {
     setUserData(editData);
     setIsEditing(false);
+    addNotification({
+      title: 'Perfil actualizado',
+      message: 'Tu información personal se guardó correctamente.',
+      kind: 'success',
+    });
   };
 
   const handleCancel = () => {
@@ -34,7 +41,7 @@ const ProfilePage: React.FC = () => {
   return (
     <section aria-labelledby="profile-page-title">
       <header className="mb-4">
-        <h1 id="profile-page-title">👤 Mi Perfil</h1>
+        <h1 id="profile-page-title" className="icon-inline"><FaUser /> Mi Perfil</h1>
         <p className="text-muted">
           Gestiona tu información personal y revisa tus estadísticas de aprendizaje.
         </p>
@@ -47,7 +54,7 @@ const ProfilePage: React.FC = () => {
             <div className="profile-header">
               <div className="avatar-section">
                 <div className="avatar">
-                  {userData.avatar}
+                  <FaUser />
                 </div>
                 <div className="user-basic-info">
                   <h2 className="user-name">{userData.name}</h2>
@@ -60,7 +67,7 @@ const ProfilePage: React.FC = () => {
                   <Button
                     variant="outline"
                     onClick={() => setIsEditing(true)}
-                    icon="✏️"
+                    icon={<FaPen />}
                   >
                     Editar Perfil
                   </Button>
@@ -185,7 +192,7 @@ const ProfilePage: React.FC = () => {
         <aside className="col-12 col-lg-4" aria-label="Panel lateral de estadísticas y acciones">
           {/* Estadísticas */}
           <Card className="stats-card mb-4">
-            <h3 className="card-title">📊 Estadísticas</h3>
+            <h3 className="card-title icon-inline"><FaChartColumn /> Estadísticas</h3>
             <div className="stats-grid">
               <div className="stat-item">
                 <div className="stat-number">{userData.completedLessons}</div>
@@ -204,19 +211,19 @@ const ProfilePage: React.FC = () => {
 
           {/* Acciones Rápidas */}
           <Card className="actions-card">
-            <h3 className="card-title">⚡ Acciones Rápidas</h3>
+            <h3 className="card-title icon-inline"><FaBolt /> Acciones Rápidas</h3>
             <div className="actions-list">
-              <Button variant="outline" fullWidth className="action-btn">
-                🔒 Cambiar Contraseña
+              <Button variant="outline" fullWidth className="action-btn" icon={<FaLock />}>
+                Cambiar Contraseña
               </Button>
-              <Button variant="outline" fullWidth className="action-btn">
-                🔔 Preferencias de Notificaciones
+              <Button variant="outline" fullWidth className="action-btn" icon={<FaBell />}>
+                Preferencias de Notificaciones
               </Button>
-              <Button variant="outline" fullWidth className="action-btn">
-                🎨 Tema de la Interfaz
+              <Button variant="outline" fullWidth className="action-btn" icon={<FaPalette />}>
+                Tema de la Interfaz
               </Button>
-              <Button variant="outline" fullWidth className="action-btn">
-                📱 Descargar Datos
+              <Button variant="outline" fullWidth className="action-btn" icon={<FaDownload />}>
+                Descargar Datos
               </Button>
             </div>
           </Card>

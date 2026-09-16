@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FaRobot, FaGlobe, FaCode, FaCircleQuestion, FaWrench, FaScrewdriverWrench } from 'react-icons/fa6';
+import { moduleIcons } from '../../Utils/moduleIcons';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
@@ -43,7 +45,7 @@ const TechnologyModule: React.FC = () => {
   return (
     <div className="module-container">
       <div className="module-header">
-        <h1 className="module-title">💻 Módulo de Tecnología</h1>
+        <h1 className="module-title icon-inline">{moduleIcons.technology} Módulo de Tecnología</h1>
       </div>
 
       <article className="module-intro">
@@ -68,9 +70,9 @@ const TechnologyModule: React.FC = () => {
                   onClick={() => setActiveSection(section.id)}
                 >
                   <span className="section-icon">
-                    {section.id === 'programming' && '💻'}
-                    {section.id === 'robotics' && '🤖'}
-                    {section.id === 'networks' && '🌐'}
+                    {section.id === 'programming' && moduleIcons.technology}
+                    {section.id === 'robotics' && <FaRobot />}
+                    {section.id === 'networks' && <FaGlobe />}
                   </span>
                   {section.title}
                 </button>
@@ -82,14 +84,14 @@ const TechnologyModule: React.FC = () => {
                   onClick={() => {}}
                   fullWidth
                 >
-                  💻 Editor de código
+                  <FaCode /> Editor de código
                 </Button>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   onClick={() => setShowQuiz(true)}
                   fullWidth
                 >
-                  ❓ Test de conocimiento
+                  <FaCircleQuestion /> Test de conocimiento
                 </Button>
               </div>
             </div>
@@ -120,7 +122,7 @@ const TechnologyModule: React.FC = () => {
 
                 {currentSection?.codeExample && (
                   <div className="code-section">
-                    <h4>💻 Ejemplo de código</h4>
+                    <h4 className="icon-inline"><FaCode /> Ejemplo de código</h4>
                     <pre className="code-block">
                       <code>{currentSection.codeExample}</code>
                     </pre>
@@ -131,7 +133,7 @@ const TechnologyModule: React.FC = () => {
                 )}
 
                 <div className="concepts-section">
-                  <h4>🔧 Conceptos Clave</h4>
+                  <h4 className="icon-inline"><FaWrench /> Conceptos Clave</h4>
                   <div className="concepts-grid">
                     {currentSection?.concepts.map((concept, index) => (
                       <div key={index} className="concept-chip">
@@ -142,7 +144,7 @@ const TechnologyModule: React.FC = () => {
                 </div>
 
                 <div className="hands-on-section">
-                  <h4>🛠️ Actividad Práctica</h4>
+                  <h4 className="icon-inline"><FaScrewdriverWrench /> Actividad Práctica</h4>
                   <div className="activity-box">
                     <p><strong>Desafío:</strong> Crea una función que calcule el área de un rectángulo</p>
                     <textarea 

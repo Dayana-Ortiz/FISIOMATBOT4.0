@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { FaPlay, FaPause, FaRedo, FaChartBar, FaQuestionCircle } from 'react-icons/fa';
+import { FaCarBattery, FaLightbulb, FaBolt, FaChartLine, FaPlug } from 'react-icons/fa6';
 import { motion, AnimatePresence } from 'framer-motion';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
+import { moduleIcons } from '../../Utils/moduleIcons';
 import './ModuleStyles.css';
 
 interface Parameter {
@@ -150,7 +152,7 @@ const SimulatorModule: React.FC = () => {
   return (
     <div className="module-container">
       <div className="module-header">
-        <h1 className="module-title">🎮 Módulo Simulador</h1>
+        <h1 className="module-title icon-inline">{moduleIcons.simulator} Módulo Simulador</h1>
       </div>
 
       <article className="module-intro">
@@ -211,7 +213,7 @@ const SimulatorModule: React.FC = () => {
             {activeSimulation === 'circuit' && (
               <div className="circuit-simulation">
                 <div className="circuit-diagram">
-                   <div className="battery">🔋</div>
+                   <div className="battery"><FaCarBattery /></div>
                    <div className="wire">━━━━</div>
                   <motion.div 
                     className="projectile"
@@ -225,7 +227,7 @@ const SimulatorModule: React.FC = () => {
                   />
                   <div className="resistor">⏚</div>
                    <div className="wire">━━━━</div>
-                  <div className="led">💡</div>
+                  <div className="led"><FaLightbulb /></div>
                 </div>
               </div>
             )}
@@ -327,9 +329,9 @@ const SimulatorModule: React.FC = () => {
               onClick={() => setActiveSimulation(sim.id)}
             >
               <div className="fmb-mode-icon">
-                {sim.id === 'physics' && '⚡'}
-                {sim.id === 'math' && '📈'}
-                {sim.id === 'circuit' && '🔌'}
+                {sim.id === 'physics' && <FaBolt />}
+                {sim.id === 'math' && <FaChartLine />}
+                {sim.id === 'circuit' && <FaPlug />}
               </div>
               <span className="fmb-mode-name">{sim.title}</span>
             </button>

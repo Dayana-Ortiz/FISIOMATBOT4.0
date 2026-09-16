@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FaBookOpen, FaArrowRight, FaGear, FaFlask, FaCircleQuestion, FaSquareRootVariable, FaNoteSticky } from 'react-icons/fa6';
+import { moduleIcons } from '../../Utils/moduleIcons';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
@@ -45,7 +47,7 @@ const PhysicsModule: React.FC = () => {
   return (
     <div className="module-container">
       <div className="module-header">
-        <h1 className="module-title">⚛️ Módulo de Ciencia</h1>
+        <h1 className="module-title icon-inline">{moduleIcons.physics} Módulo de Ciencia</h1>
       </div>
 
       <article className="module-intro">
@@ -70,9 +72,9 @@ const PhysicsModule: React.FC = () => {
                   onClick={() => setActiveSection(section.id)}
                 >
                   <span className="section-icon">
-                    {section.id === 'intro' && '📘'}
-                    {section.id === 'movement' && '➡️'}
-                    {section.id === 'forces' && '⚙️'}
+                    {section.id === 'intro' && <FaBookOpen />}
+                    {section.id === 'movement' && <FaArrowRight />}
+                    {section.id === 'forces' && <FaGear />}
                   </span>
                   {section.title}
                 </button>
@@ -84,14 +86,14 @@ const PhysicsModule: React.FC = () => {
                   onClick={() => {}}
                   fullWidth
                 >
-                  🧪 Iniciar simulación
+                  <FaFlask /> Iniciar simulación
                 </Button>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   onClick={() => setShowQuiz(true)}
                   fullWidth
                 >
-                  ❓ Tomar quiz
+                  <FaCircleQuestion /> Tomar quiz
                 </Button>
               </div>
             </div>
@@ -122,7 +124,7 @@ const PhysicsModule: React.FC = () => {
 
                 {currentSection?.formulas && currentSection.formulas.length > 0 && (
                   <div className="formulas-section">
-                    <h4>🧮 Fórmulas importantes</h4>
+                    <h4 className="icon-inline"><FaSquareRootVariable /> Fórmulas importantes</h4>
                     {currentSection.formulas.map((formula, index) => (
                       <div key={index} className="formula-box">
                         <code>{formula}</code>
@@ -133,7 +135,7 @@ const PhysicsModule: React.FC = () => {
 
                 {currentSection?.examples && currentSection.examples.length > 0 && (
                   <div className="examples-section">
-                    <h4>📝 Ejemplos Prácticos</h4>
+                    <h4 className="icon-inline"><FaNoteSticky /> Ejemplos Prácticos</h4>
                     {currentSection.examples.map((example, index) => (
                       <div key={index} className="example-box">
                         <p>{example}</p>

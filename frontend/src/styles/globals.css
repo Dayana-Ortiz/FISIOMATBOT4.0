@@ -38,6 +38,17 @@ a {
   color: inherit;
 }
 
+/* Alineación consistente de los íconos (react-icons) junto a texto */
+svg {
+  vertical-align: -0.15em;
+}
+
+.icon-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 button {
   cursor: pointer;
   border: none;

@@ -1,5 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { UserProvider } from './context/UserContext.tsx';
+import { NotificationProvider } from './context/NotificationContext.tsx';
+import ProtectedRoute from './components/common/ProtectedRoute.tsx';
 import Layout from './components/Layout/Layout.tsx';
 import Dashboard from './pages/Dashboard.tsx';
 import PhysicsPage from './pages/PhysicsPage.tsx';
@@ -8,35 +11,48 @@ import TechnologyPage from './pages/TechnologyPage.tsx';
 import SimulatorPage from './pages/SimulatorPage.tsx';
 import ProgressPage from './pages/ProgressPage.tsx';
 import ProfilePage from './pages/ProfilePage.tsx';
+import AdminPanel from './pages/AdminPanel.tsx';
 import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <Routes>
-        {/* Entrada raíz hacia login */}
-        <Route index element={<Navigate to="/login" replace />} />
+    <UserProvider>
+      <NotificationProvider>
+        <Router>
+          <Routes>
+            {/* Entrada raíz hacia login */}
+            <Route index element={<Navigate to="/login" replace />} />
 
-        {/* Auth Routes - sin Layout */}
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+            {/* Auth Routes - sin Layout */}
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
 
-        {/* Main Routes - con Layout */}
-        <Route path="/" element={<Layout />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="physics" element={<PhysicsPage />} />
-          <Route path="mathematics" element={<MathematicsPage />} />
-          <Route path="technology" element={<TechnologyPage />} />
-          <Route path="simulator" element={<SimulatorPage />} />
-          <Route path="progress" element={<ProgressPage />} />
-          <Route path="profile" element={<ProfilePage />} />
-        </Route>
+            {/* Main Routes - con Layout */}
+            <Route path="/" element={<Layout />}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="physics" element={<PhysicsPage />} />
+              <Route path="mathematics" element={<MathematicsPage />} />
+              <Route path="technology" element={<TechnologyPage />} />
+              <Route path="simulator" element={<SimulatorPage />} />
+              <Route path="progress" element={<ProgressPage />} />
+              <Route path="profile" element={<ProfilePage />} />
+              <Route
+                path="admin"
+                element={
+                  <ProtectedRoute allowedRoles={['teacher', 'admin']}>
+                    <AdminPanel />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
 
-        {/* Rutas no encontradas vuelven al login */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </Router>
+            {/* Rutas no encontradas vuelven al login */}
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </Routes>
+        </Router>
+      </NotificationProvider>
+    </UserProvider>
   );
 };
 

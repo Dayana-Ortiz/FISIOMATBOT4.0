@@ -3,6 +3,10 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash, FaQuestionCircle } from 'react-icons/fa';
 import Card from '../components/common/Card';
 import Button from '../components/common/Button';
+import { useUser } from '../context/UserContext';
+import { useNotifications } from '../context/NotificationContext';
+import { findUserByEmail } from '../data/users';
+import logo from '../assets/logo.png';
 import './AuthPages.css';
 
 interface LoginFormData {
@@ -12,6 +16,8 @@ interface LoginFormData {
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const { login } = useUser();
+  const { addNotification } = useNotifications();
   const [formData, setFormData] = useState<LoginFormData>({ 
     email: '', 
     password: '' 
@@ -44,9 +50,24 @@ const Login: React.FC = () => {
       // if (response.success) {
       //   navigate('/dashboard');
       // }
-      
-      // Por ahora, redirigir al dashboard
+
+      // Por ahora, se resuelve el rol contra una lista de usuarios de
+      // referencia (ver src/data/users.ts) y cualquier otro correo entra
+      // como estudiante. Esto permite probar la vista de Admin.
       setTimeout(() => {
+        const matchedUser = findUserByEmail(formData.email);
+        const loggedInUser = matchedUser ?? {
+          id: `guest-${Date.now()}`,
+          name: formData.email.split('@')[0],
+          email: formData.email,
+          role: 'student' as const,
+        };
+        login(loggedInUser);
+        addNotification({
+          title: 'Sesión iniciada',
+          message: `Bienvenido, ${loggedInUser.name}`,
+          kind: 'success',
+        });
         navigate('/dashboard');
         setLoading(false);
       }, 1000);
@@ -60,7 +81,8 @@ const Login: React.FC = () => {
     <div className="auth-container">
       <div className="auth-wrapper">
         <div className="auth-header">
-          <h1>🎓 FisioMathBot</h1>
+          <img src={logo} alt="FisioMathBoth" className="auth-logo" />
+          <h1>FisioMathBot</h1>
           <p>Plataforma STEM para estudiantes</p>
         </div>
 

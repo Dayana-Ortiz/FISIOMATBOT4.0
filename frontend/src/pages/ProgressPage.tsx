@@ -1,11 +1,12 @@
 import React from 'react';
+import { FaChartColumn } from 'react-icons/fa6';
 import ProgressTracker from '../components/Layout/ProgressTracker.tsx';
 
 const ProgressPage: React.FC = () => {
   return (
     <section aria-labelledby="progress-page-title">
       <header className="mb-4">
-        <h1 id="progress-page-title">📊 Tu progreso</h1>
+        <h1 id="progress-page-title" className="icon-inline"><FaChartColumn /> Tu progreso</h1>
         <p className="text-muted">
           Revisa el avance general y por módulo en la plataforma.
         </p>
