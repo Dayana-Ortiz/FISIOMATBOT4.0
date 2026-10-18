@@ -5,6 +5,9 @@
   box-shadow: var(--shadow-sm);
   transition: all 0.3s ease;
   border: 1px solid var(--medium-gray);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .card.hoverable {

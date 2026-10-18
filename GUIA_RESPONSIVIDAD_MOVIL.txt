@@ -1,0 +1,177 @@
+GUIA DE RESOLUCION DE PROBLEMAS DE RESPONSIVIDAD EN DISPOSITIVOS MOVILES
+
+Objetivo:
+Esta guia explica donde revisar y que corregir cuando el diseño se rompe o se ve mal en 
+modo movil emulado. No modifica el codigo; solo orienta la solucion.
+
+1. Revisar el viewport
+Punto clave: si el sitio no usa correctamente la meta etiqueta viewport, el navegador 
+puede renderizar la pagina como si fuera un escritorio.
+
+Que revisar:
+- Debe existir en el HTML principal una linea similar a:
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+Señales del problema:
+- La pagina se ve demasiado grande o con zoom artificial.
+- Los elementos no ocupan el ancho correcto.
+- Hay desbordamiento horizontal.
+
+2. Buscar overflow horizontal
+Este es uno de los errores mas comunes en movil.
+
+Que revisar:
+- Contenedores con width fijo.
+- Elementos con width: 1200px, min-width, columnas fijas, tablas grandes.
+- Flexbox o Grid sin adaptacion para pantallas pequeñas.
+
+Señales del problema:
+- Hay scroll horizontal.
+- El contenido se corta o se sale del margen.
+- Un bloque queda pegado a la derecha.
+
+3. Revisar widths fijos o tamaños rigidos
+En movil, los valores fijos suelen romper el diseño.
+
+Que revisar:
+- width: 900px
+- min-width: 600px
+- paddings y margins grandes en componentes
+- height fijo en cards o contenedores
+
+Recomendacion general:
+- Usar porcentajes, max-width, width: 100%, flex-wrap, grid con columnas adaptativas.
+- Evitar tamaños absolutos cuando la pantalla es estrecha.
+
+4. Revisar layouts con Flexbox o Grid
+Muchos problemas de responsividad se presentan por estructuras que no se adaptan al ancho movil.
+
+Que revisar:
+- Flexbox con display: flex y direction row sin cambiar a columna en pantalla pequeña.
+- Grid con columnas fijas o demasiadas columnas.
+- Card o contenedores con ancho forzado.
+
+Que buscar:
+- grid-template-columns: repeat(3, 1fr) en pantallas pequeñas
+- flex-direction: row sin cambios para mobile
+- sections que siguen mostrando contenido en filas incluso en movil
+
+5. Revisar media queries y breakpoints
+Los estilos para mobile pueden estar mal definidos o no estar presentes.
+
+Que revisar:
+- Si solo hay estilos para desktop y no para mobile.
+- Breakpoints demasiado altos o muy bajos.
+- Reglas que se sobreescriben entre desktop y mobile.
+
+Punto importante:
+- Diseñar mobile-first suele ser mas seguro.
+- Probar pantallas de 320px, 375px, 390px, 412px y 480px.
+
+6. Revisar tipografia y espaciado
+En movil, el texto puede verse apretado o demasiado grande.
+
+Que revisar:
+- Fuentes con tamaños fijos sin adaptacion.
+- Paddings y margins excesivos.
+- Elementos con texto largo que no hacen salto de linea.
+
+Recomendacion:
+- Ajustar tamaños con unidades relativas o clamp().
+- Verificar que los botones y formularios siguen legibles.
+
+7. Revisar imagenes y multimedia
+Las imagenes y videos suelen romper la responsividad si tienen width fijo.
+
+Que revisar:
+- img con width y height fijos.
+- Videos o embeds sin width: 100%.
+- Contenedores con elementos demasiado grandes para la pantalla.
+
+8. Revisar modales, menues y componentes flotantes
+Los elementos emergentes suelen quedar fuera de la vista en movil.
+
+Que revisar:
+- Modales con width fija.
+- Menus laterales demasiado amplios.
+- Navbar con elementos que no se reacomodan.
+- Overlay que cubre el contenido sin ajustar su ancho.
+
+9. Revisar layout de formularios y secciones
+Cuando hay varias columnas, en movil se suele ver mal si no cambian de estructura.
+
+Que revisar:
+- Formularios con dos columnas y que deberian ir en una sola.
+- Secciones con varios bloques en fila, que deberian apilarse.
+- Tablas o cards que se salen del ancho del dispositivo.
+
+10. Revisar propiedades Css problemáticas
+Algunas propiedades pueden romper la visualizacion en movil:
+
+- position: absolute sobre elementos pequeños
+- position: fixed con ancho o ubicacion fija
+- transform que alteran el tamaño visual
+- height: 100vh, que puede cortar contenido por la barra del navegador
+
+Importante: 100vh en mobile puede causar cortes o espacios extra por la barra del navegador.
+
+11. Revisar si el problema es visual o estructural
+Hay dos tipos de fallo:
+
+A) Visual: el contenido no se ve bien, pero la estructura general funciona.
+B) Estructural: el contenido sale del contenedor o se corta por reglas CSS.
+
+Como confirmarlo:
+- Abrir la herramienta de desarrollador.
+- Activar modo responsive.
+- Inspeccionar el componente problemático.
+- Revisar width, min-width, overflow, display y media queries en la pestaña Computed Styles.
+
+12. Checklist rapido de diagnostico
+Usa esta lista para localizar el problema:
+
+- ¿El viewport esta bien definido?
+- ¿Hay elementos con width o min-width fijos?
+- ¿Hay overflow horizontal?
+- ¿Hay columnas que no cambian en movil?
+- ¿Las media queries estan bien ubicadas?
+- ¿Hay componentes con 100vh o fixed que rompen la vista?
+- ¿Las imagenes o video exceden el ancho de la pantalla?
+- ¿Los textos o botones se desbordan?
+- ¿Hay un modal o menu fuera del viewport?
+
+13. Metodo recomendado para solucionar
+1. Reproducir el problema en una pantalla pequeña.
+2. Identificar el contenedor que rompe el layout.
+3. Inspeccionar el elemento y sus padres.
+4. Revisar width, min-width, overflow, display y media queries.
+5. Corregir el punto mas probable, no hacer cambios aleatorios.
+6. Probar varios tamaños de movil (320, 375, 390, 414).
+7. Comprobar que no aparezcan nuevos problemas en tablet o desktop.
+
+14. Señales de que el problema esta resuelto
+- No hay scroll horizontal.
+- El contenido se ajusta al ancho de la pantalla.
+- Los elementos se reorganizan correctamente.
+- Los botones y textos permanecen legibles.
+- El diseño se mantiene estable en distintos tamaños de movil.
+
+15. Recomendacion final
+La mayoria de fallos de responsividad en movil se originan en estos puntos principales:
+- viewport mal configurado
+- width fijo de elementos
+- overflow horizontal
+- media queries incorrectas
+- layouts desktop sin adaptacion para mobile
+
+Si se revisan estos puntos en orden, normalmente se encuentra la causa raiz sin necesidad de hacer cambios improvisados.
+
+Resumen final:
+- Revisar viewport
+- Eliminar widths fijos
+- Revisar overflow y min-width
+- Ajustar Flexbox/Grid y media queries
+- Probar varios tamaños de movil
+- Inspeccionar Computed Styles del elemento problemático
+
+Este documento sirve como guia de diagnostico para resolver problemas de responsividad sin tocar el codigo fuente del proyecto.

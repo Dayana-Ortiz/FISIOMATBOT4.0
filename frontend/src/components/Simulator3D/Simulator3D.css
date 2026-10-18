@@ -1,0 +1,204 @@
+/* Layout del Módulo Simulador 3D (VEX VR style) */
+
+.sim3d-layout {
+  display: grid;
+  /* minmax(0, 1fr) en vez de 1fr: evita que la columna del canvas se niegue a
+     encogerse por debajo del min-content de sus hijos (bug clásico de CSS
+     Grid) y termine empujando el layout fuera del contenedor. */
+  grid-template-columns: minmax(0, 1fr) min(320px, 100%);
+  grid-template-rows: auto 1fr;
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.sim3d-topbar {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  background: #0b1b3a;
+  color: #fff;
+  border-radius: var(--border-radius);
+  padding: 10px 18px;
+  box-shadow: var(--shadow-md);
+}
+
+.sim3d-topbar-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sim3d-label {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sim3d-pill-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.sim3d-pill {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: #fff;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.sim3d-pill:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.sim3d-pill.active {
+  background: var(--primary-blue);
+  border-color: var(--primary-blue);
+  font-weight: 700;
+}
+
+.sim3d-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.sim3d-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.sim3d-telemetry-mini {
+  margin-left: auto;
+  font-size: 0.8rem;
+  gap: 14px;
+  opacity: 0.85;
+  font-variant-numeric: tabular-nums;
+}
+
+.sim3d-canvas-area {
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  min-width: 0;
+  height: 600px;
+  box-shadow: var(--shadow-md);
+}
+
+.sim3d-canvas-area canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.sim3d-side-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  width: 100%;
+  /* Misma altura que el canvas: si el contenido no cabe, hace scroll interno
+     en vez de alargar la página o quedar cortado por el overflow:hidden del
+     contenedor padre (.main-view). */
+  height: 600px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+/* Estilo propio para los paneles del simulador (NO reutiliza
+   .fmb-floating-panel: esa clase está redefinida más abajo en
+   ModuleStyles.css con position:absolute/top/right fijos para el layout
+   "inmersivo" del simulador 2D viejo, y sacaría estos paneles del flujo
+   normal del grid, haciéndolos flotar encima de todo lo demás). */
+.sim3d-panel {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid rgba(208, 208, 208, 0.8);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.sim3d-inspector h4,
+.sim3d-telemetry h4 {
+  overflow-wrap: anywhere;
+}
+
+.sim3d-select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(208, 208, 208, 0.9);
+  font-size: 0.85rem;
+  background: #fff;
+  color: var(--text-primary);
+}
+
+.sim3d-telemetry-readouts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.sim3d-readout {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: rgba(11, 27, 58, 0.04);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.sim3d-readout-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.sim3d-readout-value {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--dark-gray);
+}
+
+.sim3d-chart-wrapper {
+  width: 100%;
+}
+
+@media (max-width: 960px) {
+  .sim3d-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sim3d-canvas-area {
+    height: 360px;
+  }
+
+  .sim3d-side-panels {
+    height: auto;
+    overflow-y: visible;
+  }
+}

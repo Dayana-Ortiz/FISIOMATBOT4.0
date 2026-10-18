@@ -2,8 +2,9 @@
 
 .admin-stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
+  width: 100%;
 }
 
 .admin-stat-card {
@@ -11,6 +12,7 @@
   align-items: center;
   gap: 1rem;
   padding: 1.25rem;
+  min-width: 0;
 }
 
 .admin-stat-icon {
@@ -35,6 +37,9 @@
 /* Users card */
 .admin-users-card {
   padding: 1.5rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .admin-users-header {
@@ -44,6 +49,7 @@
   flex-wrap: wrap;
   gap: 1rem;
   padding: 1.5rem 1.5rem 1rem;
+  min-width: 0;
 }
 
 .card-title {
@@ -56,10 +62,13 @@
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+  min-width: 0;
 }
 
 .admin-search-input {
   min-width: 220px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .admin-role-select {
@@ -74,11 +83,15 @@
 
 .admin-table-wrapper {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 0 1.5rem 1.5rem;
+  width: 100%;
+  min-width: 0;
 }
 
 .admin-table {
   width: 100%;
+  min-width: 0;
   border-collapse: collapse;
   font-size: 0.9rem;
 }
@@ -158,12 +171,16 @@
 .admin-modules-card,
 .admin-actions-card {
   padding: 1.5rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .admin-modules-list {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  width: 100%;
 }
 
 .admin-module-item {
@@ -204,7 +221,7 @@
 /* Responsive */
 @media (max-width: 992px) {
   .admin-stats-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -218,7 +235,35 @@
     align-items: stretch;
   }
 
-  .admin-search-input {
+  .admin-users-filters {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .admin-search-input,
+  .admin-role-select {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .admin-users-card,
+  .admin-modules-card,
+  .admin-actions-card {
+    padding: 1rem;
+  }
+
+  .admin-table-wrapper {
+    padding: 0 0.75rem 0.75rem;
+  }
+
+  .admin-module-item {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .admin-module-info {
+    flex: 1 1 100%;
     min-width: 0;
   }
 }

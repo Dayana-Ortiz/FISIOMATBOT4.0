@@ -1,11 +1,11 @@
 import React from 'react';
-import SimulatorModule from '../components/Modules/SimulatorModule.tsx';
+import Simulator3DModule from '../components/Simulator3D/Simulator3DModule.tsx';
 import './ModulePage.css';
 
 const SimulatorPage: React.FC = () => {
   return (
     <div className="module-page">
-      <SimulatorModule />
+      <Simulator3DModule />
     </div>
   );
 };

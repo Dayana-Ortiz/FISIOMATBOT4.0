@@ -2,7 +2,8 @@
   position: fixed;
   inset-block: 0;
   left: 0;
-  width: 280px;
+  width: min(280px, 78vw);
+  max-width: 280px;
   background: #ffffff;
   color: var(--text-primary);
   display: flex;

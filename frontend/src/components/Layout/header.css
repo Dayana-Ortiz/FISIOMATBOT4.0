@@ -4,7 +4,7 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 1500;
-  width: 95%;
+  width: min(95%, 1300px);
   max-width: 1300px;
   /* keep slight vertical spacing from top */
   border-radius: 999px;
@@ -164,7 +164,7 @@
 
 /* Notifications dropdown */
 .notifications-menu {
-  width: 340px;
+  width: min(340px, calc(100vw - 2rem));
   max-width: 90vw;
   padding: 0;
   overflow: hidden;

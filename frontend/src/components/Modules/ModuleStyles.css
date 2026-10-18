@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .module-header {
@@ -51,9 +53,11 @@
 
 .module-panels {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 0;
   align-items: stretch;
+  width: 100%;
+  max-width: 100%;
 }
 
 .panel {
@@ -62,14 +66,13 @@
   border-radius: 20px;
   box-shadow: var(--shadow-sm);
   padding: 24px;
+  min-width: 0;
 }
 
-.left-panel {
-  min-width: 280px;
-}
-
+.left-panel,
 .right-panel {
-  min-width: 280px;
+  min-width: 0;
+  width: 100%;
 }
 
 .module-detail-area {
@@ -584,10 +587,11 @@
 /* Estilos Inmersivos Identidad Fisiomatbot - Versión Pro */
 .fmb-inmersive-layout {
   position: relative;
-  width: calc(100% + 60px); 
+  width: 100%;
+  max-width: 100%;
   height: calc(100vh - 120px);
   min-height: 650px;
-  margin: -30px -30px 0 -30px;
+  margin: 0;
   background: #0f172a; /* Fondo oscuro profundo */
   border-radius: 0;
   overflow: hidden;
@@ -649,8 +653,8 @@
 .fmb-floating-panel {
   position: absolute;
   top: 25px;
-  right: 25px;
-  width: 280px;
+  right: 15px;
+  width: min(280px, calc(100% - 30px));
   max-height: calc(100% - 130px); /* Leave space for bottom nav and action bar */
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
@@ -1251,7 +1255,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 2000; /* por encima del header (position: fixed, z-index: 1500) */
 }
 
 .quiz-modal {
@@ -1476,6 +1480,11 @@
 }
 
 @media (max-width: 768px) {
+  .module-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
   .module-title {
     font-size: 2rem;
   }
@@ -1497,18 +1506,22 @@
     flex-direction: column;
   }
 
+  .module-panels {
+    grid-template-columns: 1fr;
+  }
+
   .fmb-inmersive-layout {
-    width: calc(100% + 30px);
+    width: 100%;
     min-height: 760px;
-    margin-left: -15px;
-    margin-right: -15px;
+    margin: 0;
   }
 
   .fmb-floating-panel {
     top: 15px;
     right: 15px;
     left: 15px;
-    width: auto;
+    width: calc(100% - 30px);
+    max-width: none;
     padding: 14px;
   }
 
@@ -1553,5 +1566,48 @@
 
   .fmb-mode-name {
     font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .module-intro {
+    padding: 14px 16px;
+  }
+
+  .module-title {
+    font-size: 1.75rem;
+  }
+
+  .panel {
+    padding: 16px;
+  }
+
+  .panel .fmb-floating-panel {
+    padding: 12px;
+  }
+
+  .fmb-floating-panel {
+    top: 12px;
+    right: 12px;
+    left: 12px;
+    width: calc(100% - 24px);
+    max-height: calc(100% - 170px);
+  }
+
+  .physics-stage {
+    padding-top: 250px;
+  }
+
+  .fmb-mode-navigation {
+    gap: 2px;
+    padding: 0 6px;
+  }
+
+  .fmb-mode-btn {
+    padding: 6px 4px;
+  }
+
+  .fmb-mode-name {
+    font-size: 0.62rem;
   }
 }
