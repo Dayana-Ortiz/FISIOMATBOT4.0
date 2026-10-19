@@ -25,6 +25,19 @@ export const setToken = (token: string | null): void => {
   }
 };
 
+/** Evento que se emite cuando el backend rechaza el token (expirado o inválido). UserContext cierra la sesión. */
+export const UNAUTHORIZED_EVENT = 'fmb:unauthorized';
+
+/** true si el token JWT ya expiró (o no se puede leer). Solo mira "exp"; la firma la valida el backend. */
+export const isTokenExpired = (token: string): boolean => {
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+    return typeof payload.exp === 'number' && payload.exp * 1000 <= Date.now();
+  } catch {
+    return true;
+  }
+};
+
 interface RequestOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   body?: unknown;
@@ -51,6 +64,12 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
   });
 
   const data = await response.json().catch(() => ({}));
+
+  // Solo si se envió un token: un 401 en el login (credenciales malas) no debe cerrar nada.
+  if (response.status === 401 && token) {
+    setToken(null);
+    window.dispatchEvent(new Event(UNAUTHORIZED_EVENT));
+  }
 
   if (!response.ok) {
     throw new ApiError(data.message || 'Error de comunicación con el servidor.', response.status);

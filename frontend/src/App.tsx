@@ -11,6 +11,7 @@ import TechnologyPage from './pages/TechnologyPage.tsx';
 import ProgressPage from './pages/ProgressPage.tsx';
 import ProfilePage from './pages/ProfilePage.tsx';
 import AdminPanel from './pages/AdminPanel.tsx';
+import QuizManagerPage from './pages/QuizManagerPage.tsx';
 import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
 
@@ -31,8 +32,15 @@ const App: React.FC = () => {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
 
-            {/* Main Routes - con Layout */}
-            <Route path="/" element={<Layout />}>
+            {/* Main Routes - con Layout; todas requieren sesión iniciada */}
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Layout />
+                </ProtectedRoute>
+              }
+            >
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="physics" element={<PhysicsPage />} />
               <Route path="mathematics" element={<MathematicsPage />} />
@@ -52,6 +60,14 @@ const App: React.FC = () => {
                 element={
                   <ProtectedRoute allowedRoles={['teacher', 'admin']}>
                     <AdminPanel />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/quizzes"
+                element={
+                  <ProtectedRoute allowedRoles={['teacher', 'admin']}>
+                    <QuizManagerPage />
                   </ProtectedRoute>
                 }
               />

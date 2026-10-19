@@ -389,6 +389,18 @@
   width: 24px;
 }
 
+/* Lección completada (ver LessonProgress.tsx) */
+.lesson-done-mark {
+  margin-left: auto;
+  display: inline-flex;
+  color: var(--accent-green);
+  font-size: 1rem;
+}
+
+.section-btn.active .lesson-done-mark {
+  color: white;
+}
+
 .action-buttons {
   margin-top: 20px;
   display: flex;
@@ -1366,6 +1378,51 @@
   border-radius: 12px;
   margin: 20px 0;
   border-left: 4px solid var(--primary-blue);
+}
+
+/* Respuesta corregida por el servidor (QuizComponent) */
+.option-btn:disabled {
+  cursor: default;
+}
+
+.option-btn:disabled:hover {
+  border-color: var(--medium-gray);
+  background: white;
+}
+
+.option-btn.correct,
+.option-btn.correct:disabled:hover {
+  border-color: var(--accent-green);
+  background: #e8f8ef;
+}
+
+.option-btn.incorrect,
+.option-btn.incorrect:disabled:hover {
+  border-color: #e53935;
+  background: #ffebee;
+}
+
+.option-btn.dimmed {
+  opacity: 0.6;
+}
+
+.incorrect-icon {
+  margin-left: auto;
+  color: #e53935;
+  font-size: 1.2rem;
+}
+
+.explanation-box.is-correct {
+  border-left-color: var(--accent-green);
+}
+
+.explanation-box.is-incorrect {
+  border-left-color: #e53935;
+}
+
+.quiz-error {
+  color: #c62828;
+  margin: 12px 0 0;
 }
 
 .quiz-navigation {

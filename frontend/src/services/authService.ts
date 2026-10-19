@@ -24,7 +24,7 @@ export const register = async (payload: {
   email: string;
   password: string;
   institution?: string;
-  grade?: number;
+  grade: number;
 }): Promise<User> => {
   const { token, user } = await apiRequest<AuthResponse>('/auth/register', {
     method: 'POST',

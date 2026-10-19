@@ -99,6 +99,17 @@
   font-weight: 600;
 }
 
+/* Mensajes de error al cargar o guardar el perfil (mismo estilo que .auth-error) */
+.profile-error {
+  background: #ffebee;
+  border: 1px solid #ef5350;
+  color: #c62828;
+  padding: 12px 14px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+}
+
 .bio-text {
   color: var(--text-primary);
   line-height: 1.6;

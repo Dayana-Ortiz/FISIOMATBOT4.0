@@ -4,6 +4,8 @@ import { moduleIcons } from '../../Utils/moduleIcons';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
+import { CompleteLessonButton, LessonDoneMark } from './LessonProgress.tsx';
+import { useProgress } from '../../hooks/useProgress';
 import './ModuleStyles.css';
 
 interface MathSection {
@@ -17,6 +19,7 @@ interface MathSection {
 const MathematicsModule: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('algebra');
   const [showQuiz, setShowQuiz] = useState<boolean>(false);
+  const { isCompleted, completeLesson } = useProgress();
 
   const sections: MathSection[] = [
     {
@@ -77,6 +80,7 @@ const MathematicsModule: React.FC = () => {
                     {section.id === 'calculus' && <FaChartLine />}
                   </span>
                   {section.title}
+                  <LessonDoneMark done={isCompleted('mathematics', section.id)} />
                 </button>
               ))}
 
@@ -156,6 +160,13 @@ const MathematicsModule: React.FC = () => {
                     </Button>
                   </div>
                 </div>
+
+                <div className="section-footer">
+                  <CompleteLessonButton
+                    completed={isCompleted('mathematics', activeSection)}
+                    onComplete={() => completeLesson('mathematics', activeSection)}
+                  />
+                </div>
               </div>
             </div>
           </Card>
@@ -166,6 +177,7 @@ const MathematicsModule: React.FC = () => {
         <QuizComponent 
           module="mathematics"
           onClose={() => setShowQuiz(false)}
+          onComplete={() => void completeLesson('mathematics', 'quiz')}
         />
       )}
     </div>

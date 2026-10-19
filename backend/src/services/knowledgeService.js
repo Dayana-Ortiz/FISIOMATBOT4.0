@@ -68,6 +68,7 @@ function normalize(s) {
 
 function stem(w) {
   // Reducción ligera de plurales y terminaciones comunes en español
+  if (w.endsWith('zzes')) return w.slice(0, -3); // quizzes -> quiz
   if (w.length > 5 && w.endsWith('es')) return w.slice(0, -2);
   if (w.length > 4 && w.endsWith('s')) return w.slice(0, -1);
   return w;

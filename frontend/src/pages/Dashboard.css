@@ -142,7 +142,19 @@
   border-radius: 4px;
 }
 
+/* Mensaje si no se pudo cargar el progreso */
+.dashboard-error {
+  background: #ffebee;
+  border: 1px solid #ef5350;
+  color: #c62828;
+  padding: 12px 14px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
 .continue-btn {
+  display: block;
+  text-align: center;
   background: var(--primary-blue);
   color: white;
   border: none;

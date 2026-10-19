@@ -20,6 +20,7 @@ const CASES = [
   ['¿Cómo cierro sesión?', '02_uso_de_la_plataforma.md'],
   ['¿Qué lecciones tiene el módulo de matemáticas?', '02_uso_de_la_plataforma.md'],
   ['¿Cómo cambio la gravedad a la de la Luna?', '04_simulador_y_robot.md'],
+  ['Soy profesor, ¿cómo edito el quiz?', '02_uso_de_la_plataforma.md'],
   ['¿Cómo se calcula la energía potencial?', '03_energia_potencial_y_cinetica.md'],
   ['¿Qué pasa si duplico la velocidad en la energía cinética?', '03_energia_potencial_y_cinetica.md'],
   ['¿Qué es el error relativo?', '03_energia_potencial_y_cinetica.md'],

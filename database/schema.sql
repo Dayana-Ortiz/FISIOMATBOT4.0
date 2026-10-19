@@ -126,6 +126,7 @@ DROP TABLE IF EXISTS sections;
 CREATE TABLE sections (
   id             INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   module_id      INT UNSIGNED NOT NULL,
+  lesson_key     VARCHAR(50) NULL,       -- id de la lección en el frontend (p.ej. 'intro', 'quiz'); ver lessons.sql
   title          VARCHAR(150) NOT NULL,
   content        MEDIUMTEXT NULL,        -- texto/HTML de la lección
   display_order  SMALLINT UNSIGNED NOT NULL DEFAULT 0,
@@ -133,6 +134,7 @@ CREATE TABLE sections (
   created_by     INT UNSIGNED NULL,      -- profesor/admin autor
   created_at     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY uq_sections_module_lesson (module_id, lesson_key),
   CONSTRAINT fk_sections_module
     FOREIGN KEY (module_id) REFERENCES modules(id)
     ON DELETE CASCADE ON UPDATE CASCADE,

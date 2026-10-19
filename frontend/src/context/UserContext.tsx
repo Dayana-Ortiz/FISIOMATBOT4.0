@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User } from '../types';
-import { setToken } from '../services/api';
+import { getToken, isTokenExpired, setToken, UNAUTHORIZED_EVENT } from '../services/api';
 
 const STORAGE_KEY = 'fmb_user';
 
@@ -17,11 +17,24 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
-      return stored ? (JSON.parse(stored) as User) : null;
+      const token = getToken();
+      // Sin token válido el usuario guardado no sirve: el backend rechazaría todas las peticiones.
+      if (!stored || !token || isTokenExpired(token)) {
+        setToken(null);
+        return null;
+      }
+      return JSON.parse(stored) as User;
     } catch {
       return null;
     }
   });
+
+  // El backend rechazó el token (expiró mientras se usaba la plataforma): cerrar sesión.
+  useEffect(() => {
+    const onUnauthorized = () => setUser(null);
+    window.addEventListener(UNAUTHORIZED_EVENT, onUnauthorized);
+    return () => window.removeEventListener(UNAUTHORIZED_EVENT, onUnauthorized);
+  }, []);
 
   useEffect(() => {
     try {

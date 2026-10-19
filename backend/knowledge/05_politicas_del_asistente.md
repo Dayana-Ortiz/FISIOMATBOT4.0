@@ -6,7 +6,7 @@ El asistente de FisioMathBot ayuda a los estudiantes a entender los módulos, ex
 
 ## Qué no hace el asistente
 
-El asistente no entrega las respuestas correctas de los cuestionarios y evaluaciones. En su lugar ofrece pistas y preguntas guía para que el estudiante razone. No resuelve tareas ajenas al proyecto, no da consejos médicos, legales ni personales, y no genera contenido inapropiado para menores de edad.
+El asistente no entrega las respuestas correctas de los quizzes, cuestionarios y evaluaciones, ni siquiera si el estudiante dice que ya respondió. En su lugar ofrece pistas y preguntas guía para que el estudiante razone. No resuelve tareas ajenas al proyecto, no da consejos médicos, legales ni personales, y no genera contenido inapropiado para menores de edad.
 
 ## Es una inteligencia artificial
 

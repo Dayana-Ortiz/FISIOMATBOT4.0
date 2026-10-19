@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaHouse, FaChartLine, FaUser, FaGear } from 'react-icons/fa6';
+import { FaHouse, FaChartLine, FaUser, FaGear, FaCircleQuestion } from 'react-icons/fa6';
 import { useUser } from '../../context/UserContext';
 import { moduleIcons } from '../../Utils/moduleIcons';
 import logo from '../../assets/logo.png';
@@ -29,7 +29,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
     { path: '/progress', icon: <FaChartLine />, label: 'Progreso' },
     { path: '/profile', icon: <FaUser />, label: 'Perfil' },
     // Solo visible para profesores o administradores.
-    ...(isTeacherOrAdmin ? [{ path: '/admin', icon: <FaGear />, label: 'Admin' }] : []),
+    ...(isTeacherOrAdmin
+      ? [
+          { path: '/admin', icon: <FaGear />, label: 'Admin' },
+          { path: '/admin/quizzes', icon: <FaCircleQuestion />, label: 'Quizzes' },
+        ]
+      : []),
   ];
 
   return (
@@ -49,6 +54,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
           <li key={item.path}>
             <NavLink
               to={item.path}
+              end
               className={({ isActive }) =>
                 `nav-item ${isActive ? 'active' : ''}`
               }

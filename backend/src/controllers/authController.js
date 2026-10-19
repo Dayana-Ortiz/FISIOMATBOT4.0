@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { pool } = require('../config/db');
+const achievements = require('../services/achievementService');
 
 function signToken(user) {
   return jwt.sign(
@@ -22,11 +23,34 @@ function toPublicUser(user) {
   };
 }
 
+/** Grado escolar: null si viene vacío, NaN si no es 9, 10 u 11. */
+function parseGrade(value) {
+  if (value === undefined || value === null || value === '') return null;
+  const grade = Number(value);
+  return [9, 10, 11].includes(grade) ? grade : NaN;
+}
+
+/** Devuelve el id de la institución con ese nombre (la crea si no existe), o null si viene vacío. */
+async function findOrCreateInstitution(name) {
+  const clean = String(name || '').trim();
+  if (!clean) return null;
+  const [instRows] = await pool.query('SELECT id FROM institutions WHERE name = ?', [clean]);
+  if (instRows.length > 0) return instRows[0].id;
+  const [insertResult] = await pool.query('INSERT INTO institutions (name) VALUES (?)', [clean]);
+  return insertResult.insertId;
+}
+
 async function register(req, res) {
-  const { name, email, password, institution, grade } = req.body;
+  const { password, institution } = req.body;
+  const name = String(req.body.name || '').trim();
+  const email = String(req.body.email || '').trim().toLowerCase();
+  const grade = parseGrade(req.body.grade);
 
   if (!name || !email || !password) {
     return res.status(400).json({ message: 'Nombre, correo y contraseña son obligatorios.' });
+  }
+  if (Number.isNaN(grade)) {
+    return res.status(400).json({ message: 'El grado debe ser 9, 10 u 11.' });
   }
 
   const [existing] = await pool.query('SELECT id FROM users WHERE email = ?', [email]);
@@ -35,22 +59,12 @@ async function register(req, res) {
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
-
-  let institutionId = null;
-  if (institution) {
-    const [instRows] = await pool.query('SELECT id FROM institutions WHERE name = ?', [institution]);
-    if (instRows.length > 0) {
-      institutionId = instRows[0].id;
-    } else {
-      const [insertResult] = await pool.query('INSERT INTO institutions (name) VALUES (?)', [institution]);
-      institutionId = insertResult.insertId;
-    }
-  }
+  const institutionId = await findOrCreateInstitution(institution);
 
   const [result] = await pool.query(
     `INSERT INTO users (name, email, password_hash, role, grade, institution_id)
      VALUES (?, ?, ?, 'student', ?, ?)`,
-    [name, email, passwordHash, grade || null, institutionId]
+    [name, email, passwordHash, grade, institutionId]
   );
 
   const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [result.insertId]);
@@ -61,7 +75,8 @@ async function register(req, res) {
 }
 
 async function login(req, res) {
-  const { email, password } = req.body;
+  const { password } = req.body;
+  const email = String(req.body.email || '').trim().toLowerCase();
 
   if (!email || !password) {
     return res.status(400).json({ message: 'Correo y contraseña son obligatorios.' });
@@ -80,6 +95,7 @@ async function login(req, res) {
   }
 
   await pool.query('UPDATE users SET last_login_at = NOW() WHERE id = ?', [user.id]);
+  await achievements.award(user.id, 'FIRST_LOGIN');
 
   const token = signToken(user);
   res.json({ token, user: toPublicUser(user) });
@@ -93,4 +109,4 @@ async function me(req, res) {
   res.json({ user: toPublicUser(rows[0]) });
 }
 
-module.exports = { register, login, me };
+module.exports = { register, login, me, signToken, toPublicUser, findOrCreateInstitution, parseGrade };

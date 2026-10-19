@@ -4,7 +4,7 @@
 
 ## Registro de una cuenta nueva
 
-Para registrarse, en la página de inicio de sesión se hace clic en "Regístrate aquí". Se abre la página "Registro de Usuario", donde se llenan los campos: Nombre completo, Correo electrónico, Institución (opcional), Contraseña y Confirmar contraseña. Luego se hace clic en el botón "Crear Cuenta". La contraseña debe tener mínimo 6 caracteres, las dos contraseñas deben coincidir y el correo debe tener un formato válido. Si el registro es exitoso, la plataforma lleva al estudiante a la página de inicio de sesión.
+Para registrarse, en la página de inicio de sesión se hace clic en "Regístrate aquí". Se abre la página "Registro de Usuario", donde se llenan los campos: Nombre completo, Correo electrónico, Grado (9, 10 u 11), Institución (opcional), Contraseña y Confirmar contraseña. Luego se hace clic en el botón "Crear Cuenta". Todos los campos son obligatorios excepto la institución. La contraseña debe tener mínimo 6 caracteres, las dos contraseñas deben coincidir y el correo debe tener un formato válido. Si el registro es exitoso, la plataforma lleva al estudiante a la página de inicio de sesión.
 
 ## Inicio de sesión
 
@@ -20,7 +20,7 @@ La barra superior tiene un buscador ("Buscar lecciones, quizzes..."), el icono d
 
 ## Panel de Inicio (Dashboard)
 
-Al entrar se muestra el panel de Inicio con el mensaje "¡Bienvenido de nuevo!" y tarjetas de estadísticas: Progreso total, Logros, Sesiones esta semana y Lecciones completadas. Más abajo aparecen las tarjetas de los módulos, cada una con su barra de progreso y el botón "Continuar" para entrar al módulo.
+Al entrar se muestra el panel de Inicio con el mensaje "¡Bienvenido de nuevo!" y tarjetas de estadísticas: Progreso total, Logros, Actividades esta semana y Actividades completadas. Más abajo aparecen las tarjetas de los módulos, cada una con su barra de progreso y un botón para entrar ("Empezar", "Continuar" o "Repasar"). Los botones Todos, En progreso y Completados filtran los módulos.
 
 ## Módulos de contenido: Ciencia, Matemáticas y Tecnología
 
@@ -32,7 +32,11 @@ El Simulador está en la opción "Simulador" del menú lateral. Allí se experim
 
 ## Progreso
 
-En la opción "Progreso" del menú lateral, el estudiante ve la página "Tu progreso", con un resumen de estudio y un panel con el progreso general y la barra de avance de cada módulo (Ciencia, Matemáticas, Tecnología y Simulador). Sirve para identificar los módulos con menor avance y decidir qué repasar.
+En la opción "Progreso" del menú lateral, el estudiante ve la página "Tu progreso", con un resumen de estudio que muestra, módulo por módulo, qué actividades ya completó y cuáles le faltan, y un panel con el progreso general y la barra de avance de cada módulo (Ciencia, Matemáticas, Tecnología y Simulador). Sirve para identificar los módulos con menor avance y decidir qué repasar.
+
+## Cómo avanza el progreso
+
+El progreso de cada módulo se calcula con sus actividades completadas. En Ciencia, Matemáticas y Tecnología cada lección cuenta cuando el estudiante hace clic en el botón "Marcar como Completado" al final de la lección, y el quiz del módulo cuenta al terminarlo. En el Simulador cuenta correr la simulación al menos 3 segundos y terminar su quiz. Las lecciones completadas aparecen con un visto verde en la lista de lecciones. Al completar actividades se ganan logros, como "Primera lección" y "Módulo completado".
 
 ## Perfil
 
@@ -40,11 +44,15 @@ En la opción "Perfil" (o desde el menú del usuario en la barra superior) está
 
 ## Roles
 
-Existen tres roles: estudiante, docente (profesor) y administrador. El estudiante consulta los módulos, usa el simulador, presenta los quizzes y revisa su progreso. El docente entra al "Panel de administración" desde la opción Admin para ver a los usuarios, buscarlos por nombre o correo, filtrarlos por rol y activar o desactivar cuentas. El administrador puede además cambiar el rol de cualquier usuario y gestionar las instituciones. Un estudiante no puede cambiar su propio rol; si necesita otro rol, debe pedírselo al administrador.
+Existen tres roles: estudiante, docente (profesor) y administrador. El estudiante consulta los módulos, usa el simulador, presenta los quizzes y revisa su progreso. El docente entra al "Panel de administración" desde la opción Admin para ver a los usuarios, buscarlos por nombre o correo, filtrarlos por rol y activar o desactivar cuentas, y crea y edita las preguntas de los quizzes desde la opción Quizzes. El administrador puede además cambiar el rol de cualquier usuario y gestionar las instituciones. Un estudiante no puede cambiar su propio rol; si necesita otro rol, debe pedírselo al administrador.
 
 ## Evaluaciones
 
-Las evaluaciones son cuestionarios de selección múltiple; en el Simulador se abren con el botón "Quiz".
+Las evaluaciones son de selección múltiple. En Ciencia, Matemáticas y Tecnología se abren con el botón "Tomar quiz", y en el Simulador con el botón "Quiz". Lo que el estudiante elige queda registrado y no se puede cambiar; después se muestra si acertó y una explicación. Al final aparece el puntaje: cada acierto suma 10 puntos la primera vez.
+
+## Crear, agregar y editar preguntas de los quizzes (solo profesores y administradores)
+
+El profesor o docente gestiona los quizzes desde la opción "Quizzes" del menú lateral, o con el botón "Editar" de "Quizzes por módulo" en el panel Admin. Elige el módulo y usa "Nueva pregunta" para agregar una: escribe la pregunta, de 2 a 6 opciones, marca la correcta, añade una explicación opcional y elige la dificultad (fácil, media o difícil). Con los botones de cada pregunta puede editarla, cambiar su orden con las flechas, ocultarla o mostrarla a los estudiantes y eliminarla. Si a un estudiante le aparece que un módulo no tiene preguntas, es porque el profesor aún no las ha publicado.
 
 ## Asistente virtual (chat)
 

@@ -1,43 +1,42 @@
-// Servicio de progreso: lee y actualiza el avance del usuario contra el
-// backend real (ver backend/src/controllers/progressController.js).
-//
-// Reemplaza el uso de ProgressContext/localStorage cuando el backend esté
-// desplegado y el login emita un token real (ver frontend/src/services/api.ts).
+// Servicio de progreso: lee y registra el avance real del usuario
+// (ver backend/src/controllers/progressController.js y database/lessons.sql).
 
 import { apiRequest } from './api';
 import { ModuleType } from '../types';
 
-export interface ModuleProgressResponse {
-  moduleCode: ModuleType;
-  moduleTitle: string;
-  overallProgress: number;
+export interface ModuleProgress {
+  code: ModuleType;
+  total: number;
+  completed: number;
+  percent: number;
+  /** lesson_key de las actividades completadas (p.ej. 'intro', 'quiz') */
+  completedLessons: string[];
   lastActivity: string | null;
 }
 
-export interface ProfileStats {
-  completed_lessons: number;
-  total_score: number;
-  achievements_count: number;
+export interface MyProgress {
+  overall: { completed: number; total: number; percent: number };
+  modules: ModuleProgress[];
+  stats: {
+    completedActivities: number;
+    activitiesThisWeek: number;
+    totalScore: number;
+    achievements: number;
+    achievementsTotal: number;
+  };
 }
 
-export interface MyProgressResponse {
-  moduleProgress: ModuleProgressResponse[];
-  stats: ProfileStats;
+export interface CompleteLessonResponse extends MyProgress {
+  /** Títulos de los logros obtenidos con esta actividad */
+  newAchievements: string[];
 }
 
-export const getMyProgress = (): Promise<MyProgressResponse> =>
-  apiRequest<MyProgressResponse>('/progress/me');
+export const getMyProgress = (): Promise<MyProgress> => apiRequest<MyProgress>('/progress/me');
 
-export const completeSection = (sectionId: string): Promise<{ message: string }> =>
-  apiRequest(`/progress/sections/${sectionId}/complete`, { method: 'POST' });
-
-export const updateModuleProgress = (
-  moduleId: string,
-  overallProgress: number
-): Promise<{ message: string }> =>
-  apiRequest(`/progress/modules/${moduleId}`, {
-    method: 'PUT',
-    body: { overallProgress },
+export const completeLesson = (moduleCode: ModuleType, lessonKey: string): Promise<CompleteLessonResponse> =>
+  apiRequest<CompleteLessonResponse>('/progress/lessons/complete', {
+    method: 'POST',
+    body: { moduleCode, lessonKey },
   });
 
 export const submitQuizAttempt = (

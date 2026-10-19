@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link, Navigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash, FaQuestionCircle } from 'react-icons/fa';
 import Card from '../components/common/Card';
 import Button from '../components/common/Button';
@@ -17,7 +17,10 @@ interface LoginFormData {
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { login } = useUser();
+  const location = useLocation();
+  const { user, login } = useUser();
+  // Página que se intentó abrir sin sesión (la guarda ProtectedRoute)
+  const redirectTo = (location.state as { from?: string } | null)?.from || '/dashboard';
   const { addNotification } = useNotifications();
   const [formData, setFormData] = useState<LoginFormData>({ 
     email: '', 
@@ -53,7 +56,7 @@ const Login: React.FC = () => {
         message: `Bienvenido, ${loggedInUser.name}`,
         kind: 'success',
       });
-      navigate('/dashboard');
+      navigate(redirectTo, { replace: true });
     } catch (err) {
       if (err instanceof ApiError) {
         setError(err.message);
@@ -64,6 +67,11 @@ const Login: React.FC = () => {
       setLoading(false);
     }
   };
+
+  // Con sesión ya iniciada no tiene sentido mostrar el login
+  if (user) {
+    return <Navigate to={redirectTo} replace />;
+  }
 
   return (
     <div className="auth-container">

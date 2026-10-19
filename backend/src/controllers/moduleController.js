@@ -21,14 +21,16 @@ async function getModuleDetail(req, res) {
     [module.id]
   );
 
+  // Sin explicación ni opción correcta: la ruta la usan estudiantes. Las respuestas se corrigen
+  // en POST /quizzes/:id/answer y los profesores las ven en /admin/quizzes.
   const [quizzes] = await pool.query(
-    'SELECT id, question, explanation, difficulty FROM quizzes WHERE module_id = ? AND is_active = TRUE ORDER BY display_order',
+    'SELECT id, question, difficulty FROM quizzes WHERE module_id = ? AND is_active = TRUE ORDER BY display_order',
     [module.id]
   );
 
   for (const quiz of quizzes) {
     const [options] = await pool.query(
-      'SELECT id, option_text, is_correct, display_order FROM quiz_options WHERE quiz_id = ? ORDER BY display_order',
+      'SELECT id, option_text, display_order FROM quiz_options WHERE quiz_id = ? ORDER BY display_order',
       [quiz.id]
     );
     quiz.options = options;

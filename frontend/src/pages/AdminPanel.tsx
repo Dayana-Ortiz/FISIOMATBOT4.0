@@ -18,8 +18,10 @@ import Input from '../components/common/Input';
 import { useUser } from '../context/UserContext';
 import { useNotifications } from '../context/NotificationContext';
 import { moduleIcons } from '../Utils/moduleIcons';
-import { UserRole } from '../types';
+import { ModuleType, UserRole } from '../types';
+import { useNavigate } from 'react-router-dom';
 import * as adminService from '../services/adminService';
+import * as quizService from '../services/quizService';
 import { ApiError } from '../services/api';
 import './AdminPanel.css';
 
@@ -38,11 +40,11 @@ const ROLE_LABELS: Record<UserRole, string> = {
   admin: 'Administrador',
 };
 
-const MODULES = [
-  { icon: moduleIcons.physics, name: 'Ciencia', lessons: 12, students: 84 },
-  { icon: moduleIcons.mathematics, name: 'Matemáticas', lessons: 18, students: 96 },
-  { icon: moduleIcons.technology, name: 'Tecnología', lessons: 9, students: 61 },
-  { icon: moduleIcons.simulator, name: 'Simulador', lessons: 7, students: 73 },
+const MODULES: { code: ModuleType; icon: React.ReactNode; name: string }[] = [
+  { code: 'physics', icon: moduleIcons.physics, name: 'Ciencia' },
+  { code: 'mathematics', icon: moduleIcons.mathematics, name: 'Matemáticas' },
+  { code: 'technology', icon: moduleIcons.technology, name: 'Tecnología' },
+  { code: 'simulator', icon: moduleIcons.simulator, name: 'Simulador' },
 ];
 
 const AdminPanel: React.FC = () => {
@@ -52,6 +54,17 @@ const AdminPanel: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [roleFilter, setRoleFilter] = useState<UserRole | 'all'>('all');
+  const navigate = useNavigate();
+  const [quizCounts, setQuizCounts] = useState<Record<string, { total: number; active: number }>>({});
+
+  useEffect(() => {
+    quizService
+      .getQuizSummary()
+      .then((counts) => setQuizCounts(Object.fromEntries(counts.map((c) => [c.code, c]))))
+      .catch(() => {
+        // Si falla, la tarjeta simplemente no muestra los conteos
+      });
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -289,22 +302,31 @@ const AdminPanel: React.FC = () => {
         {/* Panel lateral */}
         <aside className="col-12 col-lg-4" aria-label="Panel lateral de administración">
           <Card className="admin-modules-card mb-4">
-            <h3 className="card-title icon-inline"><FaBookOpen /> Contenido por módulo</h3>
+            <h3 className="card-title icon-inline"><FaBookOpen /> Quizzes por módulo</h3>
             <ul className="admin-modules-list list-unstyled">
-              {MODULES.map((m) => (
-                <li key={m.name} className="admin-module-item">
-                  <span className="admin-module-icon">{m.icon}</span>
-                  <div className="admin-module-info">
-                    <span className="admin-module-name">{m.name}</span>
-                    <span className="admin-module-meta">
-                      {m.lessons} lecciones · {m.students} estudiantes
-                    </span>
-                  </div>
-                  <Button variant="outline" size="small">
-                    Editar
-                  </Button>
-                </li>
-              ))}
+              {MODULES.map((m) => {
+                const counts = quizCounts[m.code];
+                return (
+                  <li key={m.code} className="admin-module-item">
+                    <span className="admin-module-icon">{m.icon}</span>
+                    <div className="admin-module-info">
+                      <span className="admin-module-name">{m.name}</span>
+                      <span className="admin-module-meta">
+                        {counts
+                          ? `${counts.active} preguntas visibles${counts.total > counts.active ? ` · ${counts.total - counts.active} ocultas` : ''}`
+                          : 'Preguntas del quiz'}
+                      </span>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="small"
+                      onClick={() => navigate(`/admin/quizzes?module=${m.code}`)}
+                    >
+                      Editar
+                    </Button>
+                  </li>
+                );
+              })}
             </ul>
           </Card>
 

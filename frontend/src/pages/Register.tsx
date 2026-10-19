@@ -14,6 +14,7 @@ interface RegisterFormData {
   password: string;
   confirmPassword: string;
   institution: string;
+  grade: string;
 }
 
 const Register: React.FC = () => {
@@ -23,7 +24,8 @@ const Register: React.FC = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    institution: ''
+    institution: '',
+    grade: ''
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -31,15 +33,15 @@ const Register: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     setError('');
   };
 
   const validateForm = (): boolean => {
-    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
-      setError('Todos los campos son obligatorios');
+    if (!formData.name.trim() || !formData.email || !formData.password || !formData.confirmPassword || !formData.grade) {
+      setError('Todos los campos son obligatorios, excepto la institución');
       return false;
     }
 
@@ -76,10 +78,11 @@ const Register: React.FC = () => {
 
     try {
       await authService.register({
-        name: formData.name,
-        email: formData.email,
+        name: formData.name.trim(),
+        email: formData.email.trim(),
         password: formData.password,
-        institution: formData.institution || undefined,
+        institution: formData.institution.trim() || undefined,
+        grade: Number(formData.grade),
       });
       // El registro deja un token guardado (auto-login), pero aquí se pide
       // iniciar sesión explícitamente desde /login, así que se descarta.
@@ -156,6 +159,24 @@ const Register: React.FC = () => {
               </div>
 
               <div className="auth-input-group">
+                <label htmlFor="grade">Grado</label>
+                <select
+                  id="grade"
+                  name="grade"
+                  value={formData.grade}
+                  onChange={handleChange}
+                  disabled={loading}
+                  className="auth-input"
+                  required
+                >
+                  <option value="" disabled>Selecciona tu grado</option>
+                  <option value="9">Grado 9</option>
+                  <option value="10">Grado 10</option>
+                  <option value="11">Grado 11</option>
+                </select>
+              </div>
+
+              <div className="auth-input-group">
                 <label htmlFor="institution">Institución (opcional)</label>
                 <input
                   id="institution"
@@ -166,6 +187,7 @@ const Register: React.FC = () => {
                   placeholder="Nombre de tu institución"
                   disabled={loading}
                   className="auth-input"
+                  maxLength={150}
                 />
               </div>
 

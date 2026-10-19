@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useProgress } from '../../hooks/useProgress';
+import { usePhysicsStore } from '../../store/usePhysicsStore';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FaQuestionCircle } from 'react-icons/fa';
 import QuizComponent from '../Modules/QuizComponent.tsx';
@@ -14,6 +16,16 @@ import './Simulator3D.css';
 
 const Simulator3DModule: React.FC = () => {
   const [showQuiz, setShowQuiz] = useState(false);
+  const { loading, isCompleted, completeLesson } = useProgress();
+  // Segundos simulados necesarios para contar la actividad "Explorar la simulación 3D"
+  const exploreDone = usePhysicsStore((s) => s.simulationTime >= 3);
+  const exploreSent = useRef(false);
+
+  useEffect(() => {
+    if (loading || !exploreDone || exploreSent.current || isCompleted('simulator', 'explore')) return;
+    exploreSent.current = true;
+    void completeLesson('simulator', 'explore');
+  }, [loading, exploreDone, isCompleted, completeLesson]);
 
   return (
     <div className="module-container">
@@ -60,7 +72,11 @@ const Simulator3DModule: React.FC = () => {
             exit={{ opacity: 0 }}
             className="quiz-modal-overlay"
           >
-            <QuizComponent module="simulator" onClose={() => setShowQuiz(false)} />
+            <QuizComponent
+              module="simulator"
+              onClose={() => setShowQuiz(false)}
+              onComplete={() => void completeLesson('simulator', 'quiz')}
+            />
           </motion.div>
         )}
       </AnimatePresence>

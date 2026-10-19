@@ -4,6 +4,8 @@ import { moduleIcons } from '../../Utils/moduleIcons';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
+import { CompleteLessonButton, LessonDoneMark } from './LessonProgress.tsx';
+import { useProgress } from '../../hooks/useProgress';
 import './ModuleStyles.css';
 
 interface TechSection {
@@ -17,6 +19,7 @@ interface TechSection {
 const TechnologyModule: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('programming');
   const [showQuiz, setShowQuiz] = useState<boolean>(false);
+  const { isCompleted, completeLesson } = useProgress();
 
   const sections: TechSection[] = [
     {
@@ -75,6 +78,7 @@ const TechnologyModule: React.FC = () => {
                     {section.id === 'networks' && <FaGlobe />}
                   </span>
                   {section.title}
+                  <LessonDoneMark done={isCompleted('technology', section.id)} />
                 </button>
               ))}
 
@@ -162,6 +166,13 @@ const TechnologyModule: React.FC = () => {
                     </div>
                   </div>
                 </div>
+
+                <div className="section-footer">
+                  <CompleteLessonButton
+                    completed={isCompleted('technology', activeSection)}
+                    onComplete={() => completeLesson('technology', activeSection)}
+                  />
+                </div>
               </div>
             </div>
           </Card>
@@ -172,6 +183,7 @@ const TechnologyModule: React.FC = () => {
         <QuizComponent 
           module="technology"
           onClose={() => setShowQuiz(false)}
+          onComplete={() => void completeLesson('technology', 'quiz')}
         />
       )}
     </div>

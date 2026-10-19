@@ -4,6 +4,8 @@ import { moduleIcons } from '../../Utils/moduleIcons';
 import Card from '../common/Card.tsx';
 import Button from '../common/Button.tsx';
 import QuizComponent from './QuizComponent.tsx';
+import { CompleteLessonButton, LessonDoneMark } from './LessonProgress.tsx';
+import { useProgress } from '../../hooks/useProgress';
 import './ModuleStyles.css';
 
 interface Section {
@@ -17,6 +19,7 @@ interface Section {
 const PhysicsModule: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('intro');
   const [showQuiz, setShowQuiz] = useState<boolean>(false);
+  const { isCompleted, completeLesson } = useProgress();
 
   const sections: Section[] = [
     {
@@ -77,6 +80,7 @@ const PhysicsModule: React.FC = () => {
                     {section.id === 'forces' && <FaGear />}
                   </span>
                   {section.title}
+                  <LessonDoneMark done={isCompleted('physics', section.id)} />
                 </button>
               ))}
 
@@ -145,9 +149,10 @@ const PhysicsModule: React.FC = () => {
                 )}
 
                 <div className="section-footer">
-                  <Button variant="primary">
-                    Marcar como Completado
-                  </Button>
+                  <CompleteLessonButton
+                    completed={isCompleted('physics', activeSection)}
+                    onComplete={() => completeLesson('physics', activeSection)}
+                  />
                   <Button variant="outline">
                     Descargar Apuntes
                   </Button>
@@ -162,6 +167,7 @@ const PhysicsModule: React.FC = () => {
         <QuizComponent 
           module="physics"
           onClose={() => setShowQuiz(false)}
+          onComplete={() => void completeLesson('physics', 'quiz')}
         />
       )}
     </div>
