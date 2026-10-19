@@ -16,6 +16,11 @@ class LlmError extends Error {
 
 const provider = () => (process.env.LLM_PROVIDER || 'anthropic').toLowerCase();
 const maxTokens = () => parseInt(process.env.CHAT_MAX_OUTPUT_TOKENS || '600', 10);
+// thinkingLevel solo existe en Gemini 3+; GEMINI_THINKING_LEVEL vacío lo desactiva.
+const geminiThinkingLevel = () => {
+  const level = process.env.GEMINI_THINKING_LEVEL ?? 'minimal';
+  return level && /gemini-[3-9]/.test(process.env.LLM_MODEL || '') ? level : null;
+};
 
 function providerName() {
   return provider();
@@ -73,6 +78,9 @@ async function callGemini(messages, system, json) {
           maxOutputTokens: maxTokens(),
           temperature: 0.3,
           ...(json ? { responseMimeType: 'application/json' } : {}),
+          // Los modelos Gemini 3 "piensan" por defecto y ese razonamiento consume maxOutputTokens,
+          // lo que cortaba la respuesta a la mitad. Para un tutor breve basta el nivel mínimo.
+          ...(geminiThinkingLevel() ? { thinkingConfig: { thinkingLevel: geminiThinkingLevel() } } : {}),
         },
       }),
     });

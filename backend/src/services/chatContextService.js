@@ -140,6 +140,17 @@ function parseModelOutput(raw) {
       /* cae al texto plano */
     }
   }
+  // JSON truncado (p. ej. la respuesta llegó al límite de tokens): rescata el texto de "reply"
+  const partial = cleaned.match(/^\s*\{\s*"reply"\s*:\s*"((?:[^"\\]|\\.)*)/);
+  if (partial) {
+    let text;
+    try {
+      text = JSON.parse(`"${partial[1].replace(/\\$/, '')}"`);
+    } catch (_) {
+      text = partial[1];
+    }
+    return { reply: `${text.trim()}…`, action: null };
+  }
   return { reply: cleaned, action: null };
 }
 
