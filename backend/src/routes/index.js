@@ -5,6 +5,7 @@ const moduleController = require('../controllers/moduleController');
 const progressController = require('../controllers/progressController');
 const adminController = require('../controllers/adminController');
 const notificationController = require('../controllers/notificationController');
+const chatRoutes = require('./chat');
 
 // Envuelve controladores async para que sus errores lleguen al middleware de errores.
 const wrap = (fn) => (req, res, next) => fn(req, res, next).catch(next);
@@ -31,6 +32,9 @@ router.post('/progress/quizzes/:quizId/attempt', authenticate, wrap(progressCont
 // --- Notificaciones ---
 router.get('/notifications/me', authenticate, wrap(notificationController.listMyNotifications));
 router.post('/notifications/me/read-all', authenticate, wrap(notificationController.markAllRead));
+
+// --- Chat tutor (requiere sesión; ver routes/chat.js) ---
+router.use('/chat', chatRoutes);
 
 // --- Administración (solo teacher/admin; algunas acciones solo admin) ---
 router.get('/admin/users', authenticate, requireRole('teacher', 'admin'), wrap(adminController.listUsers));
