@@ -37,6 +37,9 @@ async function main() {
 
   try {
     await runSqlFile(connection, path.join(DATABASE_DIR, 'schema.sql'));
+    // Tablas del chat tutor (CREATE IF NOT EXISTS: conservan el historial entre migraciones)
+    await runSqlFile(connection, path.join(DATABASE_DIR, 'chat_tutor.sql'));
+    await runSqlFile(connection, path.join(DATABASE_DIR, 'chat_tutor_v2.sql'));
     if (withSeed) {
       await runSqlFile(connection, path.join(DATABASE_DIR, 'seed.sql'));
     }
