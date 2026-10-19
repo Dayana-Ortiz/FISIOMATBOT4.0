@@ -6,6 +6,14 @@ El simulador permite experimentar con la energía potencial y la energía cinét
 
 Actualmente existe un prototipo web en 3D que valida el modelo físico. El simulador en Unity se integrará al REDA en las siguientes fases del proyecto.
 
+## Cómo usar el simulador 3D
+
+En la barra superior del simulador están los controles: Reproducir o Pausar, Avanzar un paso, Reiniciar, Agregar cubo y Agregar esfera. Con el selector de Gravedad se elige el entorno: Tierra (9,81 m/s²), Luna (1,62 m/s²), Marte (3,71 m/s²) o Espacio libre (0 m/s²). La vista de cámara se cambia entre Isométrica y Cenital.
+
+En el panel lateral, la sección "Objeto seleccionado" permite cambiar la masa, la fricción y la restitución (qué tanto rebota) del objeto, y la sección "Entorno" permite cambiar la inclinación de la rampa, la fricción del suelo y la restitución del suelo.
+
+Mientras corre la simulación se muestran en tiempo real la altura (h), la velocidad (v), la energía potencial (Ep), la energía cinética (Ec) y la energía total, en julios (J), junto con una gráfica de las energías en el tiempo. Así se puede comprobar que, cuando un objeto baja, la energía potencial se transforma en cinética. El botón "Quiz" abre preguntas de práctica sobre el tema.
+
 ## Programación por bloques
 
 La programación por bloques permite construir instrucciones arrastrando piezas visuales, sin escribir código de texto. Es un paradigma pensado para el pensamiento computacional: el estudiante descompone un problema, crea una secuencia de pasos, prueba y corrige.
