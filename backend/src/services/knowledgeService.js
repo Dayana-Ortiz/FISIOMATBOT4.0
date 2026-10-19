@@ -20,6 +20,48 @@ const STOP = new Set(
     'the a an of to is are and or in on for with how what do does').split(/\s+/)
 );
 
+/*
+ * Diccionario inglés -> español para preguntas en inglés: la base de conocimiento está en español
+ * y BM25 compara palabras exactas. Se agregan los equivalentes en español a la consulta.
+ * Claves en minúscula y en singular (también se prueba la palabra sin la "s" final).
+ */
+const EN_ES = {
+  // Plataforma
+  platform: 'plataforma', register: 'registro registrarse', signup: 'registro', sign: 'iniciar sesion',
+  account: 'cuenta registro', login: 'iniciar sesion acceder', log: 'iniciar cerrar sesion', logout: 'cerrar sesion',
+  password: 'contraseña', email: 'correo electronico', forgot: 'olvidas', session: 'sesion',
+  menu: 'menu lateral', sidebar: 'menu lateral', navigation: 'menu navegacion', search: 'buscador',
+  notification: 'notificaciones', home: 'inicio', dashboard: 'inicio panel', progres: 'progreso avance',
+  advance: 'avance', profile: 'perfil', edit: 'editar', save: 'guardar', setting: 'configuracion',
+  role: 'roles', student: 'estudiante', teacher: 'docente profesor', admin: 'administrador admin',
+  administrator: 'administrador', user: 'usuario', institution: 'institucion', school: 'colegio institucion',
+  module: 'modulo', lesson: 'lecciones', science: 'ciencia', math: 'matematicas', mathematic: 'matematicas',
+  technology: 'tecnologia', quiz: 'quiz evaluaciones', test: 'evaluaciones', exam: 'evaluaciones',
+  evaluation: 'evaluaciones', answer: 'respuestas', report: 'reportar reporte', bug: 'error falla',
+  error: 'error falla', problem: 'problema falla', support: 'soporte', complaint: 'queja', cancel: 'cancelar',
+  chat: 'asistente chat', assistant: 'asistente', bot: 'asistente', message: 'mensajes', limit: 'limite',
+  privacy: 'privacidad', data: 'datos', browser: 'navegador',
+  // Proyecto
+  project: 'proyecto', developer: 'desarrollan', team: 'equipo', methodology: 'metodologia',
+  // Física y simulador
+  energy: 'energia', potential: 'potencial', kinetic: 'cinetica', mechanical: 'mecanica',
+  conservation: 'conservacion', mass: 'masa', height: 'altura', speed: 'velocidad', velocity: 'velocidad',
+  gravity: 'gravedad', moon: 'luna', mar: 'marte', earth: 'tierra', space: 'espacio', friction: 'friccion',
+  slope: 'pendiente inclinacion', ramp: 'rampa', incline: 'inclinacion plano inclinado', formula: 'formula',
+  calculate: 'calcula', relative: 'relativo', simulator: 'simulador', simulation: 'simulador',
+  camera: 'camara vista', graph: 'grafica', chart: 'grafica', robot: 'robot', sensor: 'sensores',
+  block: 'bloques', programming: 'programacion', computational: 'computacional', workshop: 'talleres',
+};
+
+function expandQuery(query) {
+  const extra = [];
+  for (const w of normalize(query).split(/[^a-z0-9ñ]+/)) {
+    const es = EN_ES[w] || EN_ES[w.replace(/s$/, '')];
+    if (es) extra.push(es);
+  }
+  return extra.length ? `${query} ${extra.join(' ')}` : query;
+}
+
 function normalize(s) {
   return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 }
@@ -112,7 +154,7 @@ function getIndex() {
  */
 function search(query, k = 4) {
   const { docs, df, avgLen, n } = getIndex();
-  const qTokens = [...new Set(tokenize(query))];
+  const qTokens = [...new Set(tokenize(expandQuery(query)))];
   if (!qTokens.length || !n) return [];
 
   const scored = docs.map((d) => {
